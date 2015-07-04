@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  http://blog.nekohand.moe
-// @version    2.80
+// @version    2.81
 // @description  KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        http://bas.nekohand.moe/favicon.gif
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -566,7 +566,7 @@ for(var j = 0; j < 26; j++) {
 
 var ww8 = [];
 
-for(var j = 0; j < 36; j++) {
+for(var j = 0; j < 200; j++) {
     ww8[j] = 'https://www.blog.nekohand.moe/emotion/bei' +
       ((j)>=9?(j+1):('0'+(j+1))) + '.png';
 }
