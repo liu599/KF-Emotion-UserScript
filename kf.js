@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  http://blog.nekohand.moe
-// @version    2.81
+// @version    2.82
 // @description  KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        http://bas.nekohand.moe/favicon.gif
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -44,7 +44,8 @@ var ItemTitleArray = new Array('0.kf',
                                '12.其他ACG',
                                '13.猫咪',
                                '14.萝莉',
-                               '15.北方酱');
+                               '15.北方酱',
+                               '16.北方酱2');
 // 链接ID, 对应, 100101开始的整数。
 var loadTitleArray = [];
 var ItemLength = ItemTitleArray.length;
@@ -67,7 +68,8 @@ var loadTitleArray = new Array(100101,
                               100113,
                               100114,
                               100115,
-                              100116);
+                              100116,
+                              100117);
                               
 //不显示的元素位置
 var itemDoNotShow =[];
@@ -566,9 +568,16 @@ for(var j = 0; j < 26; j++) {
 
 var ww8 = [];
 
-for(var j = 0; j < 200; j++) {
+for(var j = 0; j < 36; j++) {
     ww8[j] = 'https://www.blog.nekohand.moe/emotion/bei' +
       ((j)>=9?(j+1):('0'+(j+1))) + '.png';
+}
+
+var ww9 = [];
+
+for(var j = 0; j < 137; j++) {
+    ww9[j] = 'https://www.blog.nekohand.moe/emotion/bei' +
+      (j+137) + '.jpg';
 }
 
 
@@ -696,6 +705,9 @@ function loadingHandler(loadindex, target){
             break;
        case 16:
             userInputImg(target, ww8, ww8, '', returnImg, 80, 80);
+            break;
+        case 17:
+            userInputImg(target, ww9, ww9, '', returnImg, 80, 80);
             break;
             
             
