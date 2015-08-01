@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version    2.82v5
+// @version    2.82v6
 // @description  KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        http://nekohand.moe/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -11,6 +11,7 @@
 // @match       http://2dgal.com/read.php?*
 // @match       http://2dgal.com/post.php?*
 // @match       http://2dgal.com/message.php?*
+// @match       https://sstmlt.net/*
 // @match       http://*.9baka.com/*
 // @match       http://9baka.com/*
 // @match       http://www.mmy.moe/*
