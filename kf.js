@@ -12,11 +12,12 @@
 // @match       http://2dgal.com/post.php?*
 // @match       http://2dgal.com/message.php?*
 // @match       https://sstmlt.net/*
+// @match       http://*.2dkf.com/*
 // @match       http://*.9baka.com/*
 // @match       http://9baka.com/*
 // @match       http://www.mmy.moe/*
 // @match       http://www.mddmm.com/*
-// @copyright  2014-2015, eddie32
+// @copyright  2014-2016, eddie32
 // @grant       none
 // @license     MIT
 // @run-at      document-end
