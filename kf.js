@@ -1,23 +1,19 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version    2.82v7
-// @description  KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
+// @version     2.82v8
+// @description KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
-// @match       http://*.2dgal.com/read.php?*
-// @match       http://*.2dgal.com/post.php?*
-// @match       http://*.2dgal.com/message.php?*
-// @match       http://2dgal.com/read.php?*
-// @match       http://2dgal.com/post.php?*
-// @match       http://2dgal.com/message.php?*
+// @match       http://*.2dgal.com/*
+// @match       http://2dgal.com/*
 // @match       https://sstmlt.net/*
 // @match       http://*.2dkf.com/*
 // @match       http://*.9baka.com/*
 // @match       http://9baka.com/*
 // @match       http://www.mmy.moe/*
 // @match       http://www.mddmm.com/*
-// @copyright  2014-2016, eddie32
+// @copyright   2014-2016, eddie32
 // @grant       none
 // @license     MIT
 // @run-at      document-end
@@ -60,14 +56,14 @@ var loadTitleArray = new Array(100101,
                                100107,
                                100108,
                                100109,
-                              100110,
-                              100111,
-                              100112,
-                              100113,
-                              100114,
-                              100115,
-                              100116,
-                              100117);
+                               100110,
+                               100111,
+                               100112,
+                               100113,
+                               100114,
+                               100115,
+                               100116,
+                               100117);
                               
 //不显示的元素位置
 var itemDoNotShow =[];
@@ -98,7 +94,7 @@ var startPos, endPos; // 当前光标位置定位
 // 1:自带
 websithurl = window.location.href;
 console.log(websithurl.indexOf('2dgal')+1);
-if(!(websithurl.indexOf('2dgal')+1)){
+if(!(websithurl.indexOf('2dgal')+1)||!(websithurl.indexOf('9baka')+1)){
     //console.log(websithurl.indexOf('mmy')+1);
     imgpath = '1';
 }
