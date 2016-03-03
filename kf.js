@@ -92,7 +92,7 @@ var startPos, endPos; // 当前光标位置定位
 // 1:自带
 websithurl = window.location.href;
 console.log(websithurl.indexOf('2dgal')+1);
-if(!(websithurl.indexOf('2dgal')+1)&&!(websithurl.indexOf('9moe')+1)){
+if(!(websithurl.indexOf('2dgal')+1)&&!(websithurl.indexOf('9moe')+1)&&!(websithurl.indexOf('kfgal')+1)){
     //console.log(websithurl.indexOf('mmy')+1);
     imgpath = '1';
 }
