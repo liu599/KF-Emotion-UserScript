@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     2.85
+// @version     2.8.6
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -34,10 +34,10 @@ var ItemTitleArray = new Array('0.kf',
                                '10.Gal2',
                                '11.百度扩展',
                                '12.其他ACG',
-                               '13.猫咪',
-                               '14.萝莉',
-                               '15.北方酱',
-                               '16.北方酱2');
+                               '13.猫咪');
+                               //,'14.萝莉'
+                               //,'15.北方酱'
+                               //'16.北方酱2');
 // 链接ID, 对应, 100101开始的整数。
 var loadTitleArray = [];
 var ItemLength = ItemTitleArray.length;
@@ -58,10 +58,10 @@ var loadTitleArray = new Array(100101,
                                100111,
                                100112,
                                100113,
-                               100114,
-                               100115,
-                               100116,
-                               100117);
+                               100114);
+                             //  ,100115,
+                             //  100116,
+                             //  100117);
                               
 //不显示的元素位置
 var itemDoNotShow =[];
@@ -697,7 +697,7 @@ function loadingHandler(loadindex, target){
        case 14:
             userInputImg(target, ww6, ww6, '', returnImg, 80, 80);
             break;
-            
+    /*        
        case 15:
             userInputImg(target, ww7, ww7, '', returnImg, 80, 80);
             break;
@@ -705,7 +705,7 @@ function loadingHandler(loadindex, target){
             userInputImg(target, ww8, ww8, '', returnImg, 80, 80);
             break;
         case 17:
-            userInputImg(target, ww9, ww9, '', returnImg, 80, 80);
+            userInputImg(target, ww9, ww9, '', returnImg, 80, 80);*/
             break;
             
             
