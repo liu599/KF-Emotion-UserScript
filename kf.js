@@ -579,38 +579,22 @@ for(var j = 0; j < 137; j++) {
       (j+137) + ').jpg';
 }
 
+var kfaux = [];
 
+for(var j = 0; j < 19; j++) {
+    kfaux[j] = 'http://ss.nekohand.moe/Asource/EmotionPic/ (' +
+      (j+1) + ').jpg';
+}
 
 function loadingHandler(loadindex, target){
     
     switch (loadindex) {
         case 1: // 1:苍雪自带
-            userInputImg(target, Pen1, Pen1, Pen1Title, returnImg, 40, 40);
-            userInputImg(target, Pen2, Pen2, Pen2Title, returnImg, 40, 40);
-            userInputImg(target, Pen3, Pen3, Pen3Title, returnImg, 40, 40);
-            userInputImg(target, Pen4, Pen4, Pen4Title, returnImg, 40, 40);
-            userInputImg(target, Pen5, Pen5, Pen5Title, returnImg, 40, 40);
-            userInputImg(target, Pen6, Pen6, Pen6Title, returnImg, 40, 40);
-            userInputImg(target, Pen7, Pen7, Pen7Title, returnImg, 40, 40);
-            userInputImg(target, Pen8, Pen8, Pen8Title, returnImg, 40, 40);
-            userInputImg(target, Pen9, Pen9, Pen9Title, returnImg, 40, 40);
-            userInputImg(target, Pen10, Pen10, Pen10Title, returnImg, 40, 40);
-            userInputImg(target, Pen11, Pen11, Pen11Title, returnImg, 40, 40);
-            userInputImg(target, Pen12, Pen12, Pen12Title, returnImg, 40, 40);
-            userInputImg(target, Pen13, Pen13, Pen13Title, returnImg, 40, 40);
-            userInputImg(target, Pen14, Pen14, Pen14Title, returnImg, 40, 40);
-            userInputImg(target, Pen15, Pen15, Pen15Title, returnImg, 80, 40);
-            userInputImg(target, Pen16, Pen16, Pen16Title, returnImg, 40, 40);
-            userInputImg(target, Pen17, Pen17, Pen17Title, returnImg, 40, 40);
-            userInputImg(target, Pen18, Pen18, Pen18Title, returnImg, 40, 40);
-            
+        
             userInputImg(target, KFSmileURL,KFSmileCode, KFSmileTitle, returnPlainText, 30, 30);
-            
+            userInputImg(target, kfaux, kfaux, '', returnImg, 30, 30);
             userInputPlainText(target,  functionEmotion, functionDescription,returnPlainText);
-      //      userInputImg(target, Zha2, Zha2, Zha2Title, returnImg, 92, 42);
-        //    userInputImg(target, Zha3, Zha3, Zha3Title, returnImg, 357, 200);
-          //  userInputImg(target, Zha1, Zha1, Zha1Title, returnImg, 257, 144);
-           // userInputImg(target, Zha4, Zha4, Zha4Title, returnImg, 155, 145);
+
             
             break;
         case 3:   // 2: 颜文字
