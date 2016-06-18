@@ -35,12 +35,8 @@ var ItemTitleArray = new Array('0.kf',
                                '8.东方',
                                '9.Gal1',
                                '10.Gal2',
-                               '11.百度扩展',
-                               '12.其他ACG',
-                               '13.猫咪');
-                               //,'14.萝莉'
-                               //,'15.北方酱'
-                               //'16.北方酱2');
+                               '11.百度扩展');
+                             
 // 链接ID, 对应, 100101开始的整数。
 var loadTitleArray = [];
 var ItemLength = ItemTitleArray.length;
@@ -58,13 +54,8 @@ var loadTitleArray = new Array(100101,
                                100108,
                                100109,
                                100110,
-                               100111,
-                               100112,
-                               100113,
-                               100114);
-                             //  ,100115,
-                             //  100116,
-                             //  100117);
+                               100111);
+                             
                               
 //不显示的元素位置
 var itemDoNotShow =[];
@@ -274,14 +265,6 @@ for(var j = 0; j < 40; j++) {
     ACSmile5Title[j] = '';
 }
 
-// 东方400
-var ACSmile6 = [];
-var ACSmile6Title = [];
-
-for(var j = 0; j < 398; j++) {
-    ACSmile6[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/Touhou/Touhou' +
-        (j+1) + '.jpg';
-}
 
 
 
@@ -514,50 +497,44 @@ for(var j = 0; j < 40; j++) {
         (j+1) + '.png';
 }
 
-// 偶像大师灰姑娘
-var ww1 = [];
 
-for(var j = 0; j < 40; j++) {
-   ww1[j] = 'http://nekohand.moe/spsmile/05Sora/mjWwLqe_' +
-        ((j)>=9?(j+1):('0'+(j+1))) + '.png';
-}
 
 // 叠加包
-var ww2 = [];
+//var ww2 = [];
 
-for(var j = 0; j < 40; j++) {
-   ww2[j] = 'http://nekohand.moe/spsmile/06Sora/special/p3p (' +
-        (j+1) + ').png';
-}
+//for(var j = 0; j < 40; j++) {
+//   ww2[j] = 'http://nekohand.moe/spsmile/06Sora/special/p3p (' +
+//        (j+1) + ').png';
+//}
 
 // 叠加包2
-var ww3 = [];
+//var ww3 = [];
 
-for(var j = 0; j < 39; j++) {
-   ww3[j] = 'http://nekohand.moe/spsmile/07/pg2 (' +
-        (j+1) + ').png';
-}
-var ww4 = [];
+//for(var j = 0; j < 39; j++) {
+//   ww3[j] = 'http://nekohand.moe/spsmile/07/pg2 (' +
+//        (j+1) + ').png';
+//}
+//var ww4 = [];
 
-for(var j = 0; j < 162; j++) {
-   ww4[j] = 'http://nekohand.moe/spsmile/07/pg2 (' +
-        (j+1) + ').gif';
-}
+//for(var j = 0; j < 40; j++) {
+//   ww4[j] = 'http://nekohand.moe/spsmile/07/pg2 (' +
+//        (j+1) + ').gif';
+//}
 
-var ww5 = [];
+//var ww5 = [];
 
-for(var j = 0; j < 10; j++) {
-   ww5[j] = 'http://nekohand.moe/spsmile/07/Remilia (' +
-        (j+1) + ').jpg';
-}
+//for(var j = 0; j < 10; j++) {
+//   ww5[j] = 'http://nekohand.moe/spsmile/07/Remilia (' +
+//        (j+1) + ').jpg';
+//}
 // 罗小黑猫
 
-var ww6 = [];
+//var ww6 = [];
 
-for(var j = 0; j < 93; j++) {
-   ww6[j] = 'http://nekohand.moe/spsmile/07/luoxiaohei (' +
-        (j+1) + ').gif';
-}
+//for(var j = 0; j < 93; j++) {
+//   ww6[j] = 'http://nekohand.moe/spsmile/07/luoxiaohei (' +
+//        (j+1) + ').gif';
+//}
 
 
 // 萝莉们
@@ -600,8 +577,6 @@ function loadingHandler(loadindex, target){
             userInputImg(target, KFSmileURL,KFSmileCode, KFSmileTitle, returnPlainText, 30, 30);
             userInputImg(target, kfaux, kfaux, '', returnImg, 30, 30);
             userInputPlainText(target,  functionEmotion, functionDescription,returnPlainText);
-
-            
             break;
         case 3:   // 2: 颜文字
             userInputPlainText(target,emotionArray, emotionArray, returnPlainText);
@@ -612,14 +587,9 @@ function loadingHandler(loadindex, target){
         case 5: // Lovelive大法好Big
             userInputImg(target, LoveliveSmalltargetURL, LoveliveBigtargetURL, LoveliveBigtargetTitle, returnImg, 90, 90);
             break;
-       // case 2:
-         //   newElementEx = document.createElement('p');
-           // newElementEx.innerHTML = "<b>快速输入出售帖, 神秘限制贴, 引用等等</b><br />";
-           // target.appendChild(newElementEx);
-           // userInputPlainText(target,  functionEmotion, functionDescription,returnPlainText);
-           // break;
+
         case 6:
-//            userInputImg(target, ACSmile3, ACSmile3, ACSmile3Title, returnImg, 60, 60);
+
             userInputImg(target, ACSmile4, ACSmile4, ACSmile4Title, returnImg, 60, 60);
             userInputImg(target, ACSmile5, ACSmile5, ACSmile5Title, returnImg, 60, 60);
             break;
@@ -629,13 +599,9 @@ function loadingHandler(loadindex, target){
             userInputImg(target, AkariSmile1, AkariSmile1, AkariSmile1Title, returnImg, 50, 50);
             break;
         case 2:
-      //      userInputImg(target, BaiduSmile1, BaiduSmile1, BaiduSmile1Title, returnImg, 30, 30);
-        //    userInputImg(target, BaiduSmile2, BaiduSmile2, BaiduSmile1Title, returnImg, 30, 30);
-          //  userInputImg(target, BaiduSmile3, BaiduSmile3, BaiduSmile1Title, returnImg, 30, 30);
-            //userInputImg(target, BaiduSmile4, BaiduSmile4, BaiduSmile1Title, returnImg, 30, 30);
             userInputImg(target, w6, w6, '', returnImg, 100, 100);
             userInputImg(target, w7, w7, '', returnImg, 100, 100);
-            userInputImg(target, ww1, ww1, '', returnImg, 100, 100);
+            
             break;
         case 10:
             userInputImg(target, AsahiURL, AsahiURL, AsahiURLTitle, returnImg, 80, 80);
@@ -659,45 +625,19 @@ function loadingHandler(loadindex, target){
 
             break;
         case 8:
-            
-         //   userInputImg(target, mc2URL, mc2URL, '', returnImg, 50, 50);
-          //  userInputImg(target, mc3URL, mc3URL, '', returnImg, 50, 50);
-          //  userInputImg(target, mc4URL, mc4URL, '', returnImg, 50, 50);
+
             userInputImg(target, w4, w4, '', returnImg, 100, 100);
             userInputImg(target, w5, w5, '', returnImg, 100, 100);
             
             
             break;
             
-            case 9:
-            userInputImg(target, ACSmile6, ACSmile6, '', returnImg, 80, 100);
-            break;
-        case 12:
+        case 9:
             userInputImg(target, BaiduSmile1, BaiduSmile1, '', returnImg, 30, 30);
             userInputImg(target, BaiduSmile3, BaiduSmile3, '', returnImg, 30, 30);
-            userInputImg(target, ww2, ww2, '', returnImg, 50, 50);
-           
             break;
-            
-       case 13:
-            userInputImg(target, ww5, ww5, '', returnImg, 80, 80);
-            userInputImg(target, ww3, ww3, '', returnImg, 80, 80);
-            userInputImg(target, ww4, ww4, '', returnImg, 80, 80);
-            break;
-            
-       case 14:
-            userInputImg(target, ww6, ww6, '', returnImg, 80, 80);
-            break;
-    /*        
-       case 15:
-            userInputImg(target, ww7, ww7, '', returnImg, 80, 80);
-            break;
-       case 16:
-            userInputImg(target, ww8, ww8, '', returnImg, 80, 80);
-            break;
-        case 17:
-            userInputImg(target, ww9, ww9, '', returnImg, 80, 80);*/
-            break;
+   
+
             
             
    // case: 编号     
