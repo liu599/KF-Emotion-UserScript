@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     2.9.3
+// @version     2.9.5
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
-// @include     http://*gal.com/*
-// @include     http://*9moe.com/*
-// @include     http://*kfgal.com/*
+// @match     http://*gal.com/*
+// @match     http://*9moe.com/*
 // @match       https://sstmlt.net/*
 // @match       http://www.mmy.moe/*
 // @match       http://www.mddmm.com/*
@@ -31,11 +30,10 @@ var ItemTitleArray = new Array('0.kf',
                                '4.LL大',
                                '5.AC娘',
                                '6.百合',
-                               '7.外',
-                               '8.东方',
+                               '7.B站',
+                               '8.百度',
                                '9.Gal1',
-                               '10.Gal2',
-                               '11.百度扩展');
+                               '10.Gal2');
                              
 // 链接ID, 对应, 100101开始的整数。
 var loadTitleArray = [];
@@ -53,8 +51,7 @@ var loadTitleArray = new Array(100101,
                                100107,
                                100108,
                                100109,
-                               100110,
-                               100111);
+                               100110);
                              
                               
 //不显示的元素位置
@@ -318,15 +315,19 @@ for(var j = 0; j < 9; j++) {
 }
 
 
-// 4000w和tora酱
-// 东方400
+// B站和tora酱
+// B站
 var w4 = [];
 
-for(var j = 0; j < 36; j++) {
-   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/w4000/wfour' +
-        (j+1) + '.jpg';
+for(var j = 0; j < 16; j++) {
+   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/bilibili/2233 (' +
+        (j+1) + ').gif';
 }
-// 东方400
+for(var j = 17; j < 27; j++) {
+   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/bilibili/bilibiliTV (' +
+        (j+1-17) + ').png';
+}
+// tora酱
 var w5 = [];
 
 for(var j = 0; j < 14; j++) {
