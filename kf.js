@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     2.9.5
+// @version     2.9.6
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -51,7 +51,8 @@ var loadTitleArray = new Array(100101,
                                100107,
                                100108,
                                100109,
-                               100110);
+                               100110,
+                               100111);
                              
                               
 //不显示的元素位置
@@ -320,11 +321,11 @@ for(var j = 0; j < 9; j++) {
 var w4 = [];
 
 for(var j = 0; j < 16; j++) {
-   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/bilibili/2233 (' +
+   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/2233 (' +
         (j+1) + ').gif';
 }
-for(var j = 17; j < 27; j++) {
-   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/bilibili/bilibiliTV (' +
+for(var j = 16; j < 30; j++) {
+   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/bilibiliTV (' +
         (j+1-17) + ').png';
 }
 // tora酱
