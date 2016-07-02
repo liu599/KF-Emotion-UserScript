@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     2.9.7
+// @version     2.9.8
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -97,7 +97,7 @@ var KFSmileURL = [];
 var KFSmileTitle = [];
 var KFSmileCode  = [];
 for(var j = 0; j < 48; j++) {
-    KFSmileURL[j] = 'http://2dgal.com/'+imgpath+'/post/smile/em/em' +
+    KFSmileURL[j] = imgpath+'/post/smile/em/em' +
         ((j)>=9?(j+1):('0'+(j+1))) + '.gif';
     KFSmileTitle[j] = '';
     KFSmileCode[j] = '[s:'+(j+10)+']';
