@@ -7,6 +7,7 @@
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
 // @include     http://*gal.com/*
 // @include     http://*9moe.com/*
+// @include     http://*kf.com/*
 // @include     https://sstmlt.net/*
 // @include     http://www.mmy.moe/*
 // @include     http://www.mddmm.com/*
@@ -82,22 +83,22 @@ var startPos, endPos; // 当前光标位置定位
 
 /************************** 内置表情 *******************/
 // 1:自带
-websithurl = window.location.href;
-console.log(websithurl.indexOf('2dgal')+1);
-if(!(websithurl.indexOf('2dgal')+1)&&
-   !(websithurl.indexOf('9moe')+1)&&
-   !(websithurl.indexOf('kfgal')+1)&&
-   !(websithurl.indexOf('ddgal')+1)&&
-   !(websithurl.indexOf('miaola')+1)){
-    //console.log(websithurl.indexOf('mmy')+1);
-    imgpath = '1';
-}
+//websithurl = window.location.href;
+//console.log(websithurl.indexOf('2dgal')+1);
+//if(!(websithurl.indexOf('2dgal')+1)&&
+//   !(websithurl.indexOf('9moe')+1)&&
+//   !(websithurl.indexOf('kfgal')+1)&&
+//   !(websithurl.indexOf('ddgal')+1)&&
+//   !(websithurl.indexOf('miaola')+1)){
+//    //console.log(websithurl.indexOf('mmy')+1);
+//    imgpath = '1';
+//}
 
 var KFSmileURL = [];
 var KFSmileTitle = [];
 var KFSmileCode  = [];
 for(var j = 0; j < 48; j++) {
-    KFSmileURL[j] = imgpath+'/post/smile/em/em' +
+    KFSmileURL[j] = (typeof imgpath != 'undefined' ? imgpath : '') + '/post/smile/em/em' +
         ((j)>=9?(j+1):('0'+(j+1))) + '.gif';
     KFSmileTitle[j] = '';
     KFSmileCode[j] = '[s:'+(j+10)+']';
