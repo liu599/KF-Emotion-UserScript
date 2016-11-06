@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     2.9.9
+// @version     3.0.0
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -151,8 +151,8 @@ for(var j = 0; j < 40; j++) {
 }
 
 // 5. 快捷输入功能
-var functionEmotion = Array("[sell=1][/sell]","[quote][/quote]","[hide=1][/hide]","[code][/code]","[strike][/strike]",
-                             "[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[bgcolor=][/bgcolor]","[img][/img]",
+var functionEmotion = Array("[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]","[strike][/strike]",
+                             "[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]",
                             "[img]http://data.nekohand.moe/StorageCenter/uploads/Pictures/blogAcc/smile.gif[/img]",
                             "[img]http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/b6/doge_org.gif[/img]",
                             "[img]http://nekohand.moe/spsmile/03Sora/RlN8rQO_47.gif[/img]"
