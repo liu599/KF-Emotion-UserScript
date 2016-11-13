@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace  
-// @version     3.0.0
+// @version     3.0.1
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/archive/favicon.ico
 // @homepage    https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6
@@ -12,7 +12,6 @@
 // @include     http://www.mmy.moe/*
 // @include     http://www.mddmm.com/*
 // @include     https://*miaola.info/*
-// @include     http://*miaola.info/*
 // @copyright   2014-2016, eddie32
 // @grant       none
 // @license     MIT
@@ -389,10 +388,10 @@ var Zha3Title = [];
 var Zha4 = ['http://up.twblog.org/image.php?di=57TU'];
 var Zha4Title = [];
 
-// 零之轨迹/碧之轨迹
+// 
 var w6 = [];
 
-for(var j = 0; j < 43; j++) {
+for(var j = 0; j < 62; j++) {
     w6[j] = 'http://nekohand.moe/spsmile/01Sora/0xx' +
          (j+2) + '.png';
 }
