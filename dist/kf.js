@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.0.2
+// @version     4.0.3
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
@@ -251,7 +251,7 @@ var expandMenu = {
         console.log(eventTarget);
         var emotionAddress;
         
-        if(eventTarget.attributes.length==3){
+        if(eventTarget.attributes.length==2){
             if(eventTarget.src){
                 const addressTarget = eventTarget.src;
                 emotionAddress = expandMenu.addressParse(addressTarget,'image');

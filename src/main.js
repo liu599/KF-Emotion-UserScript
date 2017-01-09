@@ -235,7 +235,7 @@ var expandMenu = {
         console.log(eventTarget);
         var emotionAddress;
         
-        if(eventTarget.attributes.length==3){
+        if(eventTarget.attributes.length==2){
             if(eventTarget.src){
                 const addressTarget = eventTarget.src;
                 emotionAddress = expandMenu.addressParse(addressTarget,'image');
