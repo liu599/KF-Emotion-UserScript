@@ -1,0 +1,30 @@
+{
+  "name": "KF-Emotion-Assistant",
+  "version": "4.0.0",
+  "description": "KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE",
+  "main": "kf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-scripts": "cd scripts && babel es6 -d es5"
+  },
+  "keywords": [
+    "KFOL",
+    "KF Emotion UserScript",
+    "KF Emotion Assistant"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liu599/KF-Emotion-UserScript"
+  },
+  "author": "eddie32",
+  "license": "MIT",
+  "bugs": {
+    "url": " "
+  },
+  "homepage": "https://github.com/liu599/KF-Emotion-UserScript",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-util": "^3.0.8"
+  }
+}
