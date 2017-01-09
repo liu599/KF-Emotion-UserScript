@@ -86,8 +86,8 @@ for(var j = 0; j < 40; j++) {
         (j+1) + '.png';
 }
 var MenuList = {
-    item4:{datatype:'imageLink', title:'kfdefault',addr:KFSmileURL, ref:KFSmileCode},
-    item1:{datatype:'plain',title:'kf',addr:["[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]",
+    item4:{datatype:'imageLink', title:'kf固有',addr:KFSmileURL, ref:KFSmileCode},
+    item1:{datatype:'plain',title:'快捷',addr:["[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]",
                             "[strike][/strike]","[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]"]},
     item2:{datatype:'plain',title:'颜文字', addr:["(●・ 8 ・●)", 
 "╰(๑◕ ▽ ◕๑)╯","(﹡ˆˆ﹡)","〜♪♪","(ﾟДﾟ≡ﾟДﾟ)", "(＾o＾)ﾉ" , "(|||ﾟДﾟ)", "(`ε´ )",  "(╬ﾟдﾟ)", "(|||ﾟдﾟ)" , "(￣∇￣)", "(￣3￣)", "(￣ｰ￣)", "(￣ . ￣)", "(￣︿￣)", "(￣︶￣)", "(*´ω`*)", "(・ω・)","(⌒▽⌒)","(￣▽￣）","(=・ω・=)","(｀・ω・´)","(〜￣△￣)〜","(･∀･)",
@@ -154,9 +154,17 @@ var EleUtil = {
     }
 };
 var createItems = {
+    createContainer: function(key){
+        'use strict';
+        const ItemContainer = EleUtil.create('div');
+        ItemContainer.id = 'eddie32' + key;
+        EleUtil.selectID("toggleWindow").appendChild(ItemContainer);
+        return ItemContainer;
+    },
     createImages:function(key){
         'use strict';
-        console.log(MenuList[key]);
+        const outerContainer = createItems.createContainer(key);
+        //console.log(MenuList[key]);
         const imgList = MenuList[key].addr;
         const imgLength = imgList.length;
         for(var k=0;k<imgLength;k++){
@@ -164,13 +172,14 @@ var createItems = {
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
             imgItem.onclick = expandMenu.attachEmotion;
-            imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;height: 50px;';
-            EleUtil.selectID("toggleWindow").appendChild(imgItem);
+            //imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 100px;height: 100px;';
+            outerContainer.appendChild(imgItem);
         }
     },
     createPlainText: function(key){
         'use strict';
-        console.log(MenuList[key]);
+        const outerContainer = createItems.createContainer(key);
+        //console.log(MenuList[key]);
         const txtList = MenuList[key].addr;
         const txtLength = txtList.length;
         for(var k=0;k<txtLength;k++){
@@ -179,11 +188,12 @@ var createItems = {
             txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+txtList[k]+'</a>';
             txtItem.onclick = expandMenu.attachEmotion;
             txtItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;';
-            EleUtil.selectID("toggleWindow").appendChild(txtItem);
+            outerContainer.appendChild(txtItem);
         }
     },
     createImageLink: function(key){
-      console.log(MenuList[key]);
+      //console.log(MenuList[key]);
+        const outerContainer = createItems.createContainer(key);
         const imgList = MenuList[key].addr;
         const refList = MenuList[key].ref;
         const imgLength = imgList.length;
@@ -193,8 +203,8 @@ var createItems = {
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
             imgItem.onclick = expandMenu.attachEmotion;
-            imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;height: 50px;';
-            EleUtil.selectID("toggleWindow").appendChild(imgItem);
+            imgItem.style.cssText = 'width: 50px !important;height: 50px !important;';
+            outerContainer.appendChild(imgItem);
         }
     }
 };
@@ -206,6 +216,11 @@ var expandMenu = {
         EleUtil.selectID("toggleWindow").style.display = "block";
         const dataType = eventTarget.attributes[2].nodeValue;
         const dataKey = eventTarget.attributes[1].nodeValue;
+        if(EleUtil.select("#eddie32"+dataKey)){
+            console.log(EleUtil.select("#eddie32"+dataKey));
+            EleUtil.select("#eddie32"+dataKey).style.display = 'block';
+            return;
+        }
         if(dataType =='plain'){
            createItems.createPlainText(dataKey);
         }else if(dataType =='image'){
@@ -266,8 +281,8 @@ var createMenu = {
         const mainMenu = EleUtil.create('div');
         mainMenu.innerHTML = '<span title="made by eddie32 version 4.0.0" style="cursor:pointer;"><b>囧⑨</b></span>';
         mainMenu.id = createMenu.defaultID;
-        mainMenu.style.cssText = 'padding:5px 5px;width: 780px; vertical-align: middle;  \
-                                 font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"';
+       // mainMenu.style.cssText = 'padding:5px 5px;width: 780px; vertical-align: middle;  \
+         //                        font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"';
         const MenuLength = Object.keys(MenuList).length;
         for(var i=0;i<MenuLength;i++){
             const MenuKey = Object.keys(MenuList)[i];
@@ -285,17 +300,20 @@ var createMenu = {
         mainMenu.appendChild(closeBtn);
         const itemWindow = EleUtil.create('div');
         itemWindow.id = "toggleWindow";
-        itemWindow.style.cssText = 'width: 780px; height: 50px; padding: 3px 3px; overflow: auto; margin-top:14px';
-        itemWindow.style.display = 'none';
+        //itemWindow.style.cssText = '';
+        //itemWindow.style.display = 'none';
         mainMenu.appendChild(itemWindow);
         const styleItem = EleUtil.create('style');
-        styleItem.innerHTML = '#toggleWindow a{padding: 3px 3px;line-height:2} \
-                               #toggleWindow span{}\
-                               a.subBut{text-decoration: none; margin: 5px 5px;} \
+        styleItem.innerHTML = '#emotion0000 {padding:5px 5px;width: 780px; vertical-align: middle;  \
+                                 font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
+                               #toggleWindow a{padding: 3px 3px;line-height:2} \
+                               #toggleWindow {width: 780px; height: 120px; padding: 3px 3px; overflow: auto; margin-top:14px;display:none}\
+                               a.subBut{text-decoration: none;} \
+                               .Ems{cursor:pointer;padding: 10px 10px:width: 120px;height: 120px;display:inline-block;} \
                                a.subBut:hover{color: deeppink;} \
                                a.txtBtnEmotion{text-decoration:none;} \
                                a.txtBtnEmotion:hover{background: #2b2b2b;color: #fff} \
-                               .subMenu{cursor:pointer; width:200px; margin-left: 10px; margin-right: 4px; margin-bottom:10px; background: #fff !important; \
+                               .subMenu{cursor:pointer; width:200px; margin-left: 7px; margin-right: 5px; margin-bottom:5px; background: #fff !important; \
                                  font: 14px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
                                .subMenu:hover{border-bottom: 2px solid deeppink}';
         mainMenu.appendChild(styleItem);
@@ -316,8 +334,14 @@ var createMenu = {
     },
     clear: function(){
        "use strict";
-        EleUtil.selectID("toggleWindow").innerHTML = '';
-        EleUtil.selectID("toggleWindow").style.display = "none";
+        //EleUtil.selectID("toggleWindow").innerHTML = '';
+        //EleUtil.selectID("toggleWindow").style.display = "none";
+        const toggleWindow = EleUtil.selectID("toggleWindow");
+        const togWinChildren = toggleWindow.childNodes; 
+        for (var j=0;j<togWinChildren.length;j++){
+            //console.log(togWinChildren[j]);
+            togWinChildren[j].style.display = 'none';
+        }
     }
 };
 var KFE = {
