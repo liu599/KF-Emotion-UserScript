@@ -329,11 +329,6 @@ var KFE = {
         //if (!textareas.length) { return; }
         const textarea = EleUtil.select("textarea");
         textarea.parentNode.insertBefore(mainEmotionMenu, textarea);
-        
-        
-        
-        
-        return testarea;
     }
 };
 KFE.init();
