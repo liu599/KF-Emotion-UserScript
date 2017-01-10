@@ -1,27 +1,12 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.0.5
+// @version     4.0.6
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
 // @homepage    https://github.com/liu599/KF-Emotion-UserScript
-// @include     http://*2dkf.com/*
-// @include     http://*9moe.com/*
-// @include     http://*kfgal.com/*
-// @copyright   2014-2017, eddie32
-// @grant       none
-// @license     MIT
-// @run-at      document-end
-// ==/UserScript==
-// ==UserScript==
-// @name       绯月表情增强插件
-// @namespace   https://greasyfork.org/users/5415
-// @version     4.0.4
-// @author      eddie32
-// @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
-// @icon        https://blog.nekohand.moe/favicon.ico
-// @homepage    https://github.com/liu599/KF-Emotion-UserScript
+// @include     https://kf.miaola.info/
 // @include     http://*2dkf.com/*
 // @include     http://*9moe.com/*
 // @include     http://*kfgal.com/*
@@ -192,6 +177,7 @@ var createItems = {
         'use strict';
         const ItemContainer = EleUtil.create('div');
         ItemContainer.id = 'eddie32' + key;
+        EleUtil.selectID("toggleWindow").style.height='100px';
         EleUtil.selectID("toggleWindow").appendChild(ItemContainer);
         return ItemContainer;
     },
@@ -254,6 +240,8 @@ var expandMenu = {
         if(EleUtil.select("#eddie32"+dataKey)){
             console.log(EleUtil.select("#eddie32"+dataKey));
             EleUtil.select("#eddie32"+dataKey).style.display = 'block';
+            if(dataKey == 'item1') EleUtil.selectID("toggleWindow").style.height='50px';
+            else EleUtil.selectID("toggleWindow").style.height='100px';
             return;
         }
         if(dataType =='plain'){
