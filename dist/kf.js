@@ -1,7 +1,23 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.0.3
+// @version     4.0.5
+// @author      eddie32
+// @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
+// @icon        https://blog.nekohand.moe/favicon.ico
+// @homepage    https://github.com/liu599/KF-Emotion-UserScript
+// @include     http://*2dkf.com/*
+// @include     http://*9moe.com/*
+// @include     http://*kfgal.com/*
+// @copyright   2014-2017, eddie32
+// @grant       none
+// @license     MIT
+// @run-at      document-end
+// ==/UserScript==
+// ==UserScript==
+// @name       绯月表情增强插件
+// @namespace   https://greasyfork.org/users/5415
+// @version     4.0.4
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
@@ -15,6 +31,7 @@
 // @run-at      document-end
 // ==/UserScript==
 //var ex00000000 = (function($){
+
 
 
 
@@ -81,7 +98,8 @@ for(var j = 50; j < 90; j++) {
         ((j-50)>=9?(j-49):('0'+(j-49))) + '.gif';
 }
 
-
+var functionDescription = ["出售贴sell=售价","引用", "隐藏hide=神秘等级","插入代码","删除线","跑马灯","文字颜色","粗体",
+                                "下划线","斜体","水平线","背景色","插入图片"];
 
 // KF 内置
 var KFSmileURL = [];
@@ -104,7 +122,7 @@ for(var j = 0; j < 40; j++) {
 var MenuList = {
     item4:{datatype:'imageLink', title:'kf固有',addr:KFSmileURL, ref:KFSmileCode},
     item1:{datatype:'plain',title:'快捷',addr:["[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]",
-                            "[strike][/strike]","[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]"]},
+                            "[strike][/strike]","[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]"], ref:functionDescription},
     item2:{datatype:'plain',title:'颜文字', addr:["(●・ 8 ・●)", 
 "╰(๑◕ ▽ ◕๑)╯","(﹡ˆˆ﹡)","〜♪♪","(ﾟДﾟ≡ﾟДﾟ)", "(＾o＾)ﾉ" , "(|||ﾟДﾟ)", "(`ε´ )",  "(╬ﾟдﾟ)", "(|||ﾟдﾟ)" , "(￣∇￣)", "(￣3￣)", "(￣ｰ￣)", "(￣ . ￣)", "(￣︿￣)", "(￣︶￣)", "(*´ω`*)", "(・ω・)","(⌒▽⌒)","(￣▽￣）","(=・ω・=)","(｀・ω・´)","(〜￣△￣)〜","(･∀･)",
 			"(°∀°)ﾉ","(￣3￣)","╮(￣▽￣)╭","( ´_ゝ｀)","←_←","→_→","(&lt;_&lt;)","(&gt;_&gt;)","(;¬_¬)","(▔□▔)/","(ﾟДﾟ≡ﾟдﾟ)!?","Σ(ﾟдﾟ;)","Σ( ￣□￣||)",
@@ -188,7 +206,7 @@ var createItems = {
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
             imgItem.onclick = expandMenu.attachEmotion;
-            //imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 100px;height: 100px;';
+            //imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;';
             outerContainer.appendChild(imgItem);
         }
     },
@@ -202,6 +220,7 @@ var createItems = {
             const txtItem = EleUtil.create('span');
             txtItem.style.cssText = "cursor:pointer; margin: 10px 10px;";
             txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+txtList[k]+'</a>';
+            if(MenuList[key].ref){txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+MenuList[key].ref[k]+'</a>';EleUtil.selectID("toggleWindow").style.height='50px';} 
             txtItem.onclick = expandMenu.attachEmotion;
             txtItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;';
             outerContainer.appendChild(txtItem);
@@ -325,7 +344,7 @@ var createMenu = {
                                #toggleWindow a{padding: 3px 3px;line-height:2} \
                                #toggleWindow {width: 780px; height: 120px; padding: 3px 3px; overflow: auto; margin-top:14px;display:none}\
                                a.subBut{text-decoration: none;} \
-                               .Ems{cursor:pointer;padding: 10px 10px:width: 120px;height: 120px;display:inline-block;} \
+                               .Ems{cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;display:inline-block;} \
                                a.subBut:hover{color: deeppink;} \
                                a.txtBtnEmotion{text-decoration:none;} \
                                a.txtBtnEmotion:hover{background: #2b2b2b;color: #fff} \
@@ -351,8 +370,8 @@ var createMenu = {
     clear: function(){
        "use strict";
         //EleUtil.selectID("toggleWindow").innerHTML = '';
-        //EleUtil.selectID("toggleWindow").style.display = "none";
         const toggleWindow = EleUtil.selectID("toggleWindow");
+        toggleWindow.style.display = "none";
         const togWinChildren = toggleWindow.childNodes; 
         for (var j=0;j<togWinChildren.length;j++){
             //console.log(togWinChildren[j]);
