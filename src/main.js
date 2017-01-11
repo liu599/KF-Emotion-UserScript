@@ -218,6 +218,7 @@ var expandMenu = {
         createMenu.clear();
         const eventTarget = EventUtil.getTarget(event);
         EleUtil.selectID("toggleWindow").style.display = "block";
+        EleUtil.selectID("toggleWindow").style.width= EleUtil.select("textarea").style.width;
         const dataType = eventTarget.attributes[2].nodeValue;
         const dataKey = eventTarget.attributes[1].nodeValue;
         if(EleUtil.select("#eddie32"+dataKey)){
@@ -310,10 +311,10 @@ var createMenu = {
         //itemWindow.style.display = 'none';
         mainMenu.appendChild(itemWindow);
         const styleItem = EleUtil.create('style');
-        styleItem.innerHTML = '#emotion0000 {padding:5px 5px;width: 780px; vertical-align: middle;  \
+        styleItem.innerHTML = '#emotion0000 {padding:5px 5px; vertical-align: middle;  \
                                  font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
                                #toggleWindow a{padding: 3px 3px;line-height:2} \
-                               #toggleWindow {width: 780px; height: 120px; padding: 3px 3px; overflow: auto; margin-top:14px;display:none}\
+                               #toggleWindow { height: 120px; padding: 3px 3px; overflow: auto; margin-top:14px;display:none}\
                                a.subBut{text-decoration: none;} \
                                .Ems{cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;display:inline-block;} \
                                a.subBut:hover{color: deeppink;} \
@@ -355,8 +356,8 @@ var KFE = {
         "use strict";  
         const mainEmotionMenu = createMenu.main();
         //console.log(mainEmotionMenu);
-        //const textareas = document.getElementsByTagName('textarea');
-        //if (!textareas.length) { return; }
+        const textareas = document.getElementsByTagName('textarea');
+        if (!textareas.length) { return; }
         const textarea = EleUtil.select("textarea");
         textarea.parentNode.insertBefore(mainEmotionMenu, textarea);
     }
