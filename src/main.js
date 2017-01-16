@@ -1,3 +1,4 @@
+
 //var ex00000000 = (function($){
 
 
@@ -222,7 +223,7 @@ var expandMenu = {
         const dataType = eventTarget.attributes[2].nodeValue;
         const dataKey = eventTarget.attributes[1].nodeValue;
         if(EleUtil.select("#eddie32"+dataKey)){
-            console.log(EleUtil.select("#eddie32"+dataKey));
+            //console.log(EleUtil.select("#eddie32"+dataKey));
             EleUtil.select("#eddie32"+dataKey).style.display = 'block';
             if(dataKey == 'item1') EleUtil.selectID("toggleWindow").style.height='50px';
             else EleUtil.selectID("toggleWindow").style.height='100px';
@@ -239,7 +240,7 @@ var expandMenu = {
     attachEmotion: function(event){
         "use strict";
         const eventTarget = EventUtil.getTarget(event);
-        console.log(eventTarget);
+        //console.log(eventTarget);
         var emotionAddress;
         
         if(eventTarget.attributes.length==2){
@@ -247,13 +248,13 @@ var expandMenu = {
                 const addressTarget = eventTarget.src;
                 emotionAddress = expandMenu.addressParse(addressTarget,'image');
             }else{
-                console.log(eventTarget.attributes);
+                //console.log(eventTarget.attributes);
                 const addressTarget = eventTarget.attributes[0].nodeValue;
                 emotionAddress = expandMenu.addressParse(addressTarget,'plain');
             }
         }
         else{
-           console.log(eventTarget.attributes);
+           //console.log(eventTarget.attributes);
            const addressTarget = eventTarget.attributes[0].nodeValue;
            emotionAddress = expandMenu.addressParse(addressTarget,'plain'); 
         }
@@ -286,10 +287,9 @@ var createMenu = {
     main: function(){
         "use strict";
         const mainMenu = EleUtil.create('div');
-        mainMenu.innerHTML = '<span title="made by eddie32 version 4.0.0" style="cursor:pointer;"><b>囧⑨</b></span>';
+        mainMenu.innerHTML = '<span class="subMenu" title="made by eddie32 version 4.0.0" style="cursor:pointer;"><b>囧⑨</b></span>';
+        
         mainMenu.id = createMenu.defaultID;
-       // mainMenu.style.cssText = 'padding:5px 5px;width: 780px; vertical-align: middle;  \
-         //                        font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"';
         const MenuLength = Object.keys(MenuList).length;
         for(var i=0;i<MenuLength;i++){
             const MenuKey = Object.keys(MenuList)[i];
@@ -304,6 +304,7 @@ var createMenu = {
         closeBtn.className= "subMenu";
         closeBtn.id = 'closeEM';
         closeBtn.onclick = createMenu.clear;
+        closeBtn.style.cssText = 'cursor:pointer';
         mainMenu.appendChild(closeBtn);
         const itemWindow = EleUtil.create('div');
         itemWindow.id = "toggleWindow";
@@ -312,17 +313,18 @@ var createMenu = {
         mainMenu.appendChild(itemWindow);
         const styleItem = EleUtil.create('style');
         styleItem.innerHTML = '#emotion0000 {padding:5px 5px; vertical-align: middle;  \
-                                 font: 14px/20px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
+                                 font: 12px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
                                #toggleWindow a{padding: 3px 3px;line-height:2} \
-                               #toggleWindow { height: 120px; padding: 3px 3px; overflow: auto; margin-top:14px;display:none}\
-                               a.subBut{text-decoration: none;} \
-                               .Ems{cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;display:inline-block;} \
-                               a.subBut:hover{color: deeppink;} \
+                               #toggleWindow { height: 100px; padding: 3px 3px; overflow: auto; margin-top:6px; margin-bottom:6px; border:1px solid #FF4351; display:none}\
+                               a.subBut{text-decoration: none;color: #FFF;} \
+                               .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;} \
+                               a.subBut:hover{color: #fff;} \
                                a.txtBtnEmotion{text-decoration:none;} \
-                               a.txtBtnEmotion:hover{background: #2b2b2b;color: #fff} \
-                               .subMenu{cursor:pointer; width:200px; margin-left: 7px; margin-right: 5px; margin-bottom:5px; background: #fff !important; \
-                                 font: 14px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
-                               .subMenu:hover{border-bottom: 2px solid deeppink}';
+                               a.txtBtnEmotion:hover{background:#ff7680; color:#fff; } \
+                               .subMenu{display:inline-block;cursor:pointer; text-align:center; padding: 8px 8px; \
+                                 font: 12px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif";\
+                                 background-color: #FF4351;border-color: #FF4351;color: #FFF;} \
+                               .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #FFF;}';
         mainMenu.appendChild(styleItem);
         return mainMenu;
     },
@@ -363,4 +365,20 @@ var KFE = {
     }
 };
 KFE.init();
+
+var scale=2;//输入放大倍数
+$('body').append('<div id="emotion_scale" style="position:absolute;top: 0;left: 0;display: none;"><img src="" height='+parseFloat(scale*80)+'"px" width='+parseFloat(scale*80)+'"px"/></div>');
+$('#toggleWindow').bind('DOMNodeInserted', function(e) {  
+    try{
+        $('#emotion0000').find('img').hover(function(){
+            $("#emotion_scale").fadeIn().css({'top':parseFloat($(this).offset().top-$(this).height()-scale*80)+'px','left':parseFloat($(this).offset().left-scale*40)+'px'}).find('img').attr('src',$(this).attr('src'));
+        },function(){
+            $("#emotion_scale").fadeOut();
+        });
+    }catch(error){
+    }
+});  
+
+
+
 //});
