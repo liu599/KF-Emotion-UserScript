@@ -92,7 +92,7 @@ var MenuList = {
     item4:{datatype:'imageLink', title:'kf固有',addr:KFSmileURL, ref:KFSmileCode},
     item1:{datatype:'plain',title:'快捷',addr:["[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]",
                             "[strike][/strike]","[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]"], ref:functionDescription},
-    item2:{datatype:'plain',title:'颜文字', addr:["(●・ 8 ・●)", 
+    item2:{datatype:'plain',title:'颜文字', addr:["(●・ 8 ・●)",
 "╰(๑◕ ▽ ◕๑)╯","(﹡ˆˆ﹡)","〜♪♪","(ﾟДﾟ≡ﾟДﾟ)", "(＾o＾)ﾉ" , "(|||ﾟДﾟ)", "(`ε´ )",  "(╬ﾟдﾟ)", "(|||ﾟдﾟ)" , "(￣∇￣)", "(￣3￣)", "(￣ｰ￣)", "(￣ . ￣)", "(￣︿￣)", "(￣︶￣)", "(*´ω`*)", "(・ω・)","(⌒▽⌒)","(￣▽￣）","(=・ω・=)","(｀・ω・´)","(〜￣△￣)〜","(･∀･)",
 			"(°∀°)ﾉ","(￣3￣)","╮(￣▽￣)╭","( ´_ゝ｀)","←_←","→_→","(&lt;_&lt;)","(&gt;_&gt;)","(;¬_¬)","(▔□▔)/","(ﾟДﾟ≡ﾟдﾟ)!?","Σ(ﾟдﾟ;)","Σ( ￣□￣||)",
 			"(´；ω；`)","（/TДT)/","(^・ω・^ )","(｡･ω･｡)","(●￣(ｴ)￣●)","ε=ε=(ノ≧∇≦)ノ","(´･_･`)","(-_-#)","（￣へ￣）","(￣ε(#￣) Σ","ヽ(`Д´)ﾉ","(╯°口°)╯(┴—┴","（#-_-)┯━┯","_(:3」∠)_","(笑)","(汗)","(泣)","(苦笑)", "(´・ω・`)", "(╯°□°）╯︵ ┻━┻","(╯‵□′)╯︵┻━┻", "( ´ρ`)", "( ﾟωﾟ)", "(oﾟωﾟo)", "(　^ω^)", "(｡◕∀◕｡)", "/( ◕‿‿◕ )\\","ε٩( º∀º )۶з","(￣ε(#￣)☆╰╮(￣▽￣///)",
@@ -102,49 +102,49 @@ var MenuList = {
     item6:{datatype:'image',title:'常用',addr:NG},
     item7:{datatype:'image',title:'Akari',addr:AkariSmile1},
     item8:{datatype:'image',title:'BiliBili',addr:w4},
-    item3:{datatype:'image',title:'LoveLive',addr:LoveliveSmalltargetURL} 
+    item3:{datatype:'image',title:'LoveLive',addr:LoveliveSmalltargetURL}
 };
 /* Event 函数 */
-var EventUtil = { 
-    getEvent: function(event){ 
-        return event ? event : window.event; 
+var EventUtil = {
+    getEvent: function(event){
+        return event ? event : window.event;
     },
-    getTarget: function(event){ 
-        return event.target || event.srcElement; 
+    getTarget: function(event){
+        return event.target || event.srcElement;
     },
-    preventDefault: function(event){ 
-        if (event.preventDefault){ 
-            event.preventDefault(); 
-        } else { 
-            event.returnValue = false; 
-        } 
+    preventDefault: function(event){
+        if (event.preventDefault){
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
     },
     stopPropagation: function(event){
-        if (event.stopPropagation){ 
-            event.stopPropagation(); 
-        } else { 
-            event.cancelBubble = true; 
-        } 
+        if (event.stopPropagation){
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
     },
-    addHandler: function(element, type, handler){ 
-        if (element.addEventListener){ 
+    addHandler: function(element, type, handler){
+        if (element.addEventListener){
             element.addEventListener(type, handler, false);  //DOM2
-        } else if (element.attachEvent){ 
+        } else if (element.attachEvent){
             element.attachEvent("on" + type, handler);  //IE
-        } else { 
-            element["on" + type] = handler;  //DOM 0 
-        } 
-    }, 
-    removeHandler: function(element, type, handler){ 
-        if (element.removeEventListener){ 
+        } else {
+            element["on" + type] = handler;  //DOM 0
+        }
+    },
+    removeHandler: function(element, type, handler){
+        if (element.removeEventListener){
             element.removeEventListener(type, handler, false); //DOM2
-        } else if (element.detachEvent){ 
+        } else if (element.detachEvent){
             element.detachEvent("on" + type, handler); //IE
-        } else { 
-            element["on" + type] = null; //DOM 0 
-        } 
-    } 
-};    
+        } else {
+            element["on" + type] = null; //DOM 0
+        }
+    }
+};
 var EleUtil = {
     create: function(ele){
         return document.createElement(ele);
@@ -190,7 +190,7 @@ var createItems = {
             const txtItem = EleUtil.create('span');
             txtItem.style.cssText = "cursor:pointer; margin: 10px 10px;";
             txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+txtList[k]+'</a>';
-            if(MenuList[key].ref){txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+MenuList[key].ref[k]+'</a>';EleUtil.selectID("toggleWindow").style.height='50px';} 
+            if(MenuList[key].ref){txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+MenuList[key].ref[k]+'</a>';EleUtil.selectID("toggleWindow").style.height='50px';}
             txtItem.onclick = expandMenu.attachEmotion;
             txtItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;';
             outerContainer.appendChild(txtItem);
@@ -242,7 +242,7 @@ var expandMenu = {
         const eventTarget = EventUtil.getTarget(event);
         //console.log(eventTarget);
         var emotionAddress;
-        
+
         if(eventTarget.attributes.length==2){
             if(eventTarget.src){
                 const addressTarget = eventTarget.src;
@@ -256,9 +256,9 @@ var expandMenu = {
         else{
            //console.log(eventTarget.attributes);
            const addressTarget = eventTarget.attributes[0].nodeValue;
-           emotionAddress = expandMenu.addressParse(addressTarget,'plain'); 
+           emotionAddress = expandMenu.addressParse(addressTarget,'plain');
         }
-        
+
         const selectTextArea = EleUtil.select("textarea");
         const ovalue = selectTextArea.value;
         const startPos = selectTextArea.selectionStart;
@@ -288,15 +288,15 @@ var createMenu = {
         "use strict";
         const mainMenu = EleUtil.create('div');
         mainMenu.innerHTML = '<span class="subMenu" title="made by eddie32 version 4.0.0" style="cursor:pointer;"><b>囧⑨</b></span>';
-        
+
         mainMenu.id = createMenu.defaultID;
         const MenuLength = Object.keys(MenuList).length;
         for(var i=0;i<MenuLength;i++){
             const MenuKey = Object.keys(MenuList)[i];
             const MenuTitle = MenuList[MenuKey].title;
             const MenuType = MenuList[MenuKey].datatype;
-            if(!MenuType || !MenuTitle) console.log('dataerror  '+MenuKey); 
-            const testMenu = createMenu.subs(MenuTitle,expandMenu.init,MenuKey, MenuType);    
+            if(!MenuType || !MenuTitle) console.log('dataerror  '+MenuKey);
+            const testMenu = createMenu.subs(MenuTitle,expandMenu.init,MenuKey, MenuType);
             mainMenu.appendChild(testMenu);
         }
         const closeBtn = EleUtil.create('span');
@@ -346,39 +346,31 @@ var createMenu = {
         //EleUtil.selectID("toggleWindow").innerHTML = '';
         const toggleWindow = EleUtil.selectID("toggleWindow");
         toggleWindow.style.display = "none";
-        const togWinChildren = toggleWindow.childNodes; 
+        const togWinChildren = toggleWindow.childNodes;
         for (var j=0;j<togWinChildren.length;j++){
             //console.log(togWinChildren[j]);
             togWinChildren[j].style.display = 'none';
         }
     }
 };
-var KFE = {
-    init: function(){
-        "use strict";  
-        const mainEmotionMenu = createMenu.main();
-        //console.log(mainEmotionMenu);
-        const textareas = document.getElementsByTagName('textarea');
-        if (!textareas.length) { return; }
-        const textarea = EleUtil.select("textarea");
-        textarea.parentNode.insertBefore(mainEmotionMenu, textarea);
-    }
-};
-KFE.init();
+"use strict";
+const mainEmotionMenu = createMenu.main();
+let testareaEleSet = new WeakSet();
+let elementSet = document.getElementsByTagName('textarea');
+let elementSetLength = elementSet.length;
+if(elementSetLength==0){
+  console.log('There is no textarea');
+  return;
+}
+testareaEleSet.add(elementSet);
+let defaultUserOption = {
+   'userWindowHeight': 120,
+   'userSelectTextArea': -1,
+}
+for (let value of elementSet) {
+  console.log(value);
+}
 
-var scale=2;//输入放大倍数
-$('body').append('<div id="emotion_scale" style="position:absolute;top: 0;left: 0;display: none;"><img src="" height='+parseFloat(scale*80)+'"px" width='+parseFloat(scale*80)+'"px"/></div>');
-$('#toggleWindow').bind('DOMNodeInserted', function(e) {  
-    try{
-        $('#emotion0000').find('img').hover(function(){
-            $("#emotion_scale").fadeIn().css({'top':parseFloat($(this).offset().top-$(this).height()-scale*80)+'px','left':parseFloat($(this).offset().left-scale*40)+'px'}).find('img').attr('src',$(this).attr('src'));
-        },function(){
-            $("#emotion_scale").fadeOut();
-        });
-    }catch(error){
-    }
-});  
-
-
-
-//});
+console.log(defaultUserOption.userSelectTextArea);
+//const testareaElement = textareas[0];
+//testareaElement.parentNode.insertBefore(mainEmotionMenu, testareaElement);
