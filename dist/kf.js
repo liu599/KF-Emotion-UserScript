@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.1.1
+// @version     4.2.0
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
@@ -16,153 +16,140 @@
 // @run-at      document-end
 // ==/UserScript==
 
-//var ex00000000 = (function($){
+/* *
+ * *  KF Emotion UserScript
+ * *  Author: eddie32
+ * *  Version: 4.2.0
+ * *  Change Log: Rewrite the code based on ES6 recommodation
+ * *  Add hover:enlarge feature
+ * *  User option storage locally
+ * *  License: M.I.T
+ * *  Publish Date: 2017.01.28
+ * */
+
+'use strict';
+const versionNo = '4.2.0';
 
 
+/*Address function
+ * startNumber: number, indicating the start number;
+ * lengthArray: number, indicating the addrArray length;
+ * strPrefix: string, address Prefix;
+ * strSuffix: string, address Suffix;
+ * leadingZero: boolen, true for leading zero in number;
+ * addrArray: array, address array, default for empty;
+*/
 
-
-// B站和tora酱
-var w4 = [];
-
-for(var j = 0; j < 16; j++) {
-   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/2233 (' +
-        (j+1) + ').gif';
+// 创建表情包数组的函数
+function emAddrArrayHandler(startNumber, lengthArray, strPrefix, strSuffix,  addrArray = [], leadingZero = false){
+   let addrTemp = '', addrNumber = 0;
+   for(let j=startNumber;j<lengthArray;j++){
+     addrNumber = j;
+     if(leadingZero){
+        addrNumber = (j>9)?(j):(`0${j}`);
+     }
+     addrTemp = `${strPrefix}${addrNumber}${strSuffix}`;
+     addrArray.push(addrTemp);
+   }
+   return addrArray;
 }
-for(var j = 16; j < 30; j++) {
-   w4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/bilibiliTV (' +
-        (j+1-17) + ').png';
-}
+/* 表情包地址数据 */
+// B站
+let biliEM = emAddrArrayHandler(1, 17,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/2233 (',
+                ').gif');
+emAddrArrayHandler(0, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/bilibiliTV (',
+                                ').png',biliEM);
 // tora酱
-var w5 = [];
-
-for(var j = 0; j < 14; j++) {
-    w5[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/tora/0' +
-         ((j)>=9?(j+1):('0'+(j+1))) + '.jpg';
-}
-w4 = w4.concat(w5);
-
-
-//阿卡林
-//7. Akari 摇曳百合
-var ACSmile1 = [];
-for(var j = 0; j < 20; j++) {
-    ACSmile1[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/Dynamic/akari' +
-        (j+1) + '.gif';
-}
-
-var AkariSmile1 = [];
-for(var j = 0; j < 71; j++) {
-    AkariSmile1[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/akari/akari' +
-        (j+1) + '.png';
-}
-AkariSmile1 = AkariSmile1.concat(ACSmile1);
-
-// KF拓展, New Game以及巫女控
-var kfaux = [];
-
-for(var j = 0; j < 19; j++) {
-    kfaux[j] = 'http://ss.nekohand.moe/Asource/EmotionPic/KFEM (' +
-      (j+1) + ').gif';
-}
-
-var NG = [];
-
-for(var j = 0; j < 62; j++) {
-    NG[j] = 'http://nekohand.moe/spsmile/01Sora/0xx' +
-         (j+2) + '.png';
-}
-NG = NG.concat(kfaux);
-
-// ACFUN new
-var ACSmile4 = [];
-for(var j = 0; j < 50; j++) {
-    ACSmile4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/New/' +
-        (j+1) + '.png';
-}
-for(var j = 50; j < 90; j++) {
-   ACSmile4[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/Niming/' +
-        ((j-50)>=9?(j-49):('0'+(j-49))) + '.gif';
-}
-
-var functionDescription = ["出售贴sell=售价","引用", "隐藏hide=神秘等级","插入代码","删除线","跑马灯","文字颜色","粗体",
-                                "下划线","斜体","水平线","背景色","插入图片"];
-
+emAddrArrayHandler(1, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/tora/0',
+                            '.jpg',biliEM,true);
+//阿卡林 from 摇曳百合
+let AkariSmile = emAddrArrayHandler(1,21,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/Dynamic/akari','.gif');
+emAddrArrayHandler(1,72,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/akari/akari','.png',AkariSmile);
+// New Game kf扩展
+let NewGame = emAddrArrayHandler(2,64,'http://nekohand.moe/spsmile/01Sora/0xx','.png');
+emAddrArrayHandler(1,20,'http://ss.nekohand.moe/Asource/EmotionPic/KFEM (',').gif', NewGame);
+// ACFUN
+let ACSmile4 = emAddrArrayHandler(1,51,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/New/','.png');
+emAddrArrayHandler(1,40,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/Niming/','.gif',ACSmile4,true);
 // KF 内置
-var KFSmileURL = [];
-var KFSmileCode = [];
-for(var j = 0; j < 48; j++) {
-    KFSmileURL[j] = (typeof imgpath != 'undefined' ? imgpath : '') + '/post/smile/em/em' +
-        ((j)>=9?(j+1):('0'+(j+1))) + '.gif';
-    KFSmileCode[j] = '[s:'+(j+10)+']';
-}
-
-
+let KFSmileURL = emAddrArrayHandler(1,49,`${typeof imgpath != 'undefined' ? imgpath : ''}/post/smile/em/em`,
+                                     '.gif',[],true);
+let KFSmileCode = emAddrArrayHandler(10,58,`[s:`,
+                                    ']');
 // lovelive专用小
-var LoveliveSmalltargetURL = [];
-for(var j = 0; j < 40; j++) {
-    LoveliveSmalltargetURL[j] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion02/Small/Lovelive2nd' +
-        (j+1) + '.png';
-    LoveliveSmalltargetURL[j+40] = 'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/Small/Lovelive' +
-        (j+1) + '.png';
-}
-var MenuList = {
-    item4:{datatype:'imageLink', title:'kf固有',addr:KFSmileURL, ref:KFSmileCode},
-    item1:{datatype:'plain',title:'快捷',addr:["[sell=100][/sell]","[quote][/quote]","[hide=100][/hide]","[code][/code]",
-                            "[strike][/strike]","[fly][/fly]","[color=#00FF00][/color]","[b][/b]","[u][/u]","[i][/i]","[hr]", "[backcolor=][/backcolor]","[img][/img]"], ref:functionDescription},
-    item2:{datatype:'plain',title:'颜文字', addr:["(●・ 8 ・●)", 
-"╰(๑◕ ▽ ◕๑)╯","(﹡ˆˆ﹡)","〜♪♪","(ﾟДﾟ≡ﾟДﾟ)", "(＾o＾)ﾉ" , "(|||ﾟДﾟ)", "(`ε´ )",  "(╬ﾟдﾟ)", "(|||ﾟдﾟ)" , "(￣∇￣)", "(￣3￣)", "(￣ｰ￣)", "(￣ . ￣)", "(￣︿￣)", "(￣︶￣)", "(*´ω`*)", "(・ω・)","(⌒▽⌒)","(￣▽￣）","(=・ω・=)","(｀・ω・´)","(〜￣△￣)〜","(･∀･)",
-			"(°∀°)ﾉ","(￣3￣)","╮(￣▽￣)╭","( ´_ゝ｀)","←_←","→_→","(&lt;_&lt;)","(&gt;_&gt;)","(;¬_¬)","(▔□▔)/","(ﾟДﾟ≡ﾟдﾟ)!?","Σ(ﾟдﾟ;)","Σ( ￣□￣||)",
-			"(´；ω；`)","（/TДT)/","(^・ω・^ )","(｡･ω･｡)","(●￣(ｴ)￣●)","ε=ε=(ノ≧∇≦)ノ","(´･_･`)","(-_-#)","（￣へ￣）","(￣ε(#￣) Σ","ヽ(`Д´)ﾉ","(╯°口°)╯(┴—┴","（#-_-)┯━┯","_(:3」∠)_","(笑)","(汗)","(泣)","(苦笑)", "(´・ω・`)", "(╯°□°）╯︵ ┻━┻","(╯‵□′)╯︵┻━┻", "( ´ρ`)", "( ﾟωﾟ)", "(oﾟωﾟo)", "(　^ω^)", "(｡◕∀◕｡)", "/( ◕‿‿◕ )\\","ε٩( º∀º )۶з","(￣ε(#￣)☆╰╮(￣▽￣///)",
-                         "（●´3｀）~♪", "_(:з」∠)_","хорошо!","＼(^o^)／","(•̅灬•̅ )", "(ﾟДﾟ)","まったく、小学生は最高だぜ！！","ε=ε=ε=┏(゜ロ゜;)┛",
-                        "(；°ほ°)","もうこの国は駄目だぁ","ヽ(✿ﾟ▽ﾟ)ノ","焔に舞い上がるスパークよ、邪悪な異性交際に、天罰を与え！","お疲れ様でした"]},
+let LoveliveSmalltargetURL = emAddrArrayHandler(1,41,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion02/Small/Lovelive2nd',
+                                      '.png');
+    emAddrArrayHandler(1,41,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/Small/Lovelive',
+                                                                            '.png',LoveliveSmalltargetURL);
+// kf快捷代码(需要改写解构赋值)
+let functionDescription = ['出售贴sell=售价','引用', '隐藏hide=神秘等级','插入代码','删除线','跑马灯','文字颜色','粗体',
+                                '下划线','斜体','水平线','背景色','插入图片'];
+let defaultFunction = ['[sell=100][/sell]','[quote][/quote]','[hide=100][/hide]','[code][/code]',
+                        '[strike][/strike]','[fly][/fly]','[color=#00FF00][/color]','[b][/b]','[u][/u]','[i][/i]',
+                        '[hr]', '[backcolor=][/backcolor]','[img][/img]'];
+// 颜文字
+let emoji = ['(●・ 8 ・●)',
+'╰(๑◕ ▽ ◕๑)╯','(ゝω・)','〜♪♪','(ﾟДﾟ≡ﾟДﾟ)', '(＾o＾)ﾉ' , '(|||ﾟДﾟ)', '(`ε´ )',  '(╬ﾟдﾟ)', '(|||ﾟдﾟ)' , '(￣∇￣)', '(￣3￣)', '(￣ｰ￣)', '(￣ . ￣)', '(￣︿￣)', '(￣︶￣)', '(*´ω`*)', '(・ω・)','(⌒▽⌒)','(￣▽￣）','(=・ω・=)','(｀・ω・´)','(〜￣△￣)〜','(･∀･)',
+  '(°∀°)ﾉ','(￣3￣)','╮(￣▽￣)╭','( ´_ゝ｀)','のヮの','(ﾉ؂< ๑）诶嘿☆～','(&lt;_&lt;)','(&gt;_&gt;)','(;¬_¬)','(▔□▔)/','(ﾟДﾟ≡ﾟдﾟ)!?','Σ(ﾟдﾟ;)','Σ( ￣□￣||)',
+  '(´；ω；`)','（/TДT)/','(^・ω・^ )','(｡･ω･｡)','(●￣(ｴ)￣●)','ε=ε=(ノ≧∇≦)ノ','(´･_･`)','(-_-#)','（￣へ￣）','(￣ε(#￣) Σ','ヽ(`Д´)ﾉ','(╯°口°)╯(┴—┴','（#-_-)┯━┯','_(:3」∠)_','(笑)','(汗)','(泣)','(苦笑)', '(´・ω・`)', '(╯°□°）╯︵ ┻━┻','(╯‵□′)╯︵┻━┻', '( ´ρ`)', '( ﾟωﾟ)', '(oﾟωﾟo)', '(　^ω^)', '(｡◕∀◕｡)', '/( ◕‿‿◕ )\\','ε٩( º∀º )۶з','(￣ε(#￣)☆╰╮(￣▽￣///)',
+                     '（●´3｀）~♪', '_(:з」∠)_','хорошо!','＼(^o^)／','(•̅灬•̅ )', '(ﾟДﾟ)','まったく、小学生は最高だぜ！！','ε=ε=ε=┏(゜ロ゜;)┛',
+                    '(；°ほ°)','	⎝≧⏝⏝≦⎠','ヽ(✿ﾟ▽ﾟ)ノ','焔に舞い上がるスパークよ、邪悪な異性交際に、天罰を与え！','|•ω•`)'];
+
+
+let MenuList = {
+    item4:{datatype:'imageLink', title:'固有',addr:KFSmileURL, ref:KFSmileCode},
+    item1:{datatype:'plain',title:'快捷',addr:defaultFunction, ref:functionDescription},
+    item2:{datatype:'plain',title:'颜文字', addr:emoji},
     item5:{datatype:'image',title:'ACFUN',addr:ACSmile4},
-    item6:{datatype:'image',title:'常用',addr:NG},
-    item7:{datatype:'image',title:'Akari',addr:AkariSmile1},
-    item8:{datatype:'image',title:'BiliBili',addr:w4},
-    item3:{datatype:'image',title:'LoveLive',addr:LoveliveSmalltargetURL} 
+    item6:{datatype:'image',title:'常用',addr:NewGame},  //
+    item7:{datatype:'image',title:'Akari',addr:AkariSmile}, //Akari
+    item8:{datatype:'image',title:'BiliBili',addr:biliEM}, //B站
+    item3:{datatype:'image',title:'LoveLive',addr:LoveliveSmalltargetURL}
 };
+
 /* Event 函数 */
-var EventUtil = { 
-    getEvent: function(event){ 
-        return event ? event : window.event; 
+const EventUtil = {
+    getEvent: function(event){
+        return event ? event : window.event;
     },
-    getTarget: function(event){ 
-        return event.target || event.srcElement; 
+    getTarget: function(event){
+        return event.target || event.srcElement;
     },
-    preventDefault: function(event){ 
-        if (event.preventDefault){ 
-            event.preventDefault(); 
-        } else { 
-            event.returnValue = false; 
-        } 
+    preventDefault: function(event){
+        if (event.preventDefault){
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
     },
     stopPropagation: function(event){
-        if (event.stopPropagation){ 
-            event.stopPropagation(); 
-        } else { 
-            event.cancelBubble = true; 
-        } 
+        if (event.stopPropagation){
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
     },
-    addHandler: function(element, type, handler){ 
-        if (element.addEventListener){ 
+    addHandler: function(element, type, handler){
+        if (element.addEventListener){
             element.addEventListener(type, handler, false);  //DOM2
-        } else if (element.attachEvent){ 
-            element.attachEvent("on" + type, handler);  //IE
-        } else { 
-            element["on" + type] = handler;  //DOM 0 
-        } 
-    }, 
-    removeHandler: function(element, type, handler){ 
-        if (element.removeEventListener){ 
+        } else if (element.attachEvent){
+            element.attachEvent('on' + type, handler);  //IE
+        } else {
+            element['on' + type] = handler;  //DOM 0
+        }
+    },
+    removeHandler: function(element, type, handler){
+        if (element.removeEventListener){
             element.removeEventListener(type, handler, false); //DOM2
-        } else if (element.detachEvent){ 
-            element.detachEvent("on" + type, handler); //IE
-        } else { 
-            element["on" + type] = null; //DOM 0 
-        } 
-    } 
-};    
-var EleUtil = {
+        } else if (element.detachEvent){
+            element.detachEvent('on' + type, handler); //IE
+        } else {
+            element['on' + type] = null; //DOM 0
+        }
+    }
+};
+/*Element 函数*/
+const EleUtil = {
     create: function(ele){
         return document.createElement(ele);
     },
@@ -173,54 +160,94 @@ var EleUtil = {
         return document.querySelector(selector);
     }
 };
-var createItems = {
+
+/*Cookie处理*/
+const CookieUtil = {
+    getCookies: function(){
+        CookieObj = {};
+        let thisCookie = document.cookie;
+        if(thisCookie === '') return CookieObj;
+        let listObj = thisCookie.split(';');
+        for(let i=0, len=listObj.length;i<len;i++){
+            let w = listObj[i].split('=');
+            let name = decodeURIComponent(w[0].replace(/^\s+|\s+$/g,''));
+            let value = decodeURIComponent(w[1]);
+    		    CookieObj[name] = value;
+        }
+        return CookieObj;
+        //console.log(thisCookie);
+    },
+    setCookies: function(name,value,path,iDay,domain,secure){
+        let oDate=new Date();
+        oDate.setDate(oDate.getDate()+iDay);
+        let cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+	      if (iDay) {
+		       cookie+=';expires=' + oDate;
+        }
+      	if (path) {
+      		cookie+=';path=' + path;
+      	}
+      	if (domain) {
+      		cookie+=';domain' + domain;
+      	}
+      	if (secure) {
+      		cookie+=';secure' + secure;
+      	}
+    	  document.cookie = cookie;
+    }
+};
+/*模块*/
+const createItems = {
     createContainer: function(key){
-        'use strict';
-        const ItemContainer = EleUtil.create('div');
+        let ItemContainer = EleUtil.create('div');
         ItemContainer.id = 'eddie32' + key;
-        EleUtil.selectID("toggleWindow").style.height='100px';
-        EleUtil.selectID("toggleWindow").appendChild(ItemContainer);
+        EleUtil.selectID('toggleWindow').style.height='100px';
+        EleUtil.selectID('toggleWindow').appendChild(ItemContainer);
         return ItemContainer;
     },
     createImages:function(key){
-        'use strict';
-        const outerContainer = createItems.createContainer(key);
+        let outerContainer = createItems.createContainer(key);
         //console.log(MenuList[key]);
-        const imgList = MenuList[key].addr;
-        const imgLength = imgList.length;
-        for(var k=0;k<imgLength;k++){
-            const imgItem = EleUtil.create('img');
+        let imgList = MenuList[key].addr;
+        let imgLength = imgList.length;
+        for(let k=0;k<imgLength;k++){
+            let divElement = EleUtil.create('div');
+            divElement.className = 'clickItem';
+            let imgItem = EleUtil.create('img');
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
             imgItem.onclick = expandMenu.attachEmotion;
+            imgItem.onmouseover = mouseOverAction.showImg;
+            imgItem.onmouseout =mouseOverAction.clearImg;
             //imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;';
-            outerContainer.appendChild(imgItem);
+            divElement.appendChild(imgItem);
+            outerContainer.appendChild(divElement);
         }
     },
     createPlainText: function(key){
-        'use strict';
-        const outerContainer = createItems.createContainer(key);
-        //console.log(MenuList[key]);
-        const txtList = MenuList[key].addr;
-        const txtLength = txtList.length;
-        for(var k=0;k<txtLength;k++){
-            const txtItem = EleUtil.create('span');
-            txtItem.style.cssText = "cursor:pointer; margin: 10px 10px;";
-            txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+txtList[k]+'</a>';
-            if(MenuList[key].ref){txtItem.innerHTML = '<a data-sign='+encodeURI(txtList[k])+' class="txtBtnEmotion">'+MenuList[key].ref[k]+'</a>';EleUtil.selectID("toggleWindow").style.height='50px';} 
+        let outerContainer = createItems.createContainer(key);
+        let txtList = MenuList[key].addr;
+        let txtLength = txtList.length;
+        for(let k=0;k<txtLength;k++){
+            let txtItem = EleUtil.create('span');
+            txtItem.style.cssText = 'cursor:pointer; margin: 10px 10px;';
+            txtItem.innerHTML = `<a data-sign=${encodeURI(txtList[k])} class='txtBtnEmotion'>${txtList[k]}</a>`;
+            if(MenuList[key].ref){
+              txtItem.innerHTML = `<a data-sign=${encodeURI(txtList[k])} class='txtBtnEmotion'>${MenuList[key].ref[k]}</a>`;
+              EleUtil.selectID('toggleWindow').style.height='50px';
+            }
             txtItem.onclick = expandMenu.attachEmotion;
             txtItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;';
             outerContainer.appendChild(txtItem);
         }
     },
     createImageLink: function(key){
-      //console.log(MenuList[key]);
-        const outerContainer = createItems.createContainer(key);
-        const imgList = MenuList[key].addr;
-        const refList = MenuList[key].ref;
-        const imgLength = imgList.length;
+        let outerContainer = createItems.createContainer(key);
+        let imgList = MenuList[key].addr;
+        let refList = MenuList[key].ref;
+        let imgLength = imgList.length;
         for(var k=0;k<imgLength;k++){
-            const imgItem = EleUtil.create('img');
+            let imgItem = EleUtil.create('img');
             imgItem.dataset.link =  refList[k];
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
@@ -230,20 +257,36 @@ var createItems = {
         }
     }
 };
-var expandMenu = {
+const mouseOverAction = {
+      showImg: function(event){
+          let eventTarget = EventUtil.getTarget(event);
+          if(!eventTarget.src){
+              return null;
+          }
+          let largeViewContainer = EleUtil.selectID('largeView');
+          //console.log([event.clientY,event.clientX]);
+          //console.log([EleUtil.selectID('largeView').style.top,EleUtil.selectID('largeView').style.left]);
+          largeViewContainer.innerHTML = `<img src=${eventTarget.src} />`
+          largeViewContainer.style.display = 'block';
+          largeViewContainer.style.top = `${event.clientY + 20}px`;
+          largeViewContainer.style.left = `${event.clientX}px`;
+      },
+      clearImg: function(event){
+          EleUtil.selectID('largeView').style.display = 'none';
+      }
+}
+const expandMenu = {
     init: function(event){
-       "use strict";
         createMenu.clear();
-        const eventTarget = EventUtil.getTarget(event);
-        EleUtil.selectID("toggleWindow").style.display = "block";
-        EleUtil.selectID("toggleWindow").style.width= EleUtil.select("textarea").style.width;
-        const dataType = eventTarget.attributes[2].nodeValue;
-        const dataKey = eventTarget.attributes[1].nodeValue;
-        if(EleUtil.select("#eddie32"+dataKey)){
-            //console.log(EleUtil.select("#eddie32"+dataKey));
-            EleUtil.select("#eddie32"+dataKey).style.display = 'block';
-            if(dataKey == 'item1') EleUtil.selectID("toggleWindow").style.height='50px';
-            else EleUtil.selectID("toggleWindow").style.height='100px';
+        let eventTarget = EventUtil.getTarget(event);
+        EleUtil.selectID('toggleWindow').style.display = 'block';
+        EleUtil.selectID('toggleWindow').style.width= EleUtil.select('textarea').style.width;
+        let dataType = eventTarget.attributes[2].nodeValue;
+        let dataKey = eventTarget.attributes[1].nodeValue;
+        if(EleUtil.select('#eddie32'+dataKey)){
+            EleUtil.select('#eddie32'+dataKey).style.display = 'block';
+            if(dataKey == 'item1') EleUtil.selectID('toggleWindow').style.height='50px';
+            else EleUtil.selectID('toggleWindow').style.height='100px';
             return;
         }
         if(dataType =='plain'){
@@ -255,40 +298,37 @@ var expandMenu = {
         }
     },
     attachEmotion: function(event){
-        "use strict";
         const eventTarget = EventUtil.getTarget(event);
         //console.log(eventTarget);
-        var emotionAddress;
-        
+
+        let addressTarget = '', emotionAddress='';
         if(eventTarget.attributes.length==2){
             if(eventTarget.src){
-                const addressTarget = eventTarget.src;
-                emotionAddress = expandMenu.addressParse(addressTarget,'image');
+                addressTarget = eventTarget.src;
+                emotionAddress=expandMenu.addressParse(addressTarget,'image');
             }else{
                 //console.log(eventTarget.attributes);
-                const addressTarget = eventTarget.attributes[0].nodeValue;
-                emotionAddress = expandMenu.addressParse(addressTarget,'plain');
+                addressTarget = eventTarget.attributes[0].nodeValue;
+                emotionAddress=expandMenu.addressParse(addressTarget,'plain');
             }
         }
         else{
            //console.log(eventTarget.attributes);
-           const addressTarget = eventTarget.attributes[0].nodeValue;
-           emotionAddress = expandMenu.addressParse(addressTarget,'plain'); 
+           addressTarget = eventTarget.attributes[0].nodeValue;
+           emotionAddress=expandMenu.addressParse(addressTarget,'plain');
         }
-        
-        const selectTextArea = EleUtil.select("textarea");
+        let selectTextArea = EleUtil.select('textarea');
         const ovalue = selectTextArea.value;
         const startPos = selectTextArea.selectionStart;
         const endPos = selectTextArea.selectionEnd;
-        selectTextArea.value = ovalue.slice(0, startPos) + emotionAddress + ovalue.slice(startPos);
+        selectTextArea.value = `${ovalue.slice(0, startPos)}${emotionAddress}${ovalue.slice(startPos)}`;
        // console.log(eventTarget);
        // console.log(emotionAddress);
     },
     addressParse: function(addStr, pattern){
-       "use strict";
-        var stringReturn;
+        let stringReturn='';
         if(pattern === 'image'){
-            stringReturn = '[img]'+addStr+'[/img]';
+            stringReturn = `[img]${addStr}[/img]`;
         }
         if(pattern === 'plain'){
             stringReturn =  decodeURI(addStr);
@@ -299,103 +339,91 @@ var expandMenu = {
         return stringReturn;
     }
 };
-var createMenu = {
+const createMenu = {
     defaultID: 'emotion0000',
     main: function(){
-        "use strict";
-        const mainMenu = EleUtil.create('div');
-        mainMenu.innerHTML = '<span class="subMenu" title="made by eddie32 version 4.0.0" style="cursor:pointer;"><b>囧⑨</b></span>';
-        
+        /*main menu*/
+        let mainMenu = EleUtil.create('div');
+        mainMenu.innerHTML = `<span id='largeView'></span><span class='subMenu' title='主菜单 version ${versionNo}'><b>⑨囧⑨</b></span>`;
         mainMenu.id = createMenu.defaultID;
-        const MenuLength = Object.keys(MenuList).length;
-        for(var i=0;i<MenuLength;i++){
+        let MenuLength = Object.keys(MenuList).length;
+        for(let i=0;i<MenuLength;i++){
             const MenuKey = Object.keys(MenuList)[i];
             const MenuTitle = MenuList[MenuKey].title;
             const MenuType = MenuList[MenuKey].datatype;
-            if(!MenuType || !MenuTitle) console.log('dataerror  '+MenuKey); 
-            const testMenu = createMenu.subs(MenuTitle,expandMenu.init,MenuKey, MenuType);    
+            if(!MenuType || !MenuTitle) console.log('dataerror  '+MenuKey);
+            const testMenu = createMenu.subs(MenuTitle,expandMenu.init,MenuKey, MenuType);
             mainMenu.appendChild(testMenu);
         }
-        const closeBtn = EleUtil.create('span');
-        closeBtn.innerHTML = '[-]';
-        closeBtn.className= "subMenu";
+        /*close button*/
+        let closeBtn = EleUtil.create('span');
+        closeBtn.innerHTML = '[x]';
+        closeBtn.className= 'subMenu';
         closeBtn.id = 'closeEM';
         closeBtn.onclick = createMenu.clear;
         closeBtn.style.cssText = 'cursor:pointer';
         mainMenu.appendChild(closeBtn);
-        const itemWindow = EleUtil.create('div');
-        itemWindow.id = "toggleWindow";
-        //itemWindow.style.cssText = '';
-        //itemWindow.style.display = 'none';
+        /*dropdown box*/
+        let itemWindow = EleUtil.create('div');
+        itemWindow.id = 'toggleWindow';
         mainMenu.appendChild(itemWindow);
-        const styleItem = EleUtil.create('style');
-        styleItem.innerHTML = '#emotion0000 {padding:5px 5px; vertical-align: middle;  \
-                                 font: 12px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"} \
-                               #toggleWindow a{padding: 3px 3px;line-height:2} \
-                               #toggleWindow { height: 100px; padding: 3px 3px; overflow: auto; margin-top:6px; margin-bottom:6px; border:1px solid #FF4351; display:none}\
-                               a.subBut{text-decoration: none;color: #FFF;} \
-                               .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;} \
+        /*css style*/
+        let styleItem = EleUtil.create('style');
+        styleItem.innerHTML = `#emotion0000 {padding:5px 5px; vertical-align: middle;   \
+                                 font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif'} \
+                               #largeView{position:absolute; background: #fff;z-index:5000; opacity: 0.8} \
+                               #largeView img{width: 200px; height:200px;} \
+                               #toggleWindow a{padding: 5px 5px;line-height:2} \
+                               #toggleWindow {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:6px; \
+                                 margin-bottom:6px; border:1px solid #ff4351; display:none;position:relative; z-index:200; }\
+                               .clickItem{display:inline-block; z-index:300;}
+                               a.subBut{text-decoration: none;color: #fff;} \
+                               .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;  z-index:400;} \
                                a.subBut:hover{color: #fff;} \
                                a.txtBtnEmotion{text-decoration:none;} \
                                a.txtBtnEmotion:hover{background:#ff7680; color:#fff; } \
                                .subMenu{display:inline-block;cursor:pointer; text-align:center; padding: 8px 8px; \
-                                 font: 12px/16px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif";\
-                                 background-color: #FF4351;border-color: #FF4351;color: #FFF;} \
-                               .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #FFF;}';
+                                 font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif';\
+                                 background-color: #ff4351;border-color: #ff4351;color: #fff;} \
+                               .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #fff;}`;
         mainMenu.appendChild(styleItem);
         return mainMenu;
     },
     subs: function(title,func,subid,subtype){
-        "use strict";
-        const subMenu = EleUtil.create('span');
+        let subMenu = EleUtil.create('span');
         subMenu.id = subid;
-        subMenu.className= "subMenu";
-        const subcontent = '<a class="subBut" data-kid='+subid+' date-type=' + subtype +'>' + title + '</a>';
-        //EleUtil.selectClass(".subBut").style.cssText = 'width: 30px; margin-right: 5px';
+        subMenu.className= 'subMenu';
+        let subcontent = `<a class='subBut' data-kid=${subid} date-type=${subtype}>${title}</a>`;
         subMenu.onclick = func;
         subMenu.title = title;
-       // subMenu.dataset.hook = 'item1';
         subMenu.innerHTML = subcontent;
         return subMenu;
     },
     clear: function(){
-       "use strict";
-        //EleUtil.selectID("toggleWindow").innerHTML = '';
-        const toggleWindow = EleUtil.selectID("toggleWindow");
-        toggleWindow.style.display = "none";
-        const togWinChildren = toggleWindow.childNodes; 
-        for (var j=0;j<togWinChildren.length;j++){
+        const toggleWindow = EleUtil.selectID('toggleWindow');
+        toggleWindow.style.display = 'none';
+        const togWinChildren = toggleWindow.childNodes;
+        for (let j=0, len = togWinChildren.length ;j<len;j++){
             //console.log(togWinChildren[j]);
             togWinChildren[j].style.display = 'none';
         }
     }
 };
-var KFE = {
-    init: function(){
-        "use strict";  
-        const mainEmotionMenu = createMenu.main();
-        //console.log(mainEmotionMenu);
-        const textareas = document.getElementsByTagName('textarea');
-        if (!textareas.length) { return; }
-        const textarea = EleUtil.select("textarea");
-        textarea.parentNode.insertBefore(mainEmotionMenu, textarea);
-    }
+
+
+//let testareaEleSet = new WeakSet();
+let elementSet = document.getElementsByTagName('textarea');
+let elementSetLength = elementSet.length;
+if(elementSetLength===0){
+  console.log('There is no textarea');
+}
+//testareaEleSet.add(elementSet);
+let userOption = {
+   userWindowHeight: 120,
+   userSelectTextArea: 'last',
 };
-KFE.init();
-
-var scale=2;//输入放大倍数
-$('body').append('<div id="emotion_scale" style="position:absolute;top: 0;left: 0;display: none;"><img src="" height='+parseFloat(scale*80)+'"px" width='+parseFloat(scale*80)+'"px"/></div>');
-$('#toggleWindow').bind('DOMNodeInserted', function(e) {  
-    try{
-        $('#emotion0000').find('img').hover(function(){
-            $("#emotion_scale").fadeIn().css({'top':parseFloat($(this).offset().top-$(this).height()-scale*80)+'px','left':parseFloat($(this).offset().left-scale*40)+'px'}).find('img').attr('src',$(this).attr('src'));
-        },function(){
-            $("#emotion_scale").fadeOut();
-        });
-    }catch(error){
-    }
-});  
-
-
-
-//});
+let mainEmotionMenu = createMenu.main();
+for (let elementSingle of elementSet) {
+  //console.log(elementSingle);
+  elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
+}

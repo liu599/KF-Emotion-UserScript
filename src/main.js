@@ -42,7 +42,7 @@ let biliEM = emAddrArrayHandler(1, 17,'http://smile.nekohand.moe/blogAcc/Loveliv
 emAddrArrayHandler(0, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/bilibiliTV (',
                                 ').png',biliEM);
 // tora酱
-emAddrArrayHandler(0, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/tora/0',
+emAddrArrayHandler(1, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/tora/0',
                             '.jpg',biliEM,true);
 //阿卡林 from 摇曳百合
 let AkariSmile = emAddrArrayHandler(1,21,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/Dynamic/akari','.gif');
@@ -193,12 +193,17 @@ const createItems = {
         let imgList = MenuList[key].addr;
         let imgLength = imgList.length;
         for(let k=0;k<imgLength;k++){
+            let divElement = EleUtil.create('div');
+            divElement.className = 'clickItem';
             let imgItem = EleUtil.create('img');
             imgItem.src = imgList[k];
             imgItem.className = 'Ems';
             imgItem.onclick = expandMenu.attachEmotion;
+            imgItem.onmouseover = mouseOverAction.showImg;
+            imgItem.onmouseout =mouseOverAction.clearImg;
             //imgItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 75px;height: 75px;';
-            outerContainer.appendChild(imgItem);
+            divElement.appendChild(imgItem);
+            outerContainer.appendChild(divElement);
         }
     },
     createPlainText: function(key){
@@ -234,6 +239,24 @@ const createItems = {
         }
     }
 };
+const mouseOverAction = {
+      showImg: function(event){
+          let eventTarget = EventUtil.getTarget(event);
+          if(!eventTarget.src){
+              return null;
+          }
+          let largeViewContainer = EleUtil.selectID('largeView');
+          //console.log([event.clientY,event.clientX]);
+          //console.log([EleUtil.selectID('largeView').style.top,EleUtil.selectID('largeView').style.left]);
+          largeViewContainer.innerHTML = `<img src=${eventTarget.src} />`
+          largeViewContainer.style.display = 'block';
+          largeViewContainer.style.top = `${event.clientY + 20}px`;
+          largeViewContainer.style.left = `${event.clientX}px`;
+      },
+      clearImg: function(event){
+          EleUtil.selectID('largeView').style.display = 'none';
+      }
+}
 const expandMenu = {
     init: function(event){
         createMenu.clear();
@@ -303,7 +326,7 @@ const createMenu = {
     main: function(){
         /*main menu*/
         let mainMenu = EleUtil.create('div');
-        mainMenu.innerHTML = `<span class='subMenu' title='主菜单 version ${versionNo}' style='cursor:pointer;'><b>⑨囧⑨</b></span>`;
+        mainMenu.innerHTML = `<span id='largeView'></span><span class='subMenu' title='主菜单 version ${versionNo}'><b>⑨囧⑨</b></span>`;
         mainMenu.id = createMenu.defaultID;
         let MenuLength = Object.keys(MenuList).length;
         for(let i=0;i<MenuLength;i++){
@@ -328,19 +351,23 @@ const createMenu = {
         mainMenu.appendChild(itemWindow);
         /*css style*/
         let styleItem = EleUtil.create('style');
-        styleItem.innerHTML = `#emotion0000 {padding:5px 5px; vertical-align: middle;  \
+        styleItem.innerHTML = `#emotion0000 {padding:5px 5px; vertical-align: middle;   \
                                  font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif'} \
-                               #toggleWindow a{padding: 3px 3px;line-height:2} \
-                               #toggleWindow { height: 100px; padding: 3px 3px; overflow: auto; margin-top:6px; margin-bottom:6px; border:1px solid #FF4351; display:none}\
-                               a.subBut{text-decoration: none;color: #FFF;} \
-                               .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;} \
+                               #largeView{position:absolute; background: #fff;z-index:5000; opacity: 0.8} \
+                               #largeView img{width: 200px; height:200px;} \
+                               #toggleWindow a{padding: 5px 5px;line-height:2} \
+                               #toggleWindow {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:6px; \
+                                 margin-bottom:6px; border:1px solid #ff4351; display:none;position:relative; z-index:200; }\
+                               .clickItem{display:inline-block; z-index:300;}
+                               a.subBut{text-decoration: none;color: #fff;} \
+                               .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;  z-index:400;} \
                                a.subBut:hover{color: #fff;} \
                                a.txtBtnEmotion{text-decoration:none;} \
                                a.txtBtnEmotion:hover{background:#ff7680; color:#fff; } \
                                .subMenu{display:inline-block;cursor:pointer; text-align:center; padding: 8px 8px; \
                                  font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif';\
-                                 background-color: #FF4351;border-color: #FF4351;color: #FFF;} \
-                               .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #FFF;}`;
+                                 background-color: #ff4351;border-color: #ff4351;color: #fff;} \
+                               .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #fff;}`;
         mainMenu.appendChild(styleItem);
         return mainMenu;
     },
