@@ -36,6 +36,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
+    "gulp-string-replace": "^0.4.0",
     "vinyl-source-stream": "^1.1.0",
     "run-sequence": "^1.2.2",
     "watchify": "^3.8.0"

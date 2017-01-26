@@ -1,18 +1,6 @@
 'use strict';
 const fun = (imgpath='') => {
 
-  /*
-   *  KF Emotion UserScript
-   *  Author: eddie32
-   *  Version: 4.2.2
-   *  Change Log: Rewrite the code based on ES6 recommodation
-   *  Add hover:enlarge feature
-   *  User option storage locally
-   *  License: M.I.T
-   *  Publish Date: 2017.01.26
-  */
-
-
     const versionNo = '4.2.2';
     /* Address function
      * startNumber: number, indicating the start number;
