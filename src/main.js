@@ -1,5 +1,5 @@
 'use strict';
-const fun = (imgpath='') => {
+const fun = (imagepath='') => {
 
     const versionNo = '4.2.2';
     /* Address function
@@ -42,7 +42,7 @@ const fun = (imgpath='') => {
     let ACSmile4 = emAddrArrayHandler(1,51,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/New/','.png');
     emAddrArrayHandler(1,40,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/ACFUN/Niming/','.gif',ACSmile4,true);
     // KF 内置
-    let KFSmileURL = emAddrArrayHandler(1,49,`${typeof imgpath != 'undefined' ? imgpath : ''}/post/smile/em/em`,
+    let KFSmileURL = emAddrArrayHandler(1,49,`${typeof imagepath != 'undefined' ? imagepath : ''}/post/smile/em/em`,
                                         '.gif',[],true);
     let KFSmileCode = emAddrArrayHandler(10,58,`[s:`,
                                          ']');
@@ -401,5 +401,5 @@ const fun = (imgpath='') => {
         }
     }
 };
-const imgpath = '1485412810';
-fun (imgpath);
+const imagepath = '1485412810';
+fun (imagepath);

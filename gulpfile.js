@@ -44,9 +44,34 @@ gulp.task('combineFiles',function(){
         .pipe(concat('kf.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/imgpath =/g,`imgpaths =`))
+        .pipe(replace(/\(imagepath\)/g,`(imgpath)`))
         .pipe(gulp.dest('dist/'));
 })
+
+/* browserifyES2016任务 */
+gulp.task('browserifyTaskES2016', function () {
+     return browserify({
+            entries: 'src/main.js',
+            debug: true
+        }).transform(babelify, {presets: ['es2016', 'es2017']})
+          .bundle()
+          .pipe(source('mainES2016.js'))
+          .pipe(gulp.dest('dist/'));
+})
+/* 合并文件任务ES2016 */
+gulp.task('combineFilesES2016',function(){
+    let versionNumber = getArg('--pv'); //命令行传入版本参数 gulp --pv <version>
+    versionNumber = (versionNumber===null)?'publish':versionNumber;
+    gulp.src(['src/meta.js','dist/mainES2016.js'])
+        .pipe(concat('kfES2016.js'))
+        .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
+        .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
+        .pipe(replace(/\(imagepath\)/g,`(imgpath)`))
+        .pipe(gulp.dest('dist/'));
+})
+
+
+
 
 // 监视任务
 gulp.task('watchjs', function () {
@@ -70,8 +95,8 @@ gulp.task('watchjs', function () {
 });
 
 gulp.task('runtasks',function(callback){
-     runSequence('browserifyTask',
-            'combineFiles',
+     runSequence(['browserifyTask','browserifyTaskES2016'],
+            ['combineFiles','combineFilesES2016'],
             callback);
 });
 
