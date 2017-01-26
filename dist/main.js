@@ -1,39 +1,21 @@
-// ==UserScript==
-// @name       绯月表情增强插件
-// @namespace   https://greasyfork.org/users/5415
-// @version     4.2.2
-// @author      eddie32
-// @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
-// @icon        https://blog.nekohand.moe/favicon.ico
-// @homepage    https://github.com/liu599/KF-Emotion-UserScript
-// @include     https://*miaola.info/*
-// @include     http://*2dkf.com/*
-// @include     http://*9moe.com/*
-// @include     http://*kfgal.com/*
-// @copyright   2014-2017, eddie32
-// @grant       none
-// @license     MIT
-// @run-at      document-end
-// ==/UserScript==
-
 'use strict';
 
-var fun = function fun() {
-    var imgpath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+var fun = function fun(imgpath) {
+    /* *
+     * *  KF Emotion UserScript
+     * *  Author: eddie32
+     * *  Version: 4.2.1
+     * *  Change Log: Rewrite the code based on ES6 recommodation
+     * *  Add hover:enlarge feature
+     * *  User option storage locally
+     * *  License: M.I.T
+     * *  Publish Date: 2017.01.26
+     * */
 
-
-    /*
-     *  KF Emotion UserScript
-     *  Author: eddie32
-     *  Version: 4.2.1
-     *  Change Log: Rewrite the code based on ES6 recommodation
-     *  Add hover:enlarge feature
-     *  User option storage locally
-     *  License: M.I.T
-     *  Publish Date: 2017.01.26
-    */
+    'use strict';
 
     var versionNo = '4.2.0';
+
     /* Address function
      * startNumber: number, indicating the start number;
      * lengthArray: number, indicating the addrArray length;
@@ -42,6 +24,7 @@ var fun = function fun() {
      * leadingZero: boolen, true for leading zero in number;
      * addrArray: array, address array, default for empty;
      */
+
     // 创建表情包数组的函数
     function emAddrArrayHandler(startNumber, lengthArray, strPrefix, strSuffix) {
         var addrArray = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
@@ -388,45 +371,42 @@ var fun = function fun() {
         }
     };
 
-    if (typeof window !== 'undefined' && document != null) {
-        //let testareaEleSet = new WeakSet();
-        var elementSet = document.getElementsByTagName('textarea');
-        var elementSetLength = elementSet.length;
-        if (elementSetLength === 0) {
-            console.log('There is no textarea');
+    //let testareaEleSet = new WeakSet();
+    var elementSet = document.getElementsByTagName('textarea');
+    var elementSetLength = elementSet.length;
+    if (elementSetLength === 0) {
+        console.log('There is no textarea');
+    }
+    //testareaEleSet.add(elementSet);
+    var userOption = {
+        userWindowHeight: 120,
+        userSelectTextArea: 'last'
+    };
+    var mainEmotionMenu = createMenu.main();
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = elementSet[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var elementSingle = _step.value;
+
+            //console.log(elementSingle);
+            elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
         }
-        //testareaEleSet.add(elementSet);
-        var userOption = {
-            userWindowHeight: 120,
-            userSelectTextArea: 'last'
-        };
-        var mainEmotionMenu = createMenu.main();
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
         try {
-            for (var _iterator = elementSet[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var elementSingle = _step.value;
-
-                //console.log(elementSingle);
-                elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
             }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
         } finally {
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
-                }
-            } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
+            if (_didIteratorError) {
+                throw _iteratorError;
             }
         }
     }
 };
-//var imgpath = '1485412810';
 fun(imgpath);

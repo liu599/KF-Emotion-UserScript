@@ -4,7 +4,7 @@ Add user-defined emotion for BBCODE forum.
 
 KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 
-## 脚本下载地址
+## 脚本地址
 1. [【安装地址】](https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6)
 2. [【更新地址】](https://raw.githubusercontent.com/liu599/KF-Emotion-UserScript/master/dist/kf.js)
 3. [【备用地址】](http://gulp.nekohand.moe/KF-Emotion-UserScript/dist/kf.js)
@@ -30,10 +30,15 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 1. __Version 2.0.1:__  2014.09.20版本: 正式版插件
 2. __Version 3.0.1:__  2016.11.13版本: bug修复
 3. __Version 4.0.0:__  2017.01.09版本: 更改脚本架构。
+4. __Version 4.2.1:__  2017.01.26版本：按照ES6标准更改代码, 继续学习gulp项目管理工具。
 
 ## 开发计划
-1. 自定义上传表情功能
-2. 收藏功能
+1. 收藏功能
+2. 自定义上传表情功能
+
+## 鸣谢
+
+[【喵拉布丁】KF Online助手项目](https://github.com/miaolapd/KF_Online_Assistant)
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)

@@ -1,28 +1,27 @@
-const fun = (imgpath) => {
-/* *
- * *  KF Emotion UserScript
- * *  Author: eddie32
- * *  Version: 4.2.1
- * *  Change Log: Rewrite the code based on ES6 recommodation
- * *  Add hover:enlarge feature
- * *  User option storage locally
- * *  License: M.I.T
- * *  Publish Date: 2017.01.26
- * */
+'use strict';
+const fun = (imgpath='') => {
 
-    'use strict';
+  /*
+   *  KF Emotion UserScript
+   *  Author: eddie32
+   *  Version: 4.2.1
+   *  Change Log: Rewrite the code based on ES6 recommodation
+   *  Add hover:enlarge feature
+   *  User option storage locally
+   *  License: M.I.T
+   *  Publish Date: 2017.01.26
+  */
+
+
     const versionNo = '4.2.0';
-
-
-/* Address function
- * startNumber: number, indicating the start number;
- * lengthArray: number, indicating the addrArray length;
- * strPrefix: string, address Prefix;
- * strSuffix: string, address Suffix;
- * leadingZero: boolen, true for leading zero in number;
- * addrArray: array, address array, default for empty;
- */
-
+    /* Address function
+     * startNumber: number, indicating the start number;
+     * lengthArray: number, indicating the addrArray length;
+     * strPrefix: string, address Prefix;
+     * strSuffix: string, address Suffix;
+     * leadingZero: boolen, true for leading zero in number;
+     * addrArray: array, address array, default for empty;
+     */
     // 创建表情包数组的函数
     function emAddrArrayHandler(startNumber, lengthArray, strPrefix, strSuffix,  addrArray = [], leadingZero = false){
         let addrTemp = '', addrNumber = 0;
@@ -252,9 +251,9 @@ const fun = (imgpath) => {
             largeViewContainer.style.display = 'block';
             largeViewContainer.style.top = `${event.clientY + scrollTopValue + 20}px`;
             largeViewContainer.style.left = `${event.clientX + scrollLeftValue}px`;
-            console.log([event.clientY,event.clientX]);
-            console.log([EleUtil.selectID('largeView').style.top,EleUtil.selectID('largeView').style.left]);
-            console.log([document.body.scrollTop,document.body.scrollLeft]);
+            //console.log([event.clientY,event.clientX]);
+            //console.log([EleUtil.selectID('largeView').style.top,EleUtil.selectID('largeView').style.left]);
+            //console.log([document.body.scrollTop,document.body.scrollLeft]);
         },
         clearImg: function(event){
             EleUtil.selectID('largeView').style.display = 'none';
@@ -395,22 +394,24 @@ const fun = (imgpath) => {
         }
     };
 
-
-    //let testareaEleSet = new WeakSet();
-    let elementSet = document.getElementsByTagName('textarea');
-    let elementSetLength = elementSet.length;
-    if(elementSetLength===0){
-        console.log('There is no textarea');
-    }
-    //testareaEleSet.add(elementSet);
-    let userOption = {
-        userWindowHeight: 120,
-        userSelectTextArea: 'last',
-    };
-    let mainEmotionMenu = createMenu.main();
-    for (let elementSingle of elementSet) {
-        //console.log(elementSingle);
-        elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
+    if(typeof window !== 'undefined' && document != null) {
+        //let testareaEleSet = new WeakSet();
+        let elementSet = document.getElementsByTagName('textarea');
+        let elementSetLength = elementSet.length;
+        if(elementSetLength===0){
+            console.log('There is no textarea');
+        }
+        //testareaEleSet.add(elementSet);
+        let userOption = {
+            userWindowHeight: 120,
+            userSelectTextArea: 'last',
+        };
+        let mainEmotionMenu = createMenu.main();
+        for (let elementSingle of elementSet) {
+            //console.log(elementSingle);
+            elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
+        }
     }
 };
+const imgpath = '1485412810';
 fun (imgpath);

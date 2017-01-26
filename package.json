@@ -4,7 +4,7 @@
   "description": "KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE",
   "main": "kf.js",
   "scripts": {
-    "build": "cd src && babel es6 -d es5",
+    "build": "cd src && babel-node main.js --presets es2016",
     "test": "http-server -p 8822 -o"
   },
   "keywords": [
@@ -23,16 +23,16 @@
   },
   "homepage": "https://github.com/liu599/KF-Emotion-UserScript",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2016": "^6.16.0",
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.16.0",
-    "jquery":"^2.1.3",
+    "browserify": "^13.1.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
     "gulp-util": "^3.0.8",
-    "browserify": "^13.1.1",
+    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.8.0"
   }
 }
