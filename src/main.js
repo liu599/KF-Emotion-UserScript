@@ -4,7 +4,7 @@ const fun = (imgpath='') => {
   /*
    *  KF Emotion UserScript
    *  Author: eddie32
-   *  Version: 4.2.1
+   *  Version: 4.2.2
    *  Change Log: Rewrite the code based on ES6 recommodation
    *  Add hover:enlarge feature
    *  User option storage locally
@@ -13,7 +13,7 @@ const fun = (imgpath='') => {
   */
 
 
-    const versionNo = '4.2.0';
+    const versionNo = '4.2.2';
     /* Address function
      * startNumber: number, indicating the start number;
      * lengthArray: number, indicating the addrArray length;
@@ -146,7 +146,7 @@ const fun = (imgpath='') => {
     /*Cookie处理*/
     const CookieUtil = {
         getCookies: function(){
-            CookieObj = {};
+            let CookieObj = {};
             let thisCookie = document.cookie;
             if(thisCookie === '') return CookieObj;
             let listObj = thisCookie.split(';');
@@ -182,7 +182,7 @@ const fun = (imgpath='') => {
     const createItems = {
         createContainer: function(key){
             let ItemContainer = EleUtil.create('div');
-            ItemContainer.id = 'eddie32' + key;
+            ItemContainer.id = `eddie32${key}`;
             EleUtil.selectID('toggleWindow').style.height='100px';
             EleUtil.selectID('toggleWindow').appendChild(ItemContainer);
             return ItemContainer;

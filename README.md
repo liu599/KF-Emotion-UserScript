@@ -1,8 +1,8 @@
-# KF-Emotion-Assistant
+# KF论坛表情扩展插件  
 
 Add user-defined emotion for BBCODE forum.
 
-KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
+KF论坛、BBCODE论坛专用的回复表情, 自定义插图的脚本。 用户在发帖时可以快速输入自定义表情和论坛BBCODE。
 
 ## 脚本地址
 1. [【安装地址】](https://greasyfork.org/zh-CN/scripts/5124-%E7%BB%AF%E6%9C%88%E8%A1%A8%E6%83%85%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6)
@@ -35,6 +35,7 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 ## 开发计划
 1. 收藏功能
 2. 自定义上传表情功能
+3. 表情共享: 提供用户分享表情(对表情进行评分, 下载高分表情的功能)
 
 ## 鸣谢
 

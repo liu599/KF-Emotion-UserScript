@@ -28,11 +28,16 @@
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.16.0",
     "browserify": "^13.1.1",
+    "babelify": "^7.3.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
     "vinyl-source-stream": "^1.1.0",
+    "run-sequence": "^1.2.2",
     "watchify": "^3.8.0"
   }
 }
