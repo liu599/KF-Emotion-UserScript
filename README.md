@@ -10,7 +10,7 @@ KF论坛、BBCODE论坛专用的回复表情, 自定义插图的脚本。 用户
 3. [【备用地址】](http://gulp.nekohand.moe/KF-Emotion-UserScript/dist/kf.js)
 
 
-## 安装方法
+## 用户脚本安装方法
 1. __Firefox：__ 安装[Greasemonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/)扩展 或 [Tampermonkey](https://addons.mozilla.org/firefox/addon/tampermonkey/)扩展，重启浏览器后访问脚本下载地址安装脚本即可
 2. __Chrome（及各种采用Chromium内核的浏览器，如360、搜狗、百度、猎豹、QQ浏览器等）：__  
 安装[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)扩展（需翻墙），然后访问脚本下载地址安装脚本即可  
@@ -21,6 +21,13 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 5. __傲游浏览器：__ 安装[暴力猴](http://extension.maxthon.cn/detail/index.php?view_id=1680)扩展，然后访问脚本下载地址安装脚本即可
 6. __手机浏览器：__ [详情请见此贴](http://bbs.2dkf.com/read.php?tid=509273)
 
+## 项目开发者部署
+1. 安装nodejs环境
+2. git clone至本地
+3. cd到下载解压好的KF-Emotion-UserScript目录, 运行npm install安装依赖包
+4. 运行`gulp --pv x.x.x`(x为1-9的数字)可以更新版本并自动打包编译为dist/kf.js(es2015兼容版本)以及dist/kfES2016.js(es2016版本)
+5. 还可以启动http-server在index.html来测试效果
+
 ## 联系作者
 1. 账号1: [eddie32](http://bbs.9moe.com/profile.php?uid=116467)
 2. 账号2: [徳井青空](http://bbs.9moe.com/profile.php?uid=398027)
@@ -30,12 +37,12 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 1. __Version 2.0.1:__  2014.09.20版本: 正式版插件
 2. __Version 3.0.1:__  2016.11.13版本: bug修复
 3. __Version 4.0.0:__  2017.01.09版本: 更改脚本架构。
-4. __Version 4.2.1:__  2017.01.26版本：按照ES6标准更改代码, 继续学习gulp项目管理工具。
+4. __Version 4.2.9:__  2017.01.26版本：按照ES6标准更改代码, 继续学习gulp项目管理工具。
 
 ## 开发计划
 1. 收藏功能
 2. 自定义上传表情功能
-3. 表情共享: 提供用户分享表情(对表情进行评分, 下载高分表情的功能)
+3. 表情云共享: 提供用户分享表情(对表情进行评分, 下载高分表情的功能)
 
 ## 鸣谢
 

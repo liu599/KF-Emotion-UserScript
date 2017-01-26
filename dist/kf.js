@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.2.8
+// @version     4.2.9
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
@@ -23,7 +23,7 @@ var fun = function fun() {
     var imagepath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
 
-    var versionNo = '4.2.8';
+    var versionNo = '4.2.9';
     /* Address function
      * startNumber: number, indicating the start number;
      * lengthArray: number, indicating the addrArray length;

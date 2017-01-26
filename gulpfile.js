@@ -68,6 +68,7 @@ gulp.task('combineFilesES2016',function(){
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
         .pipe(replace(/\(imagepath\)/g,`(imgpath)`))
         .pipe(gulp.dest('dist/'));
+
 })
 
 
@@ -89,7 +90,10 @@ gulp.task('watchjs', function () {
     //             presets: ['es2016']
     //           }))
     //         .pipe(gulp.dest('dist/'));
-
+    let versionNumber = getArg('--pv'); //命令行传入版本参数 gulp --pv <version>
+    versionNumber = (versionNumber===null)?'publish':versionNumber;
+    gulp.src('package.json')
+        .pipe(replace(/"version": "[0-9].[0-9].[0-9]"/, `"version": "${versionNumber}"`))
     gulp.watch('src/*',['browserifyTask','combineFiles']);
 
 });
