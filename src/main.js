@@ -24,9 +24,13 @@ const fun = (imagepath='') => {
         return addrArray;
     }
     /* 表情包地址数据 */
-    // B站
+
+
+
+    //B站
     let biliEM = emAddrArrayHandler(1, 17,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/2233 (',
                                     ').gif');
+    emAddrArrayHandler(1,14,'http://smile.nekohand.moe/blogAcc/Bilibili/xds/','.png',biliEM);
     emAddrArrayHandler(0, 14,'http://smile.nekohand.moe/blogAcc/LoveliveEmotion01/EmCol/BiliBili/bilibiliTV (',
                        ').png',biliEM);
     // tora酱
@@ -384,7 +388,15 @@ const fun = (imagepath='') => {
 
     if(typeof window !== 'undefined' && document != null) {
         //let testareaEleSet = new WeakSet();
-        let elementSet = document.getElementsByTagName('textarea');
+
+        NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+        HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+        let elementSet = Array.from(document.getElementsByTagName('textarea'));
+        /*兼容性问题 By 喵拉布丁2017.01.30: document.getElementsByTagName方法返回的是HTMLCollection
+在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环
+而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环
+所以建议楼主还是用老方法吧*/
+        // Solution stackflow: http://stackoverflow.com/questions/22754315/foreach-loop-for-htmlcollection-elements
         let elementSetLength = elementSet.length;
         if(elementSetLength===0){
             console.log('There is no textarea');
