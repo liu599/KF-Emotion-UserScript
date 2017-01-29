@@ -38,6 +38,7 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 2. __Version 3.0.1:__  2016.11.13版本: bug修复
 3. __Version 4.0.0:__  2017.01.09版本: 更改脚本架构。
 4. __Version 4.2.9:__  2017.01.26版本：按照ES6标准更改代码, 继续学习gulp项目管理工具。
+5. __Version 4.3.0:__  2017.01.30版本: 兼容性修复, document.getElementsByTagName方法返回的是HTMLCollection。在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环。 解决方法: `Array.from`
 
 ## 开发计划
 1. 收藏功能
