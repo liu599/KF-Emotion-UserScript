@@ -1,15 +1,15 @@
 {
   "name": "KF-Emotion-Assistant",
-  "version": "4.3.2",
+  "version": "4.3.4",
   "description": "KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE",
   "main": "kf.js",
   "scripts": {
     "build": "cd src && babel-node main.js --presets es2016",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "realtest":"mocha -t 15000 test.js",
+    "realtest": "mocha -t 15000 test.js",
     "lint": "eslint src/main.js",
     "lint-html": "eslint src/main.js -f html -o ./reports/lint-results.html",
-    "lint-fix": "eslint --fix src/main.js",
+    "lint-fix": "eslint --fix src/main.js ./gulpfile.js",
     "open": "http-server -p 8822 -o"
   },
   "keywords": [
@@ -43,6 +43,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
+    "gulp-streamify": "^1.0.2",
     "gulp-string-replace": "^0.4.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
