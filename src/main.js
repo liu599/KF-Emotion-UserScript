@@ -320,7 +320,7 @@ const fun = (imagepath = '') => {
       closeBtn.innerHTML = '[x]';
       closeBtn.className = 'subMenu';
       closeBtn.id = 'closeEM';
-      closeBtn.onclick = createMenu.clear;
+      closeBtn.onclick = clearMenu.clear;
       closeBtn.style.cssText = 'cursor:pointer';
       mainMenu.appendChild(closeBtn);
             /* dropdown box*/
@@ -397,5 +397,5 @@ const fun = (imagepath = '') => {
     }
   }
 };
-const imagepath = '1485412810';
+const imagepath = '1485412810'; // This is fake.  Global Variable.
 fun(imagepath);

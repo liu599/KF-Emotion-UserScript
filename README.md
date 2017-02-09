@@ -22,11 +22,13 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 6. __手机浏览器：__ [详情请见此贴](http://bbs.2dkf.com/read.php?tid=509273)
 
 ## 项目开发者部署
-1. 安装nodejs环境
-2. git clone至本地
-3. cd到下载解压好的KF-Emotion-UserScript目录, 运行npm install安装依赖包
-4. 运行`gulp --pv x.x.x`(x为1-9的数字)可以更新版本并自动打包编译为dist/kf.js(es2015兼容版本)以及dist/kfES2016.js(es2016版本)
-5. 还可以启动http-server在index.html来测试效果
+1. 系统中安装nodejs环境
+2. 打开命令行选择适当位置, `git clone https://github.com/liu599/KF-Emotion-UserScript.git`至本地
+3. `cd KF-Emotion-UserScript`目录中, 运行`npm install`安装依赖包
+4. 运行`gulp --pv x.x.x`(x为1-9的数字)可以更新版本并自动打包编译为dist/kf.js(es2015兼容版本, greasyfork服务器同步版本)以及dist/kfES2016.js(es2016版本)
+5. 运行`npm run open`在浏览器中测试效果
+6. 运行`npm run lint`进行静态代码测试，运行`npm run lint-fix`自动修复代码错误(格式为Airbnb格式)
+7. 运行`npm run realtest`进行功能测试。
 
 ## 联系作者
 1. 账号1: [eddie32](http://bbs.9moe.com/profile.php?uid=116467)
@@ -41,6 +43,7 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 5. __Version 4.3.0:__  2017.01.30版本: 兼容性修复, document.getElementsByTagName方法返回的是HTMLCollection。Comment from 布丁: 在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环。 目前采用解决方法: `Array.from`。
 6. __Version 4.3.1:__  2017.01.31版本: 修正因父容器`position:relative`导致放大图的位移错误。 Comment from 布丁: 还有Array.from方法确实能解决Chrome下HTMLCollection不能用for...of循环的问题，不过Chrome 45才开始支持Array.from方法, 若想兼容以前的浏览器的话，可以用for...in循环，或者加个babel-polyfill脚本。当然你不想兼容使用Chromium 45以前内核的浏览器也没多大问题，现在国内市场份额最多Chromium套壳浏览器--360安全浏览器的最新正式版也是采用Chromium 45内核了。
 7. __Version 4.3.2:__  2017.02.09版本: 使用eslint进行静态代码检查。
+8. __Version 4.3.3:__  2017.02.10版本: 使用Mocha及Nightmare进行功能测试。
 
 ## 开发计划
 1. 收藏功能
