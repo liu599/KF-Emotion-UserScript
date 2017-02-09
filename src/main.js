@@ -363,12 +363,23 @@ const fun = (imagepath = '') => {
   };
 
   if (typeof window !== 'undefined' && document != null) {
-        // let testareaEleSet = new WeakSet();
-
-    NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
-    HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
-    const elementSet = Array.from(document.getElementsByTagName('textarea'));
-
+    // let testareaEleSet = new WeakSet();
+    const testSet = document.getElementsByTagName('textarea');
+    // console.log(testSet);
+    // console.log(testSet.item(0));
+    const mainEmotionMenu = createMenu.main();
+    if (document.getElementById('editor-content') !== null) {
+      document.getElementById('editor-content').style.position = 'static';
+    }
+    for (let w = 0; w < testSet.length; w += 1) {
+      // console.log(testSet.item(w));
+      const elementTest = testSet.item(w);
+      // console.log(mainEmotionMenu);
+      elementTest.parentNode.insertBefore(mainEmotionMenu, elementTest);
+    }
+    // NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+    // HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+    // const elementSet = Array.from(document.getElementsByTagName('textarea'));
         /* 兼容性问题 By 喵拉布丁2017.01.30: document.getElementsByTagName方法返回的是HTMLCollection
 在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环
 而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环
@@ -386,15 +397,12 @@ const fun = (imagepath = '') => {
       userWindowHeight: 120,
       userSelectTextArea: 'last',
     }; */
-    const mainEmotionMenu = createMenu.main();
-    if (document.getElementById('editor-content') !== null) {
-      document.getElementById('editor-content').style.position = 'static';
-    }
+
     /* eslint no-restricted-syntax: [1, "ForOfStatement"] */
-    for (const elementSingle of elementSet) {
-            // console.log(elementSingle);
+    /* for (const elementSingle of elementSet) {
+             console.log(elementSingle);
       elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
-    }
+    } */
   }
 };
 const imagepath = '1485412810'; // This is fake.  Global Variable.
