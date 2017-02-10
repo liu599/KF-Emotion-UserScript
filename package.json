@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cd src && babel-node main.js --presets es2016",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "realtest": "mocha -t 15000 test.js",
+    "realtest": "mocha -t 50000 test.js",
     "lint": "eslint src/main.js",
     "lint-html": "eslint src/main.js -f html -o ./reports/lint-results.html",
     "lint-fix": "eslint --fix src/main.js ./gulpfile.js",

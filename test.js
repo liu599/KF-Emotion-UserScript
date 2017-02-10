@@ -52,11 +52,13 @@ describe('test emotion functions',function(){
 
   it('点击按钮, 出现表情后, 点击表情, 输入框输出文字', function(done){
     nightmare
-      .goto('http://127.0.0.1:8080')
+      .goto('http://gulp.nekohand.moe/KF-Emotion-UserScript/')
       .wait(1000)
-      .click('span#item5')
-      .click('#eddie32item5 > div:nth-child(1)')
-      .wait(3000)
+      .click('#item3')
+      .wait('#toggleWindow')
+      .wait('#eddie32item3')
+      .click('#eddie32item3 > div:nth-child(1)')
+      .wait(1000)
       .evaluate(function(){
         elem = document.querySelector('textarea');
         return elem.value;
