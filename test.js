@@ -1,3 +1,5 @@
+'use strict';
+
 let Nightmare = require('nightmare');
 let expect = require('chai').expect;
 let should = require('chai').should();
