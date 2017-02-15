@@ -1,5 +1,9 @@
 /* eslint linebreak-style: ["error", "windows"] */
 
+/* eslint-disable strict */
+
+'use strict';
+
 
 const fun = (imagepath = '') => {
   const versionNo = '4.2.2';

@@ -1,5 +1,5 @@
-/* eslint-disable strict*/
-/* eslint-disable no-unused-expressions*/
+/* eslint-disable strict */
+/* eslint no-unused-expressions: [1] */
 /* eslint no-unused-vars: [1] */
 
 'use strict';
