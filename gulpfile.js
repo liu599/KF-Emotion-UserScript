@@ -1,4 +1,4 @@
-
+'use strict';
 
 /* 导入模块 */
 
@@ -35,7 +35,6 @@ gulp.task('browserifyTask', () => browserify({
 }).transform(babelify, { presets: ['es2015', 'es2016', 'es2017'] })
           .bundle()
           .pipe(source('main.js'))
-          .pipe(streamify(uglify()))
           .pipe(gulp.dest('dist/')));
 /* 合并文件任务2015 */
 gulp.task('combineFiles', () => {
@@ -45,7 +44,9 @@ gulp.task('combineFiles', () => {
         .pipe(concat('kf.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/\(imagepath\)/g, '(imgpath)'))
+        .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake\.  Global Variable\./, `\/\/ `))
+        .pipe(replace(/\(imagepath\)/, `(imgpath)`))
+       // .pipe(streamify(uglify()))
         .pipe(gulp.dest('dist/'));
 });
 
@@ -65,7 +66,8 @@ gulp.task('combineFilesES2016', () => {
         .pipe(concat('kfES2016.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/\(imagepath\)/g, '(imgpath)'))
+        .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake\.  Global Variable\./, `\/\/ `))
+        .pipe(replace(/\(imagepath\)/, `(imgpath)`))
         .pipe(gulp.dest('dist/'));
 });
 
