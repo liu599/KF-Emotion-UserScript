@@ -1,5 +1,9 @@
+/* eslint-disable strict*/
+
 'use strict';
-let httpServer = require('http-server');
-let server = httpServer.createServer();
+
+const httpServer = require('http-server');
+
+const server = httpServer.createServer();
 server.listen(8080);
 process.send('listening');

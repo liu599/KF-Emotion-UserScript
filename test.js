@@ -1,41 +1,50 @@
+/* eslint-disable strict*/
+/* eslint-disable no-unused-expressions*/
+/* eslint no-unused-vars: [1] */
+
 'use strict';
 
-let Nightmare = require('nightmare');
-let expect = require('chai').expect;
-let should = require('chai').should();
-let fork = require('child_process').fork;
+const it = require('mocha').it;
+const describe = require('mocha').describe;
+const before = require('mocha').before;
+const after = require('mocha').after;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
+const Nightmare = require('nightmare');
+const expect = require('chai').expect;
+const should = require('chai').should;
+const fork = require('child_process').fork;
 
-describe('test emotion functions',function(){
+describe('test emotion functions', () => {
   let child;
   let nightmare;
-  before(function (done){
+  before((done) => {
     child = fork('./server.js');
-    child.on('message',function(msg){
-      if(msg === 'listening'){
+    child.on('message', (msg) => {
+      if (msg === 'listening') {
         done();
       }
     });
-    //have the test server listen on a given port
-    //server.listen(8080, done);
+    // have the test server listen on a given port
+    // server.listen(8080, done);
   });
 
-  after(function(){
+  after(() => {
     child.kill();
   });
 
-  //before each test,
-  beforeEach(function(){
-    //create a new nightmare instance
-    nightmare = Nightmare({ show:true });
+  // before each test,
+  beforeEach(() => {
+    // create a new nightmare instance
+    nightmare = Nightmare({ show: true });
   });
 
-  //after each test,
-  afterEach(function *(){
-    //end the nightmare instance
+  // after each test,
+  afterEach(function* () {
+    // end the nightmare instance
     yield nightmare.end();
-  })
-  it('点击按钮后表情展开表情框, 点击关闭按钮后表情框消失',function *(){
-
+  });
+  it('点击按钮后表情展开表情框, 点击关闭按钮后表情框消失', function* () {
     let exists = yield nightmare
       .goto('http://127.0.0.1:8080')
       .wait(1000)
@@ -50,7 +59,7 @@ describe('test emotion functions',function(){
     exists.should.be.false;
   });
 
-  it('点击按钮, 出现表情后, 点击表情, 输入框输出文字', function(done){
+  it('点击按钮, 出现表情后, 点击表情, 输入框输出文字', (done) => {
     nightmare
       .goto('http://gulp.nekohand.moe/KF-Emotion-UserScript/')
       .wait(1000)
@@ -59,15 +68,14 @@ describe('test emotion functions',function(){
       .wait('#eddie32item3')
       .click('#eddie32item3 > div:nth-child(1)')
       .wait(1000)
-      .evaluate(function(){
-        elem = document.querySelector('textarea');
+      .evaluate(() => {
+        const elem = document.querySelector('textarea');
         return elem.value;
       })
       .end()
-      .then(function(text){
+      .then((text) => {
         expect(text).to.equal(`[img]${text}[/img]`);
         done();
-      })
-  })
-
+      });
+  });
 });

@@ -1,3 +1,5 @@
+/* eslint-disable strict*/
+
 'use strict';
 
 /* 导入模块 */
@@ -6,7 +8,7 @@ const gulp = require('gulp');
 // const gutil = require('gulp-util');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-const streamify = require('gulp-streamify');
+// const streamify = require('gulp-streamify');
 // const rename = require('gulp-rename');
 // const replace = require('gulp-replace');
 const replace = require('gulp-string-replace');
@@ -35,8 +37,12 @@ gulp.task('browserifyTask', () => browserify({
 }).transform(babelify, { presets: ['es2015', 'es2016', 'es2017'] })
           .bundle()
           .pipe(source('main.js'))
+          // .pipe(streamify(uglify()))
           .pipe(gulp.dest('dist/')));
+
+
 /* 合并文件任务2015 */
+
 gulp.task('combineFiles', () => {
   let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
   versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
@@ -44,13 +50,14 @@ gulp.task('combineFiles', () => {
         .pipe(concat('kf.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake\.  Global Variable\./, `\/\/ `))
-        .pipe(replace(/\(imagepath\)/, `(imgpath)`))
-       // .pipe(streamify(uglify()))
+        .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+        .pipe(replace(/\(imagepath\)/, '(imgpath)'))
+        .pipe(uglify())
         .pipe(gulp.dest('dist/'));
 });
 
 /* browserifyES2016任务 */
+
 gulp.task('browserifyTaskES2016', () => browserify({
   entries: 'src/main.js',
   debug: true,
@@ -58,7 +65,9 @@ gulp.task('browserifyTaskES2016', () => browserify({
           .bundle()
           .pipe(source('mainES2016.js'))
           .pipe(gulp.dest('dist/')));
+
 /* 合并文件任务ES2016 */
+
 gulp.task('combineFilesES2016', () => {
   let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
   versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
@@ -66,13 +75,14 @@ gulp.task('combineFilesES2016', () => {
         .pipe(concat('kfES2016.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake\.  Global Variable\./, `\/\/ `))
-        .pipe(replace(/\(imagepath\)/, `(imgpath)`))
+        .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+        .pipe(replace(/\(imagepath\)/, '(imgpath)'))
         .pipe(gulp.dest('dist/'));
 });
 
 
 // 监视任务
+
 gulp.task('watchjs', () => {
     //
     // gulp.src(['src/meta.js','src/main.js'])
