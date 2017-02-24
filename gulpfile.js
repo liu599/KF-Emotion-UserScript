@@ -46,9 +46,9 @@ gulp.task('uglifile',() => {
 
   gulp.src(['dist/main.js'])
       .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-      .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-      .pipe(replace(/\(imagepath\)/, '(imgpath)'))
-      .pipe(uglify())
+    //  .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+    //  .pipe(replace(/\(imagepath\)/, '(imgpath)'))
+    //  .pipe(uglify())
       .pipe(gulp.dest('dist/'));
 });
 
@@ -60,6 +60,9 @@ gulp.task('combineFiles', () => {
   gulp.src(['src/meta.js', 'dist/main.js'])
         .pipe(concat('kf.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
+        .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
+     //   .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+     //   .pipe(replace(/\(imagepath\)/, '(imgpath)'))
         .pipe(gulp.dest('dist/'));
 });
 
@@ -82,8 +85,8 @@ gulp.task('combineFilesES2016', () => {
         .pipe(concat('kfES2016.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
         .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-        .pipe(replace(/\(imagepath\)/, '(imgpath)'))
+     //   .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+     //   .pipe(replace(/\(imagepath\)/, '(imgpath)'))
         .pipe(gulp.dest('dist/'));
 });
 

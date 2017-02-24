@@ -4,8 +4,8 @@
 
 'use strict';
 
-
-const fun = (imagepath = '') => {
+let imgpath;
+const fun = (imagepath = '1485412810') => {
   const versionNo = '4.2.2';
     /* Address function
      * startNumber: number, indicating the start number;
@@ -408,5 +408,6 @@ const fun = (imagepath = '') => {
     } */
   }
 };
-const imagepath = '1485412810'; // This is fake.  Global Variable.
-fun(imagepath);
+
+if(typeof imgpath === 'undefined')  imgpath = '1485412810';
+fun(imgpath);
