@@ -49,7 +49,7 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 6. __Version 4.3.1:__  2017.01.31版本: 修正因父容器`position:relative`导致放大图的位移错误。 Comment from 布丁: 还有Array.from方法确实能解决Chrome下HTMLCollection不能用for...of循环的问题，不过Chrome 45才开始支持Array.from方法, 若想兼容以前的浏览器的话，可以用for...in循环，或者加个babel-polyfill脚本。当然你不想兼容使用Chromium 45以前内核的浏览器也没多大问题，现在国内市场份额最多Chromium套壳浏览器--360安全浏览器的最新正式版也是采用Chromium 45内核了。
 7. __Version 4.3.2:__  2017.02.09版本: 使用eslint进行静态代码检查。
 8. __Version 4.3.5:__  2017.02.10版本: 使用Mocha及Nightmare进行功能测试(未完成)。修正for-of循环问题。
-9. __Version 4.4.0:__  2017.02.25版本: 修改了变量名imagepath的打包错误。
+9. __Version 4.4.1:__  2017.02.25版本: 修改了变量名imagepath的打包错误。
 
 ### 开发计划
 

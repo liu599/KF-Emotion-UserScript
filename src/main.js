@@ -4,7 +4,7 @@
 
 'use strict';
 
-let imgpath;
+
 const fun = (imagepath = '1485412810') => {
   const versionNo = '4.2.2';
     /* Address function
