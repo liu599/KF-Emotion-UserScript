@@ -29,6 +29,8 @@ function getArg(key) {
   return (index < 0) ? null : nestValue;
 }
 
+let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
+versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
 
 /* browserify任务2015 */
 gulp.task('browserifyTask', () => browserify({
@@ -40,19 +42,24 @@ gulp.task('browserifyTask', () => browserify({
           // .pipe(streamify(uglify()))
           .pipe(gulp.dest('dist/')));
 
+gulp.task('uglifile',() => {
+
+  gulp.src(['dist/main.js'])
+      .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
+      .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
+      .pipe(replace(/\(imagepath\)/, '(imgpath)'))
+      .pipe(uglify())
+      .pipe(gulp.dest('dist/'));
+});
+
 
 /* 合并文件任务2015 */
 
 gulp.task('combineFiles', () => {
-  let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
-  versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
+
   gulp.src(['src/meta.js', 'dist/main.js'])
         .pipe(concat('kf.js'))
         .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
-        .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-        .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-        .pipe(replace(/\(imagepath\)/, '(imgpath)'))
-        .pipe(uglify())
         .pipe(gulp.dest('dist/'));
 });
 
@@ -107,10 +114,12 @@ gulp.task('watchjs', () => {
 
 gulp.task('runtasks', (callback) => {
   runSequence(['browserifyTask', 'browserifyTaskES2016'],
+            'uglifile',
             ['combineFiles', 'combineFilesES2016'],
             callback);
 });
 
 
 /* 生成文件 */
-gulp.task('default', ['runtasks', 'watchjs']);
+// gulp.task('default', ['runtasks', 'watchjs']);
+gulp.task('default', ['runtasks']);
