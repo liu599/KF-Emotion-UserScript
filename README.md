@@ -50,7 +50,7 @@ _（各种采用了Chromium内核的国产浏览器也可尝试到各自的应�
 7. __Version 4.3.2:__  2017.02.09版本: 使用eslint进行静态代码检查。
 8. __Version 4.3.5:__  2017.02.10版本: 使用Mocha及Nightmare进行功能测试(未完成)。修正for-of循环问题。
 9. __Version 4.4.1:__  2017.02.25版本: 修改了变量名imagepath的打包错误。
-
+10. __Version 4.4.2:__ 2017.03.03版本： 去除Attr.nodeValue。 该方法Dom4不再支持引起firefox错误。
 ### 开发计划
 
 收藏功能
