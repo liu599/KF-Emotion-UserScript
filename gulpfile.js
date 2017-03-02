@@ -117,7 +117,6 @@ gulp.task('watchjs', () => {
 
 gulp.task('runtasks', (callback) => {
   runSequence(['browserifyTask', 'browserifyTaskES2016'],
-            'uglifile',
             ['combineFiles', 'combineFilesES2016'],
             callback);
 });

@@ -169,18 +169,18 @@ const fun = (imagepath = '1485412810') => {
 
       let addressTarget = '';
       let emotionAddress = '';
-      if (eventTarget.attributes.length === 2) {
+      if (eventTarget.getAttribute('data-link') === null) {
         if (eventTarget.src) {
           addressTarget = eventTarget.src;
           emotionAddress = attachAction.addressParse(addressTarget, 'image');
         } else {
                       // console.log(eventTarget.attributes);
-          addressTarget = eventTarget.attributes[0].nodeValue;
+          addressTarget = eventTarget.getAttribute('data-sign');
           emotionAddress = attachAction.addressParse(addressTarget, 'plain');
         }
       } else {
                   // console.log(eventTarget.attributes);
-        addressTarget = eventTarget.attributes[0].nodeValue;
+        addressTarget = eventTarget.getAttribute('data-link');
         emotionAddress = attachAction.addressParse(addressTarget, 'plain');
       }
       const selectTextArea = EleUtil.select('textarea');
@@ -282,8 +282,8 @@ const fun = (imagepath = '1485412810') => {
       const eventTarget = EventUtil.getTarget(event);
       EleUtil.selectID('toggleWindow').style.display = 'block';
       EleUtil.selectID('toggleWindow').style.width = EleUtil.select('textarea').style.width;
-      const dataType = eventTarget.attributes[2].nodeValue;
-      const dataKey = eventTarget.attributes[1].nodeValue;
+      const dataType = eventTarget.getAttribute('data-retype');
+      const dataKey = eventTarget.getAttribute('data-kid');
       if (EleUtil.select(`#eddie32${dataKey}`)) {
         EleUtil.select(`#eddie32${dataKey}`).style.display = 'block';
         if (dataKey === 'item1') EleUtil.selectID('toggleWindow').style.height = '50px';
@@ -356,7 +356,9 @@ const fun = (imagepath = '1485412810') => {
       const subMenu = EleUtil.create('span');
       subMenu.id = subid;
       subMenu.className = 'subMenu';
-      const subcontent = `<a class='subBut' data-kid=${subid} date-type=${subtype}>${title}</a>`;
+      subMenu.setAttribute('data-kid', subid);
+      subMenu.setAttribute('data-retype', subtype);
+      const subcontent = `<a class='subBut' data-kid=${subid} date-retype=${subtype}>${title}</a>`;
       subMenu.onclick = func;
       subMenu.title = title;
       subMenu.innerHTML = subcontent;
@@ -409,5 +411,7 @@ const fun = (imagepath = '1485412810') => {
   }
 };
 
-if(typeof imgpath === 'undefined')  imgpath = '1485412810';
+if(typeof imgpath === 'undefined') {
+    let imgpath = '1485412810';
+}
 fun(imgpath);
