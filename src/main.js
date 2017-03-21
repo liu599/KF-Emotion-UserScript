@@ -162,8 +162,6 @@ const fun = (imagepath = '1485412810') => {
   const attachAction = {
     attachEmotion(event) {
       const eventTarget = EventUtil.getTarget(event);
-              // console.log(eventTarget);
-
       let addressTarget = '';
       let emotionAddress = '';
       if (eventTarget.getAttribute('data-link') === null) {
@@ -206,7 +204,6 @@ const fun = (imagepath = '1485412810') => {
     createImages(key) {
       
       const outerContainer = EleUtil.selectID(`eddie32${key}`);
-      console.log(MenuList[key]);
       const imgList = MenuList[key].addr;
       const imgLength = imgList.length;
       for (let k = 0; k < imgLength; k += 1) {
@@ -230,7 +227,6 @@ const fun = (imagepath = '1485412810') => {
       const txtList = MenuList[key].addr;
       const txtLength = txtList.length;
       for (let k = 0; k < txtLength; k += 1) {
-      	console.log(txtLength);
         const txtItem = EleUtil.create('a');
         txtItem.className = 'txtBtnEmotion';
         txtItem.setAttribute('data-sign', `${encodeURI(txtList[k])}`)
@@ -375,37 +371,9 @@ const fun = (imagepath = '1485412810') => {
       document.getElementById('editor-content').style.position = 'static';
     }
     for (let w = 0; w < testSet.length; w += 1) {
-      // console.log(testSet.item(w));
       const elementTest = testSet.item(w);
-      // console.log(mainEmotionMenu);
       elementTest.parentNode.insertBefore(mainEmotionMenu, elementTest);
     }
-    // NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
-    // HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
-    // const elementSet = Array.from(document.getElementsByTagName('textarea'));
-        /* 兼容性问题 By 喵拉布丁2017.01.30: document.getElementsByTagName方法返回的是HTMLCollection
-在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环
-而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环
-所以建议楼主还是用老方法吧*/
-        // Solution stackflow: http://stackoverflow.com/questions/22754315/foreach-loop-for-htmlcollection-elements
-        /* 还有Array.from方法确实能解决Chrome下HTMLCollection不能用for...of循环的问题，不过Chrome 45才开始支持Array.from方法
-若想兼容以前的浏览器的话，可以用for...in循环，或者加个babel-polyfill脚本
-当然你不想兼容使用Chromium 45以前内核的浏览器也没多大问题，现在国内市场份额最多Chromium套壳浏览器--360安全浏览器的最新正式版也是采用Chromium 45内核了*/
-    // const elementSetLength = elementSet.length;
-    /* if (elementSetLength === 0) {
-       console.log('There is no textarea');
-    } */
-    // testareaEleSet.add(elementSet);
-    /* const userOption = {
-      userWindowHeight: 120,
-      userSelectTextArea: 'last',
-    }; */
-
-    /* eslint no-restricted-syntax: [1, "ForOfStatement"] */
-    /* for (const elementSingle of elementSet) {
-             console.log(elementSingle);
-      elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
-    } */
   }
 };
 
