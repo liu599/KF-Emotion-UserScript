@@ -160,6 +160,19 @@ const fun = (imagepath = '1485412810') => {
     },
   };
   const attachAction = {
+    addressParse(addStr, pattern) {
+          let stringReturn = '';
+          if (pattern === 'image') {
+              stringReturn = `[img]${addStr}[/img]`;
+          }
+          if (pattern === 'plain') {
+              stringReturn = decodeURI(addStr);
+          }
+          if (pattern === 'imageLink') {
+              stringReturn = addStr;
+          }
+          return stringReturn;
+      },
     attachEmotion(event) {
       const eventTarget = EventUtil.getTarget(event);
       let addressTarget = '';
@@ -167,35 +180,22 @@ const fun = (imagepath = '1485412810') => {
       if (eventTarget.getAttribute('data-link') === null) {
         if (eventTarget.src) {
           addressTarget = eventTarget.src;
-          emotionAddress = attachAction.addressParse(addressTarget, 'image');
+          emotionAddress = addressParse(addressTarget, 'image');
         } else {
           addressTarget = eventTarget.getAttribute('data-sign');
-          emotionAddress = attachAction.addressParse(addressTarget, 'plain');
+          emotionAddress = addressParse(addressTarget, 'plain');
         }
       } else {
         addressTarget = eventTarget.getAttribute('data-link');
-        emotionAddress = attachAction.addressParse(addressTarget, 'plain');
+        emotionAddress = addressParse(addressTarget, 'plain');
       }
       const selectTextArea = EleUtil.select('textarea');
       const ovalue = selectTextArea.value;
       const startPos = selectTextArea.selectionStart;
-      // const endPos = selectTextArea.selectionEnd;
       selectTextArea.value = `${ovalue.slice(0, startPos)}${emotionAddress}${ovalue.slice(startPos)}`;
               
     },
-    addressParse(addStr, pattern) {
-      let stringReturn = '';
-      if (pattern === 'image') {
-        stringReturn = `[img]${addStr}[/img]`;
-      }
-      if (pattern === 'plain') {
-        stringReturn = decodeURI(addStr);
-      }
-      if (pattern === 'imageLink') {
-        stringReturn = addStr;
-      }
-      return stringReturn;
-    },
+
   };
   
 
@@ -302,7 +302,6 @@ const fun = (imagepath = '1485412810') => {
         const MenuKey = Object.keys(MenuList)[i];
         const MenuTitle = MenuList[MenuKey].title;
         const MenuType = MenuList[MenuKey].datatype;
-        // if (!MenuType || !MenuTitle) console.log(`data error:  ${MenuKey}`);
         const testMenu = createMenu.subs(MenuTitle, expandMenu.init, MenuKey, MenuType);
         mainMenu.appendChild(testMenu);
       }
@@ -362,10 +361,7 @@ const fun = (imagepath = '1485412810') => {
   };
 
   if (typeof window !== 'undefined' && document != null) {
-    // let testareaEleSet = new WeakSet();
     const testSet = document.getElementsByTagName('textarea');
-    // console.log(testSet);
-    // console.log(testSet.item(0));
     const mainEmotionMenu = createMenu.main();
     if (document.getElementById('editor-content') !== null) {
       document.getElementById('editor-content').style.position = 'static';
