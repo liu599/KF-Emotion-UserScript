@@ -86,7 +86,7 @@ const fun = (imagepath = '1485412810') => {
     item3: { datatype: 'image', title: 'LoveLive', addr: LoveliveSmalltargetURL },
   };
   /* eslint-disable no-param-reassign*/
-
+    /* Event 函数 */
   const EventUtil = {
     getEvent(event) {
       return event || window.event;
@@ -128,7 +128,7 @@ const fun = (imagepath = '1485412810') => {
     },
   };
   /* eslint-enable no-param-reassign*/
-
+    /* Element 函数*/
   const EleUtil = {
     create(ele) {
       return document.createElement(ele);
@@ -144,7 +144,9 @@ const fun = (imagepath = '1485412810') => {
   const mouseOverAction = {
     showImg(event) {
       const eventTarget = EventUtil.getTarget(event);
-
+      /* if (!eventTarget.src) {
+        return 'undefined';
+      }*/
       const largeViewContainer = EleUtil.selectID('largeView');
       const [scrollTopValue, scrollLeftValue] = [document.body.scrollTop, document.body.scrollLeft];
       largeViewContainer.innerHTML = `<img src=${eventTarget.src} />`;
@@ -160,7 +162,7 @@ const fun = (imagepath = '1485412810') => {
   const attachAction = {
     attachEmotion(event) {
       const eventTarget = EventUtil.getTarget(event);
-
+              // console.log(eventTarget);
 
       let addressTarget = '';
       let emotionAddress = '';
@@ -169,21 +171,19 @@ const fun = (imagepath = '1485412810') => {
           addressTarget = eventTarget.src;
           emotionAddress = attachAction.addressParse(addressTarget, 'image');
         } else {
-
           addressTarget = eventTarget.getAttribute('data-sign');
           emotionAddress = attachAction.addressParse(addressTarget, 'plain');
         }
       } else {
-
         addressTarget = eventTarget.getAttribute('data-link');
         emotionAddress = attachAction.addressParse(addressTarget, 'plain');
       }
       const selectTextArea = EleUtil.select('textarea');
       const ovalue = selectTextArea.value;
       const startPos = selectTextArea.selectionStart;
-
+      // const endPos = selectTextArea.selectionEnd;
       selectTextArea.value = `${ovalue.slice(0, startPos)}${emotionAddress}${ovalue.slice(startPos)}`;
-
+              
     },
     addressParse(addStr, pattern) {
       let stringReturn = '';
@@ -199,17 +199,14 @@ const fun = (imagepath = '1485412810') => {
       return stringReturn;
     },
   };
-  const createItems = {
-    createContainer(key) {
-      const ItemContainer = EleUtil.create('div');
-      ItemContainer.id = `eddie32${key}`;
-      EleUtil.selectID('toggleWindow').style.height = '100px';
-      EleUtil.selectID('toggleWindow').appendChild(ItemContainer);
-      return ItemContainer;
-    },
-    createImages(key) {
-      const outerContainer = createItems.createContainer(key);
+  
 
+  const createItems = {
+
+    createImages(key) {
+      
+      const outerContainer = EleUtil.selectID(`eddie32${key}`);
+      console.log(MenuList[key]);
       const imgList = MenuList[key].addr;
       const imgLength = imgList.length;
       for (let k = 0; k < imgLength; k += 1) {
@@ -227,24 +224,28 @@ const fun = (imagepath = '1485412810') => {
       }
     },
     createPlainText(key) {
-      const outerContainer = createItems.createContainer(key);
+      
+      const outerContainer = EleUtil.selectID(`eddie32${key}`);
+      outerContainer.innerHTML = '';
       const txtList = MenuList[key].addr;
       const txtLength = txtList.length;
       for (let k = 0; k < txtLength; k += 1) {
-        const txtItem = EleUtil.create('span');
-        txtItem.style.cssText = 'cursor:pointer; margin: 10px 10px;';
-        txtItem.innerHTML = `<a data-sign=${encodeURI(txtList[k])} class='txtBtnEmotion'>${txtList[k]}</a>`;
+      	console.log(txtLength);
+        const txtItem = EleUtil.create('a');
+        txtItem.className = 'txtBtnEmotion';
+        txtItem.setAttribute('data-sign', `${encodeURI(txtList[k])}`)
+        txtItem.innerHTML = `${txtList[k]}`;
         if (MenuList[key].ref) {
-          txtItem.innerHTML = `<a data-sign=${encodeURI(txtList[k])} class='txtBtnEmotion'>${MenuList[key].ref[k]}</a>`;
+          txtItem.innerHTML = `${MenuList[key].ref[k]}`;
           EleUtil.selectID('toggleWindow').style.height = '50px';
         }
         txtItem.onclick = attachAction.attachEmotion;
-        txtItem.style.cssText = 'cursor:pointer;padding: 10px 10px:width: 50px;';
         outerContainer.appendChild(txtItem);
       }
     },
     createImageLink(key) {
-      const outerContainer = createItems.createContainer(key);
+      
+      const outerContainer = EleUtil.selectID(`eddie32${key}`);
       const imgList = MenuList[key].addr;
       const refList = MenuList[key].ref;
       const imgLength = imgList.length;
@@ -265,7 +266,6 @@ const fun = (imagepath = '1485412810') => {
       toggleWindow.style.display = 'none';
       const togWinChildren = toggleWindow.childNodes;
       for (let j = 0, len = togWinChildren.length; j < len; j += 1) {
-                // console.log(togWinChildren[j]);
         togWinChildren[j].style.display = 'none';
       }
     },
@@ -282,7 +282,6 @@ const fun = (imagepath = '1485412810') => {
         EleUtil.select(`#eddie32${dataKey}`).style.display = 'block';
         if (dataKey === 'item1') EleUtil.selectID('toggleWindow').style.height = '50px';
         else EleUtil.selectID('toggleWindow').style.height = '100px';
-        return;
       }
       if (dataType === 'plain') {
         createItems.createPlainText(dataKey);
@@ -297,24 +296,23 @@ const fun = (imagepath = '1485412810') => {
 
 
   const createMenu = {
-    defaultID: 'emotion0000',
     main() {
             /* main menu*/
       const mainMenu = EleUtil.create('div');
-      mainMenu.innerHTML = `<span id='largeView'></span><span class='subMenu' title='主菜单 version ${versionNo}'><b>⑨囧⑨</b></span>`;
-      mainMenu.id = createMenu.defaultID;
+      mainMenu.innerHTML = `<span id='largeView'></span>`;
+      mainMenu.id = 'emotion0000';
       const MenuLength = Object.keys(MenuList).length;
       for (let i = 0; i < MenuLength; i += 1) {
         const MenuKey = Object.keys(MenuList)[i];
         const MenuTitle = MenuList[MenuKey].title;
         const MenuType = MenuList[MenuKey].datatype;
-
+        // if (!MenuType || !MenuTitle) console.log(`data error:  ${MenuKey}`);
         const testMenu = createMenu.subs(MenuTitle, expandMenu.init, MenuKey, MenuType);
         mainMenu.appendChild(testMenu);
       }
             /* close button*/
-      const closeBtn = EleUtil.create('span');
-      closeBtn.innerHTML = '[x]';
+      const closeBtn = EleUtil.create('a');
+      closeBtn.innerHTML = 'x';
       closeBtn.className = 'subMenu';
       closeBtn.id = 'closeEM';
       closeBtn.onclick = clearMenu.clear;
@@ -324,58 +322,90 @@ const fun = (imagepath = '1485412810') => {
       const itemWindow = EleUtil.create('div');
       itemWindow.id = 'toggleWindow';
       mainMenu.appendChild(itemWindow);
+        for (let ww=0; ww < MenuLength; ww += 1 ){
+            let itemEddie32 = EleUtil.create('div');
+            let MenuKey = Object.keys(MenuList)[ww];
+            itemEddie32.id = `eddie32${MenuKey}`;
+            itemEddie32.style.display = 'none';
+            itemWindow.appendChild(itemEddie32);
+        }
             /* css style*/
       const styleItem = EleUtil.create('style');
-      styleItem.innerHTML = `#emotion0000 {padding:5px 5px; vertical-align: middle;   \
-                font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif'} \
-                #largeView{position:absolute; background: #fff;z-index:5000; opacity: 0.8} \
+      styleItem.innerHTML = `#emotion0000 { font: 12px/28px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif'; \
+                margin-bottom: 5px; } \
+                #largeView{position:absolute; background: #fff; z-index:5000; opacity: 0.8;} \
                 #largeView img{width: 200px; height:200px;} \
-                #toggleWindow a{padding: 5px 5px;line-height:2} \
-                #toggleWindow {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:6px; \
-                margin-bottom:6px; border:1px solid #ff4351; display:none;position:relative; z-index:200; }\
+                #toggleWindow {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:4px; \
+                margin-bottom:4px; border:1px solid #ff4351; display:none;position:relative; z-index:200; }\
                 .clickItem{display:inline-block; z-index:300;}
-                a.subBut{text-decoration: none;color: #fff;} \
-                .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;  z-index:400;} \
-                a.subBut:hover{color: #fff;} \
-                a.txtBtnEmotion{text-decoration:none;} \
-                a.txtBtnEmotion:hover{background:#ff7680; color:#fff; } \
-                .subMenu{display:inline-block;cursor:pointer; text-align:center; padding: 8px 8px; \
-                font: 12px/16px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif';\
+                a.subMenu{cursor:pointer;display:inline-block;cursor:pointer; \
+                	text-align:center; padding: 0 8px; \
+                font: 12px/30px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif';\
                 background-color: #ff4351;border-color: #ff4351;color: #fff;} \
-                .subMenu:hover, .subMenu:focus, .subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #fff;}`;
+                .Ems{cursor:pointer;width: 50px;height: 50px;display:inline-block;  z-index:400;} \
+                a.txtBtnEmotion{display: inline-block; text-decoration:none; \ 
+                	cursor: pointer;
+                	padding:0 8px; font: 12px/24px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif'} \
+                a.txtBtnEmotion:hover{background:#ff7680; color:#fff; } \
+                a.subMenu:hover, a.subMenu:focus, a.subMenu:visited{background-color: #ff7680;border-color: #ff7680;color: #fff;}`;
       mainMenu.appendChild(styleItem);
       return mainMenu;
     },
     subs(title, func, subid, subtype) {
-      const subMenu = EleUtil.create('span');
+      const subMenu = EleUtil.create('a');
       subMenu.id = subid;
       subMenu.className = 'subMenu';
       subMenu.setAttribute('data-kid', subid);
       subMenu.setAttribute('data-retype', subtype);
-      const subcontent = `<a class='subBut' data-kid=${subid} date-retype=${subtype}>${title}</a>`;
       subMenu.onclick = func;
       subMenu.title = title;
-      subMenu.innerHTML = subcontent;
+      subMenu.innerHTML = `${title}`;
       return subMenu;
     },
 
   };
 
   if (typeof window !== 'undefined' && document != null) {
-
+    // let testareaEleSet = new WeakSet();
     const testSet = document.getElementsByTagName('textarea');
-
+    // console.log(testSet);
+    // console.log(testSet.item(0));
     const mainEmotionMenu = createMenu.main();
     if (document.getElementById('editor-content') !== null) {
       document.getElementById('editor-content').style.position = 'static';
     }
     for (let w = 0; w < testSet.length; w += 1) {
-
+      // console.log(testSet.item(w));
       const elementTest = testSet.item(w);
-
+      // console.log(mainEmotionMenu);
       elementTest.parentNode.insertBefore(mainEmotionMenu, elementTest);
     }
+    // NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+    // HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+    // const elementSet = Array.from(document.getElementsByTagName('textarea'));
+        /* 兼容性问题 By 喵拉布丁2017.01.30: document.getElementsByTagName方法返回的是HTMLCollection
+在较新版的Firefox中，HTMLCollection支持Iterator接口，所以可以用for...of循环
+而在Chrome中（我只在使用Chromium 50内核的浏览器下测试过），HTMLCollection不支持Iterator接口，不可用直接使用for...of循环
+所以建议楼主还是用老方法吧*/
+        // Solution stackflow: http://stackoverflow.com/questions/22754315/foreach-loop-for-htmlcollection-elements
+        /* 还有Array.from方法确实能解决Chrome下HTMLCollection不能用for...of循环的问题，不过Chrome 45才开始支持Array.from方法
+若想兼容以前的浏览器的话，可以用for...in循环，或者加个babel-polyfill脚本
+当然你不想兼容使用Chromium 45以前内核的浏览器也没多大问题，现在国内市场份额最多Chromium套壳浏览器--360安全浏览器的最新正式版也是采用Chromium 45内核了*/
+    // const elementSetLength = elementSet.length;
+    /* if (elementSetLength === 0) {
+       console.log('There is no textarea');
+    } */
+    // testareaEleSet.add(elementSet);
+    /* const userOption = {
+      userWindowHeight: 120,
+      userSelectTextArea: 'last',
+    }; */
 
+    /* eslint no-restricted-syntax: [1, "ForOfStatement"] */
+    /* for (const elementSingle of elementSet) {
+             console.log(elementSingle);
+      elementSingle.parentNode.insertBefore(mainEmotionMenu, elementSingle);
+    } */
   }
 };
 
