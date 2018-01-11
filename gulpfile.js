@@ -1,127 +1,120 @@
-/* eslint-disable strict*/
+"use strict";
 
-'use strict';
+//******************************************************************************
+//* DEPENDENCIES
+//******************************************************************************
+var gulp        = require("gulp"),
+    browserify  = require("browserify"),
+    tsify       = require("tsify"),
+    source      = require("vinyl-source-stream"),
+    buffer      = require("vinyl-buffer"),
+    tslint      = require("gulp-tslint"),
+    tsc         = require("gulp-typescript"),
+    sourcemaps  = require("gulp-sourcemaps"),
+    uglify      = require("gulp-uglify"),
+    runSequence = require("run-sequence"),
+    mocha       = require("gulp-mocha"),
+    istanbul    = require("gulp-istanbul"),
+    browserSync = require('browser-sync').create();
+    
+//******************************************************************************
+//* LINT
+//******************************************************************************
+gulp.task("lint", function() {
 
-/* 导入模块 */
+    var config =  { formatter: "verbose", emitError: (process.env.CI) ? true : false };
+    
+    return gulp.src([
+        "source/**/**.ts",
+        "test/**/**.test.ts"
+    ])
+    .pipe(tslint(config))
+    .pipe(tslint.report());
 
-const gulp = require('gulp');
-// const gutil = require('gulp-util');
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
-// const streamify = require('gulp-streamify');
-// const rename = require('gulp-rename');
-// const replace = require('gulp-replace');
-const replace = require('gulp-string-replace');
-const browserify = require('browserify');
-// const babel = require('gulp-babel');
-// const es2015 = require('babel-preset-es2015');
-// const es2016 = require('babel-preset-es2016');
-
-const babelify = require('babelify');
-const source = require('vinyl-source-stream');
-
-const runSequence = require('run-sequence');
-
-function getArg(key) {
-  const index = process.argv.indexOf(key);
-  const next = process.argv[index + 1];
-  const nestValue = (!next || next[0] === '-') ? true : next;
-  return (index < 0) ? null : nestValue;
-}
-
-let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
-versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
-
-/* browserify任务2015 */
-gulp.task('browserifyTask', () => browserify({
-  entries: 'src/main.js',
-  debug: true,
-}).transform(babelify, { presets: ['es2015', 'es2016', 'es2017'] })
-          .bundle()
-          .pipe(source('main.js'))
-          // .pipe(streamify(uglify()))
-          .pipe(gulp.dest('dist/')));
-
-gulp.task('uglifile',() => {
-
-  gulp.src(['dist/main.js'])
-      .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-    //  .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-    //  .pipe(replace(/\(imagepath\)/, '(imgpath)'))
-    //  .pipe(uglify())
-      .pipe(gulp.dest('dist/'));
 });
 
+//******************************************************************************
+//* BUILD TEST
+//******************************************************************************
+var tsTestProject = tsc.createProject("tsconfig.json");
 
-/* 合并文件任务2015 */
-
-gulp.task('combineFiles', () => {
-
-  gulp.src(['src/meta.js', 'dist/main.js'])
-        .pipe(concat('kf.js'))
-        .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
-        .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-     //   .pipe(replace(/var imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-     //   .pipe(replace(/\(imagepath\)/, '(imgpath)'))
-        .pipe(gulp.dest('dist/'));
+gulp.task("build-test", function() {
+    return gulp.src([
+            "source/**/**.ts",
+            "test/**/**.test.ts",
+            "typings/main.d.ts/",
+            "source/interfaces/interfaces.d.ts"],
+            { base: "." }
+        )
+        .pipe(tsTestProject())
+        .on("error", function (err) {
+            process.exit(1);
+        })
+        .js
+        .pipe(gulp.dest("."));
 });
 
-/* browserifyES2016任务 */
-
-gulp.task('browserifyTaskES2016', () => browserify({
-  entries: 'src/main.js',
-  debug: true,
-}).transform(babelify, { presets: ['es2016', 'es2017'] })
-          .bundle()
-          .pipe(source('mainES2016.js'))
-          .pipe(gulp.dest('dist/')));
-
-/* 合并文件任务ES2016 */
-
-gulp.task('combineFilesES2016', () => {
-  let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
-  versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
-  gulp.src(['src/meta.js', 'dist/mainES2016.js'])
-        .pipe(concat('kfES2016.js'))
-        .pipe(replace(/\/\/ @version/, `// @version     ${versionNumber}`))
-        .pipe(replace(/versionNo = '[1-9].[0-9].[0-9]';/, `versionNo = '${versionNumber}';`))
-     //   .pipe(replace(/const imagepath = '1485412810'; \/\/ This is fake. Global Variable./, '// '))
-     //   .pipe(replace(/\(imagepath\)/, '(imgpath)'))
-        .pipe(gulp.dest('dist/'));
+//******************************************************************************
+//* TEST
+//******************************************************************************
+gulp.task("istanbul:hook", function() {
+    return gulp.src(['source/**/*.js'])
+        // Covering files
+        .pipe(istanbul())
+        // Force `require` to return covered files
+        .pipe(istanbul.hookRequire());
 });
 
-
-// 监视任务
-
-gulp.task('watchjs', () => {
-    //
-    // gulp.src(['src/meta.js','src/main.js'])
-    //     .pipe(concat('kf.js'))
-    //     .pipe(babel({
-    //         presets: ['es2015']
-    //       }))
-    //     .pipe(gulp.dest('dist/'));
-    //
-    // gulp.src(['src/meta.js','src/main.js'])
-    //         .pipe(concat('kf2016.js'))
-    //         .pipe(babel({
-    //             presets: ['es2016']
-    //           }))
-    //         .pipe(gulp.dest('dist/'));
-  let versionNumber = getArg('--pv'); // 命令行传入版本参数 gulp --pv <version>
-  versionNumber = (versionNumber === null) ? 'publish' : versionNumber;
-  gulp.src('package.json')
-        .pipe(replace(/"version": "[0-9].[0-9].[0-9]"/, `"version": "${versionNumber}"`));
-  gulp.watch('src/*', ['browserifyTask', 'combineFiles']);
+gulp.task("test", ["istanbul:hook"], function() {
+    return gulp.src('test/**/*.test.js')
+        .pipe(mocha({ui: 'bdd'}))
+        .pipe(istanbul.writeReports());
 });
 
-gulp.task('runtasks', (callback) => {
-  runSequence(['browserifyTask', 'browserifyTaskES2016'],
-            ['combineFiles', 'combineFilesES2016'],
-            callback);
+//******************************************************************************
+//* BUILD DEV
+//******************************************************************************
+gulp.task("build", function() {
+  
+    var libraryName = "myapp";
+    var mainTsFilePath = "source/main.ts";
+    var outputFolder   = "dist/";
+    var outputFileName = libraryName + ".min.js";
+
+    var bundler = browserify({
+        debug: true,
+        standalone : libraryName
+    });
+    
+    return bundler
+        .add(mainTsFilePath)
+        .plugin(tsify, { noImplicitAny: true })
+        .bundle()
+        .on('error', function (error) { console.error(error.toString()); })
+        .pipe(source(outputFileName))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({ loadMaps: true }))        
+        .pipe(uglify())
+        .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest(outputFolder));
 });
 
+//******************************************************************************
+//* DEV SERVER
+//******************************************************************************
+gulp.task("watch", ["default"], function () {
+    
+    browserSync.init({
+        server: "."
+    });
+    
+    gulp.watch([ "source/**/**.ts", "test/**/*.ts"], ["default"]);
+    gulp.watch("dist/*.js").on('change', browserSync.reload); 
+});
 
-/* 生成文件 */
-// gulp.task('default', ['runtasks', 'watchjs']);
-gulp.task('default', ['runtasks']);
+//******************************************************************************
+//* DEFAULT
+//******************************************************************************
+gulp.task("default", function (cb) {
+    runSequence("lint", "build-test", "test", "build", cb);
+});
