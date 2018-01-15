@@ -1,4 +1,4 @@
-import * as $ from "jquery";
+ import * as $ from "jquery";
 import Greeter from "./entities/greeter";
 
 let greeter = new Greeter("world!");
