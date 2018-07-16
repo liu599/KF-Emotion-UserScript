@@ -7,10 +7,10 @@
 // @icon        https://blog.nekohand.moe/favicon.ico
 // @homepage    https://github.com/liu599/KF-Emotion-UserScript
 // @include     https://*miaola.info/*
-// @include     http://*2dkf.com/*
-// @include     http://*9moe.com/*
-// @include     http://*kfgal.com/*
-// @copyright   2014-2017, eddie32
+// @include     https://*2dkf.com/*
+// @include     https://*9moe.com/*
+// @include     https://*kfgal.com/*
+// @copyright   2014-2018, eddie32
 // @grant       none
 // @license     MIT
 // @run-at      document-end
