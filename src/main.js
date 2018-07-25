@@ -213,8 +213,8 @@ const fun = (imagepath = '1485412810') => {
         imgItem.src = imgList[k];
         imgItem.className = 'Ems';
         imgItem.onclick = attachAction.attachEmotion;
-        imgItem.onmouseover = mouseOverAction.showImg;
-        imgItem.onmouseout = mouseOverAction.clearImg;
+        //imgItem.onmouseover = mouseOverAction.showImg;
+        //imgItem.onmouseout = mouseOverAction.clearImg;
 
         divElement.appendChild(imgItem);
         outerContainer.appendChild(divElement);
