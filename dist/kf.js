@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     4.5.2
+// @version     4.5.3
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        https://blog.nekohand.moe/favicon.ico
@@ -65,6 +65,8 @@ var fun = function fun() {
   emAddrArrayHandler(1, 72, 'http://o6smnd6uw.bkt.clouddn.com/xds3/akari', '.png', AkariSmile);
   // New Game
   var NewGame = emAddrArrayHandler(2, 64, 'http://o6smnd6uw.bkt.clouddn.com/xds4/0xx', '.png');
+  // princess connect
+  emAddrArrayHandler(0, 20, 'http://o6smnd6uw.bkt.clouddn.com/pcrn/sticker (', ').png', NewGame);
   // ACFUN
   var ACSmile4 = emAddrArrayHandler(1, 51, 'http://o6smnd6uw.bkt.clouddn.com/xds6/', '.png');
   emAddrArrayHandler(1, 40, 'http://o6smnd6uw.bkt.clouddn.com/xds5/', '.gif', ACSmile4, true);
