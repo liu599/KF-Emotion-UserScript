@@ -6,7 +6,7 @@
 
 
 const fun = (imagepath = '1485412810') => {
-  const versionNo = '4.2.2';
+  const versionNo = '4.5.3';
     /* Address function
      * startNumber: number, indicating the start number;
      * lengthArray: number, indicating the addrArray length;
@@ -47,6 +47,8 @@ const fun = (imagepath = '1485412810') => {
   emAddrArrayHandler(1, 72, 'http://o6smnd6uw.bkt.clouddn.com/xds3/akari', '.png', AkariSmile);
     // New Game
   const NewGame = emAddrArrayHandler(2, 64, 'http://o6smnd6uw.bkt.clouddn.com/xds4/0xx', '.png');
+  // princess connect
+  emAddrArrayHandler(0, 20, 'http://o6smnd6uw.bkt.clouddn.com/pcrn/sticker (', ').png', NewGame);
     // ACFUN
   const ACSmile4 = emAddrArrayHandler(1, 51, 'http://o6smnd6uw.bkt.clouddn.com/xds6/', '.png');
   emAddrArrayHandler(1, 40, 'http://o6smnd6uw.bkt.clouddn.com/xds5/', '.gif', ACSmile4, true);
