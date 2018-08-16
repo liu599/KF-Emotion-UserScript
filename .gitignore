@@ -37,3 +37,6 @@ dist
 # Compiler generated
 source/**/*.js
 test/**/*.js
+
+# other
+package-lock.json

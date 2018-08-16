@@ -9,11 +9,6 @@
     "label-position": true,
     "max-line-length": [true, 140],
     "member-access": true,
-    "member-ordering": [true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [true,
@@ -44,7 +39,7 @@
       "check-finally",
       "check-whitespace"
     ],
-    "quotemark": [true, "double", "avoid-escape"],
+    "quotemark": [true, "single", "avoid-escape"],
     "radix": true,
     "semicolon": true,
     "trailing-comma": [true, {

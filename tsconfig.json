@@ -1,22 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["es6", "dom"],
-        "types": ["mocha"],
-        "sourceMap": true,
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "isolatedModules": false,
-        "jsx": "react",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "declaration": false,
-        "noImplicitAny": false,
-        "removeComments": true,
-        "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "noUnusedParameters": false,
-        "noUnusedLocals": true
-    }
+  "compilerOptions": {
+    "types" : [],
+    "target": "es5",
+    "sourceMap": true,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
+    "outDir": "./tsc/",
+    "pretty": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts",
+    "**/*.spec.ts"
+  ],
+  "compileOnSave": false
 }
