@@ -2,6 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Emotion = require("./emotion");
 var containers = document.getElementsByTagName('textarea');
-var app = new Emotion.EmotionPlugin('eddie32');
+var reserveData = [
+    {
+        groupTitle: '快捷',
+        groupType: Emotion.GroupType.Plain,
+    },
+    {
+        groupTitle: '颜文字',
+        groupType: Emotion.GroupType.Plain,
+    },
+];
+var app = new Emotion.EmotionPlugin('eddie32', reserveData);
 containers.item(0).parentNode.insertBefore(app.appInstance, containers.item(0));
 //# sourceMappingURL=main.js.map
