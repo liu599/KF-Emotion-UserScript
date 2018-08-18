@@ -1,6 +1,6 @@
 import * as utils from './utils';
 
-export enum GroupType {ImageLink, Plain, Image};
+export enum GroupType {ImageLink, Plain, Image}
 export class EmotionMenuItem {
   public itemAddress: Array<string>;
   public itemDescription: Array<string>;
@@ -14,6 +14,8 @@ export class CssStyles {
   public mainView: string;
   public stageView: string;
   public menuView: string;
+  public txtBtn: string;
+  public imageLink: string;
 }
 
 export class EmotionPlugin {
@@ -23,11 +25,13 @@ export class EmotionPlugin {
   public appInstance: HTMLElement;
   public menuInstance: HTMLElement;
   public stageInstance: HTMLElement;
+  public targetInstance: HTMLTextAreaElement;
   // App UI Data
   public EmotionMenu: Array<EmotionMenu>;
   // App Style
   public EmotionStyles: CssStyles;
-  constructor(name: string, data: Array<EmotionMenu>, css: CssStyles) {
+  constructor(name: string, data: Array<EmotionMenu>, css: CssStyles, targetTextarea: HTMLTextAreaElement) {
+    this.targetInstance = targetTextarea;
     this.divPrefix = name;
     this.appInstance = document.createElement('div');
     this.appInstance.id = `${this.divPrefix}0000`;
@@ -52,18 +56,40 @@ export class EmotionPlugin {
   private addStage() {
     const stage = document.createElement('div');
     stage.id = `${this.divPrefix}stage`;
+    stage.addEventListener('click', (e: Event) => this.addEmotions(e));
     this.appInstance.appendChild(stage);
     this.stageInstance = stage;
   }
+  private addEmotions(e: Event) {
+    console.log(e.target, e.target instanceof HTMLAnchorElement);
+    const target = <HTMLElement>e.target;
+    const scrollPos = this.targetInstance.scrollTop;
+    let curValue = this.targetInstance.value;
+    let caretPos = this.targetInstance.selectionStart;
+    const front = curValue.substring(0, caretPos);
+    const back = curValue.substring(this.targetInstance.selectionEnd, curValue.length);
+    if (e.target instanceof HTMLAnchorElement) {
+      this.targetInstance.value = front +  decodeURI(target.dataset.sign) + back;
+      caretPos = caretPos + decodeURI(target.dataset.sign).length;
+    }
+    if (e.target instanceof HTMLImageElement) {
+      this.targetInstance.value = front + `[img]${e.target.src}[/img]` + back;
+      caretPos = caretPos + e.target.src.length + 11;
+    }
+    this.targetInstance.selectionStart = caretPos;
+    this.targetInstance.selectionEnd = caretPos;
+    this.targetInstance.focus();
+    this.targetInstance.scrollTop = scrollPos;
+  }
   private loadMenu(item: Array<EmotionMenu>) {
     const ulContainer = document.createElement('ul');
-    item.forEach((mi, index) => {
+    item.forEach((mi) => {
       const listItem = document.createElement('li');
       const clickItem = document.createElement('a');
       listItem.className = `${this.divPrefix}00001`;
       clickItem.title = mi.groupTitle;
       clickItem.dataset.loadtype = `${mi.groupType}`;
-      clickItem.addEventListener('click', (e: Event) => this.expandMenu(mi.groupType));
+      clickItem.addEventListener('click', (e: Event) => this.expandMenu(e, mi));
       clickItem.href = `#`;
       clickItem.innerHTML = `<span class="t">${mi.groupTitle}</span>`;
       console.log(clickItem);
@@ -72,16 +98,37 @@ export class EmotionPlugin {
     });
     this.menuInstance.appendChild(ulContainer);
   }
-  private expandMenu(gptype: GroupType) {
-    switch (gptype) {
+  private expandMenu(e: Event, menuItem: EmotionMenu) {
+    this.clearStage();
+    switch (menuItem.groupType) {
       case GroupType.Plain:
-        console.log('plain');
+        console.log('plain', e.target);
+        menuItem.groupEmotions.forEach((emotion) => {
+          emotion.itemAddress.forEach((addr, idx) => {
+            const plainTxtItem = document.createElement('a');
+            plainTxtItem.className = 'txtBtnEmotion';
+            plainTxtItem.setAttribute('data-sign', `${encodeURI(addr)}`);
+            plainTxtItem.innerHTML = emotion.itemDescription.length > 0 ? emotion.itemDescription[idx] : addr;
+            this.stageInstance.appendChild(plainTxtItem);
+          });
+        });
         break;
       case GroupType.ImageLink:
         console.log('imageLink');
+        menuItem.groupEmotions.forEach((emotion) => {
+          emotion.itemAddress.forEach((addr, idx) => {
+            const imageItem = document.createElement('img');
+            imageItem.src = addr;
+            imageItem.className = 'Ems';
+            this.stageInstance.appendChild(imageItem);
+          });
+        });
         break;
       default:
         console.log('default');
     }
+  }
+  private clearStage() {
+    this.stageInstance.innerHTML = '';
   }
 }
