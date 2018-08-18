@@ -22,5 +22,11 @@ const reserveData: Array<Emotion.EmotionMenu> = [
     groupType: Emotion.GroupType.Plain,
   },
 ];
-const app = new Emotion.EmotionPlugin('eddie32', reserveData);
+const uniquePrefix = 'eddie32';
+const cssStyles: Emotion.CssStyles = {
+  mainView: `#${uniquePrefix}0000 {font: 12px/28px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif"; margin-bottom: 5px; }`,
+  stageView: `#${uniquePrefix}stage {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:4px;margin-bottom:4px; border:1px solid #ff4351; position:relative; z-index:200; }`,
+  menuView: `#${uniquePrefix}menu {cursor:pointer;display:inline-block;cursor:pointer; text-align:center; padding: 0 8px; font: 12px/30px "Hiragino Sans GB","Microsoft YaHei","Arial","sans-serif";background-color: #ff4351;border-color: #ff4351;color: #fff; }`,
+};
+const app = new Emotion.EmotionPlugin(uniquePrefix, reserveData, cssStyles);
 containers.item(0).parentNode.insertBefore(app.appInstance, containers.item(0));

@@ -1,3 +1,5 @@
+import * as utils from './utils';
+
 export enum GroupType {ImageLink, Plain, Image};
 export class EmotionMenuItem {
   public itemAddress: Array<string>;
@@ -8,6 +10,11 @@ export class EmotionMenu {
   public groupTitle: string;
   public groupEmotions: Array<EmotionMenuItem>;
 }
+export class CssStyles {
+  public mainView: string;
+  public stageView: string;
+  public menuView: string;
+}
 
 export class EmotionPlugin {
   // Specify an unique name to separate the app and others;
@@ -17,14 +24,24 @@ export class EmotionPlugin {
   public menuInstance: HTMLElement;
   public stageInstance: HTMLElement;
   // App UI Data
-  public EmotionMenu: EmotionMenuItem;
-  constructor(name: string, data: Array<EmotionMenu>) {
+  public EmotionMenu: Array<EmotionMenu>;
+  // App Style
+  public EmotionStyles: CssStyles;
+  constructor(name: string, data: Array<EmotionMenu>, css: CssStyles) {
     this.divPrefix = name;
     this.appInstance = document.createElement('div');
     this.appInstance.id = `${this.divPrefix}0000`;
+    this.EmotionMenu = data;
+    this.EmotionStyles = css;
+    this.addStyles(css);
     this.addMenus();
     this.addStage();
     this.loadMenu(data);
+  }
+  private addStyles(css:CssStyles) {
+    const styleInstance = document.createElement('style');
+    styleInstance.innerHTML = utils.join(css);
+    this.appInstance.appendChild(styleInstance);
   }
   private addMenus() {
     const menu = document.createElement('div');
@@ -42,18 +59,29 @@ export class EmotionPlugin {
     const ulContainer = document.createElement('ul');
     item.forEach((mi, index) => {
       const listItem = document.createElement('li');
-      listItem.innerHTML = `<a title="${mi.groupTitle}" data-loadtype="${mi.groupType}" class="subMenu"><span class="t">${mi.groupTitle}</span></a>`;
+      const clickItem = document.createElement('a');
+      listItem.className = `${this.divPrefix}00001`;
+      clickItem.title = mi.groupTitle;
+      clickItem.dataset.loadtype = `${mi.groupType}`;
+      clickItem.addEventListener('click', (e: Event) => this.expandMenu(mi.groupType));
+      clickItem.href = `#`;
+      clickItem.innerHTML = `<span class="t">${mi.groupTitle}</span>`;
+      console.log(clickItem);
+      listItem.appendChild(clickItem);
       ulContainer.appendChild(listItem);
     });
-    this.appInstance.appendChild(ulContainer);
+    this.menuInstance.appendChild(ulContainer);
   }
   private expandMenu(gptype: GroupType) {
     switch (gptype) {
-      if (gptype === GroupType.Plain) {
+      case GroupType.Plain:
         console.log('plain');
-      } else if (gptype === GroupType.ImageLink) {
+        break;
+      case GroupType.ImageLink:
         console.log('imageLink');
-      }
+        break;
+      default:
+        console.log('default');
     }
   }
 }
