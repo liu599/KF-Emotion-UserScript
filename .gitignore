@@ -36,8 +36,6 @@ typings
 # Compiler generated
 source/**/*.js
 test/**/*.js
-dist/**/*.js
-output/**/*.js
 
 # other
 package-lock.json
