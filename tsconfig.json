@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "types" : [],
+    "lib": ["dom", "es7"],
+    "target": "es5",
+    "sourceMap": true,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
+    "outDir": "./tsc/",
+    "pretty": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts",
+    "**/*.spec.ts"
+  ],
+  "compileOnSave": false
+}

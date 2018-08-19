@@ -1,22 +1,19 @@
 {
-  "name": "KF-Emotion-Assistant",
-  "version": "4.4.5",
+  "name": "ts-kf-emotion-addon",
+  "version": "5.0.0",
   "description": "KF论坛、BBCODE论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE",
-  "main": "dist/kf.js",
-  "scripts": {
-    "build": "cd src && babel-node main.js --presets es2016",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "realtest": "mocha -t 50000 test.js",
-    "lint": "eslint src/main.js",
-    "lint-html": "eslint src/main.js -f html -o ./reports/lint-results.html",
-    "lint-fix": "eslint --fix src/main.js ./gulpfile.js ./server.js ./test.js",
-    "open": "http-server -p 8822 -o"
-  },
+  "main": "index.js",
   "keywords": [
-    "KFOL",
+    "Kid Fans BBS",
     "KF Emotion UserScript",
     "KF Emotion Assistant"
   ],
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc && webpack && gulp"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liu599/KF-Emotion-UserScript"
@@ -28,32 +25,10 @@
   },
   "homepage": "https://github.com/liu599/KF-Emotion-UserScript",
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-es2016": "^6.22.0",
-    "babel-preset-es2017": "^6.16.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.1",
-    "chai": "^3.5.0",
-    "eslint": "^3.15.0",
-    "eslint-config-airbnb-base": "^11.1.0",
-    "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-streamify": "^1.0.2",
-    "gulp-string-replace": "^0.4.0",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.8",
-    "mocha": "^3.2.0",
-    "nightmare": "^2.9.1",
-    "run-sequence": "^1.2.2",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.8.0"
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   },
-  "dependencies": {
-    "http-server": "^0.9.0"
-  }
+  "dependencies": {}
 }
