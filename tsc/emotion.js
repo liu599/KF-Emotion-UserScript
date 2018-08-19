@@ -7,25 +7,25 @@ var GroupType;
     GroupType[GroupType["Plain"] = 1] = "Plain";
     GroupType[GroupType["Image"] = 2] = "Image";
 })(GroupType = exports.GroupType || (exports.GroupType = {}));
-var EmotionMenuItem = (function () {
+var EmotionMenuItem = /** @class */ (function () {
     function EmotionMenuItem() {
     }
     return EmotionMenuItem;
 }());
 exports.EmotionMenuItem = EmotionMenuItem;
-var EmotionMenu = (function () {
+var EmotionMenu = /** @class */ (function () {
     function EmotionMenu() {
     }
     return EmotionMenu;
 }());
 exports.EmotionMenu = EmotionMenu;
-var CssStyles = (function () {
+var CssStyles = /** @class */ (function () {
     function CssStyles() {
     }
     return CssStyles;
 }());
 exports.CssStyles = CssStyles;
-var EmotionPlugin = (function () {
+var EmotionPlugin = /** @class */ (function () {
     function EmotionPlugin(name, data, css, targetTextarea) {
         this.targetInstance = targetTextarea;
         this.divPrefix = name;
@@ -37,6 +37,8 @@ var EmotionPlugin = (function () {
         this.addMenus();
         this.addStage();
         this.loadMenu(data);
+        console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
+        this.stageInstance.style.width = window.getComputedStyle(this.targetInstance, null).getPropertyValue('width');
     }
     EmotionPlugin.prototype.addStyles = function (css) {
         var styleInstance = document.createElement('style');
@@ -70,8 +72,14 @@ var EmotionPlugin = (function () {
             caretPos = caretPos + decodeURI(target.dataset.sign).length;
         }
         if (e.target instanceof HTMLImageElement) {
-            this.targetInstance.value = front + ("[img]" + e.target.src + "[/img]") + back;
-            caretPos = caretPos + e.target.src.length + 11;
+            if (e.target.dataset.link !== '') {
+                this.targetInstance.value = front + ("" + e.target.dataset.link) + back;
+                caretPos = caretPos + 6;
+            }
+            else {
+                this.targetInstance.value = front + ("[img]" + e.target.src + "[/img]") + back;
+                caretPos = caretPos + e.target.src.length + 11;
+            }
         }
         this.targetInstance.selectionStart = caretPos;
         this.targetInstance.selectionEnd = caretPos;
@@ -87,18 +95,17 @@ var EmotionPlugin = (function () {
             listItem.className = _this.divPrefix + "00001";
             clickItem.title = mi.groupTitle;
             clickItem.dataset.loadtype = "" + mi.groupType;
-            clickItem.addEventListener('click', function (e) { return _this.expandMenu(e, mi); });
-            clickItem.href = "#";
+            clickItem.addEventListener('click', function (e) { return _this.expandMenu(e, mi, listItem.className); });
             clickItem.innerHTML = "<span class=\"t\">" + mi.groupTitle + "</span>";
-            console.log(clickItem);
             listItem.appendChild(clickItem);
             ulContainer.appendChild(listItem);
         });
         this.menuInstance.appendChild(ulContainer);
     };
-    EmotionPlugin.prototype.expandMenu = function (e, menuItem) {
+    EmotionPlugin.prototype.expandMenu = function (e, menuItem, className) {
         var _this = this;
         this.clearStage();
+        this.toggleStage(e, className);
         switch (menuItem.groupType) {
             case GroupType.Plain:
                 console.log('plain', e.target);
@@ -118,6 +125,7 @@ var EmotionPlugin = (function () {
                     emotion.itemAddress.forEach(function (addr, idx) {
                         var imageItem = document.createElement('img');
                         imageItem.src = addr;
+                        imageItem.dataset.link = emotion.itemDescription.length > 0 ? emotion.itemDescription[idx] : '';
                         imageItem.className = 'Ems';
                         _this.stageInstance.appendChild(imageItem);
                     });
@@ -129,6 +137,28 @@ var EmotionPlugin = (function () {
     };
     EmotionPlugin.prototype.clearStage = function () {
         this.stageInstance.innerHTML = '';
+    };
+    EmotionPlugin.prototype.toggleStage = function (e, className) {
+        var listElems = document.querySelectorAll("." + className);
+        var target = e.target;
+        if (target instanceof HTMLSpanElement) {
+            target = target.parentElement;
+        }
+        if (target.className && target.className.includes('active')) {
+            target.className = '';
+        }
+        else {
+            listElems.forEach(function (elem) {
+                elem.querySelector('a').className = '';
+            });
+            target.className = 'active';
+        }
+        if (!target.className.includes('active') && this.stageInstance.style.display && this.stageInstance.style.display !== 'none') {
+            this.stageInstance.style.display = 'none';
+        }
+        else {
+            this.stageInstance.style.display = 'block';
+        }
     };
     return EmotionPlugin;
 }());

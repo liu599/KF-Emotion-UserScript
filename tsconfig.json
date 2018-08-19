@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "types" : [],
+    "lib": ["dom", "es7"],
     "target": "es5",
     "sourceMap": true,
     "module": "commonjs",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": true,
-    "removeComments": true,
+    "removeComments": false,
     "preserveConstEnums": true,
     "noUnusedLocals": true,
     "outDir": "./tsc/",

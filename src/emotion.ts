@@ -41,6 +41,8 @@ export class EmotionPlugin {
     this.addMenus();
     this.addStage();
     this.loadMenu(data);
+    console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
+    this.stageInstance.style.width = window.getComputedStyle(this.targetInstance, null).getPropertyValue('width');
   }
   private addStyles(css:CssStyles) {
     const styleInstance = document.createElement('style');
@@ -73,8 +75,13 @@ export class EmotionPlugin {
       caretPos = caretPos + decodeURI(target.dataset.sign).length;
     }
     if (e.target instanceof HTMLImageElement) {
-      this.targetInstance.value = front + `[img]${e.target.src}[/img]` + back;
-      caretPos = caretPos + e.target.src.length + 11;
+      if (e.target.dataset.link !== '') {
+        this.targetInstance.value = front + `${e.target.dataset.link}` + back;
+        caretPos = caretPos + 6;
+      } else {
+        this.targetInstance.value = front + `[img]${e.target.src}[/img]` + back;
+        caretPos = caretPos + e.target.src.length + 11;
+      }
     }
     this.targetInstance.selectionStart = caretPos;
     this.targetInstance.selectionEnd = caretPos;
@@ -89,17 +96,16 @@ export class EmotionPlugin {
       listItem.className = `${this.divPrefix}00001`;
       clickItem.title = mi.groupTitle;
       clickItem.dataset.loadtype = `${mi.groupType}`;
-      clickItem.addEventListener('click', (e: Event) => this.expandMenu(e, mi));
-      clickItem.href = `#`;
+      clickItem.addEventListener('click', (e: Event) => this.expandMenu(e, mi, listItem.className));
       clickItem.innerHTML = `<span class="t">${mi.groupTitle}</span>`;
-      console.log(clickItem);
       listItem.appendChild(clickItem);
       ulContainer.appendChild(listItem);
     });
     this.menuInstance.appendChild(ulContainer);
   }
-  private expandMenu(e: Event, menuItem: EmotionMenu) {
+  private expandMenu(e: Event, menuItem: EmotionMenu, className: string) {
     this.clearStage();
+    this.toggleStage(e, className);
     switch (menuItem.groupType) {
       case GroupType.Plain:
         console.log('plain', e.target);
@@ -119,6 +125,7 @@ export class EmotionPlugin {
           emotion.itemAddress.forEach((addr, idx) => {
             const imageItem = document.createElement('img');
             imageItem.src = addr;
+            imageItem.dataset.link = emotion.itemDescription.length > 0 ? emotion.itemDescription[idx] : '';
             imageItem.className = 'Ems';
             this.stageInstance.appendChild(imageItem);
           });
@@ -130,5 +137,25 @@ export class EmotionPlugin {
   }
   private clearStage() {
     this.stageInstance.innerHTML = '';
+  }
+  private toggleStage(e: Event, className: string) {
+    const listElems = document.querySelectorAll(`.${className}`);
+    let target = <HTMLElement>e.target;
+    if (target instanceof HTMLSpanElement) {
+      target = target.parentElement;
+    }
+    if (target.className && target.className.includes('active')) {
+      target.className = '';
+    } else {
+      listElems.forEach((elem) => {
+        elem.querySelector('a').className = '';
+      });
+      target.className = 'active';
+    }
+    if (!target.className.includes('active') && this.stageInstance.style.display && this.stageInstance.style.display !== 'none') {
+      this.stageInstance.style.display = 'none';
+    } else {
+      this.stageInstance.style.display = 'block';
+    }
   }
 }

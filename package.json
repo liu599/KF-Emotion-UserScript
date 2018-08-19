@@ -12,7 +12,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "tsc && webpack"
+    "build": "tsc && webpack && gulp"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/liu599/KF-Emotion-UserScript",
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   },
