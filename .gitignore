@@ -26,8 +26,6 @@ build/Release
 # Dependency directory
 node_modules
 typings
-dist
-output
 
 # Optional npm cache directory
 .npm
@@ -38,6 +36,8 @@ output
 # Compiler generated
 source/**/*.js
 test/**/*.js
+dist/**/*.js
+output/**/*.js
 
 # other
 package-lock.json
