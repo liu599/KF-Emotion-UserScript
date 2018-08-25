@@ -40,4 +40,35 @@ function loadEmotions(options) {
     return ret;
 }
 exports.loadEmotions = loadEmotions;
+function addEmotions(imageUrls) {
+    imageUrls.forEach(function (url, index) {
+        var ts = new Date().getTime();
+        window.localStorage.set("eddie32_" + ts + "_" + index, url);
+    });
+}
+exports.addEmotions = addEmotions;
+function readEmotions() {
+    console.log('12312');
+    console.log(window.localStorage);
+    for (var i = 0; i < window.localStorage.length; i += 1) {
+        var key = window.localStorage.key(i);
+        console.log(window.localStorage[key]);
+    }
+    return [];
+}
+exports.readEmotions = readEmotions;
+/*function serialize(val: object): string {
+  return JSON.stringify(val);
+}
+
+function deserialize(val: any): any {
+  if (typeof val !== 'string') {
+    return undefined;
+  }
+  try {
+    return JSON.parse(val);
+  } catch (e) {
+    return val || undefined;
+  }
+}*/
 //# sourceMappingURL=utils.js.map

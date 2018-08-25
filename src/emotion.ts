@@ -1,6 +1,7 @@
 import * as utils from './utils';
 
-export enum GroupType {ImageLink, Plain, Image}
+
+export enum GroupType {ImageLink, Plain, Image, User}
 export class EmotionMenuItem {
   public itemAddress: Array<string>;
   public itemDescription: Array<string>;
@@ -16,6 +17,7 @@ export class CssStyles {
   public menuView: string;
   public txtBtn: string;
   public imageLink: string;
+  public popUp: string;
 }
 
 export class EmotionPlugin {
@@ -28,48 +30,62 @@ export class EmotionPlugin {
   public targetInstance: HTMLTextAreaElement;
   // App UI Data
   public EmotionMenu: Array<EmotionMenu>;
+  // Popup
+  public Popup: HTMLElement;
   // App Style
   public EmotionStyles: CssStyles;
   constructor(name: string, data: Array<EmotionMenu>, css: CssStyles, targetTextarea: HTMLTextAreaElement) {
     this.targetInstance = targetTextarea;
     this.divPrefix = name;
     this.appInstance = document.createElement('div');
+    this.Popup = document.createElement('div');
+    this.Popup.id = `${this.divPrefix}ppp`;
     this.appInstance.id = `${this.divPrefix}0000`;
+    this.appInstance.appendChild(this.Popup);
     this.EmotionMenu = data;
     this.EmotionStyles = css;
-    this.addStyles(css);
-    this.addMenus();
-    this.addStage();
-    this.loadMenu(data);
-    console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
+    this.loadMenus();
+    this.loadMenuData(data);
+    this.loadStage();
+    this.loadStyles(css);
+
+    // console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
     this.stageInstance.style.width = window.getComputedStyle(this.targetInstance, null).getPropertyValue('width');
   }
-  private addStyles(css:CssStyles) {
+  private loadStyles(css:CssStyles) {
     const styleInstance = document.createElement('style');
     styleInstance.innerHTML = utils.join(css);
     this.appInstance.appendChild(styleInstance);
   }
-  private addMenus() {
+  private loadMenus() {
     const menu = document.createElement('div');
     menu.id = `${this.divPrefix}menu`;
     this.appInstance.appendChild(menu);
     this.menuInstance = menu;
   }
-  private addStage() {
+  private loadStage() {
     const stage = document.createElement('div');
     stage.id = `${this.divPrefix}stage`;
-    stage.addEventListener('click', (e: Event) => this.addEmotions(e));
+    stage.addEventListener('click', (e: Event) => this.stageEmitter(e));
     this.appInstance.appendChild(stage);
     this.stageInstance = stage;
   }
-  private addEmotions(e: Event) {
-    console.log(e.target, e.target instanceof HTMLAnchorElement);
+  private stageEmitter(e: Event) {
     const target = <HTMLElement>e.target;
     const scrollPos = this.targetInstance.scrollTop;
     let curValue = this.targetInstance.value;
     let caretPos = this.targetInstance.selectionStart;
     const front = curValue.substring(0, caretPos);
     const back = curValue.substring(this.targetInstance.selectionEnd, curValue.length);
+    if (e.target instanceof HTMLSpanElement) {
+      console.log('span element');
+      if (e.target.id === `${this.divPrefix}add`) {
+        this.addUserDefinedEmotions();
+      }
+      if (e.target.id === `${this.divPrefix}delete`) {
+        this.deleteUserDefinedEmotions();
+      }
+    }
     if (e.target instanceof HTMLAnchorElement) {
       this.targetInstance.value = front +  decodeURI(target.dataset.sign) + back;
       caretPos = caretPos + decodeURI(target.dataset.sign).length;
@@ -88,7 +104,7 @@ export class EmotionPlugin {
     this.targetInstance.focus();
     this.targetInstance.scrollTop = scrollPos;
   }
-  private loadMenu(item: Array<EmotionMenu>) {
+  private loadMenuData(item: Array<EmotionMenu>) {
     const ulContainer = document.createElement('ul');
     item.forEach((mi) => {
       const listItem = document.createElement('li');
@@ -131,6 +147,18 @@ export class EmotionPlugin {
           });
         });
         break;
+      case GroupType.User:
+        console.log('user');
+        const addBtn = document.createElement('span');
+        addBtn.innerHTML = ' [增加表情] ';
+        addBtn.id = `${this.divPrefix}add`;
+        this.stageInstance.appendChild(addBtn);
+        const deleteBtn = document.createElement('span');
+        deleteBtn.innerHTML = ' [删除表情] ';
+        deleteBtn.id = `${this.divPrefix}btn`;
+        this.stageInstance.appendChild(deleteBtn);
+        this.loadUserDefinedEmotions();
+        break;
       default:
         console.log('default');
     }
@@ -157,5 +185,15 @@ export class EmotionPlugin {
     } else {
       this.stageInstance.style.display = 'block';
     }
+  }
+  private addUserDefinedEmotions() {
+    return;
+  }
+  private deleteUserDefinedEmotions() {
+    return;
+  }
+  private loadUserDefinedEmotions() {
+    utils.readEmotions();
+    return;
   }
 }

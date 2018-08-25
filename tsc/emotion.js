@@ -6,6 +6,7 @@ var GroupType;
     GroupType[GroupType["ImageLink"] = 0] = "ImageLink";
     GroupType[GroupType["Plain"] = 1] = "Plain";
     GroupType[GroupType["Image"] = 2] = "Image";
+    GroupType[GroupType["User"] = 3] = "User";
 })(GroupType = exports.GroupType || (exports.GroupType = {}));
 var EmotionMenuItem = /** @class */ (function () {
     function EmotionMenuItem() {
@@ -30,43 +31,54 @@ var EmotionPlugin = /** @class */ (function () {
         this.targetInstance = targetTextarea;
         this.divPrefix = name;
         this.appInstance = document.createElement('div');
+        this.Popup = document.createElement('div');
+        this.Popup.id = this.divPrefix + "ppp";
         this.appInstance.id = this.divPrefix + "0000";
+        this.appInstance.appendChild(this.Popup);
         this.EmotionMenu = data;
         this.EmotionStyles = css;
-        this.addStyles(css);
-        this.addMenus();
-        this.addStage();
-        this.loadMenu(data);
-        console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
+        this.loadMenus();
+        this.loadMenuData(data);
+        this.loadStage();
+        this.loadStyles(css);
+        // console.log(window.getComputedStyle(this.targetInstance, null).getPropertyValue('width'));
         this.stageInstance.style.width = window.getComputedStyle(this.targetInstance, null).getPropertyValue('width');
     }
-    EmotionPlugin.prototype.addStyles = function (css) {
+    EmotionPlugin.prototype.loadStyles = function (css) {
         var styleInstance = document.createElement('style');
         styleInstance.innerHTML = utils.join(css);
         this.appInstance.appendChild(styleInstance);
     };
-    EmotionPlugin.prototype.addMenus = function () {
+    EmotionPlugin.prototype.loadMenus = function () {
         var menu = document.createElement('div');
         menu.id = this.divPrefix + "menu";
         this.appInstance.appendChild(menu);
         this.menuInstance = menu;
     };
-    EmotionPlugin.prototype.addStage = function () {
+    EmotionPlugin.prototype.loadStage = function () {
         var _this = this;
         var stage = document.createElement('div');
         stage.id = this.divPrefix + "stage";
-        stage.addEventListener('click', function (e) { return _this.addEmotions(e); });
+        stage.addEventListener('click', function (e) { return _this.stageEmitter(e); });
         this.appInstance.appendChild(stage);
         this.stageInstance = stage;
     };
-    EmotionPlugin.prototype.addEmotions = function (e) {
-        console.log(e.target, e.target instanceof HTMLAnchorElement);
+    EmotionPlugin.prototype.stageEmitter = function (e) {
         var target = e.target;
         var scrollPos = this.targetInstance.scrollTop;
         var curValue = this.targetInstance.value;
         var caretPos = this.targetInstance.selectionStart;
         var front = curValue.substring(0, caretPos);
         var back = curValue.substring(this.targetInstance.selectionEnd, curValue.length);
+        if (e.target instanceof HTMLSpanElement) {
+            console.log('span element');
+            if (e.target.id === this.divPrefix + "add") {
+                this.addUserDefinedEmotions();
+            }
+            if (e.target.id === this.divPrefix + "delete") {
+                this.deleteUserDefinedEmotions();
+            }
+        }
         if (e.target instanceof HTMLAnchorElement) {
             this.targetInstance.value = front + decodeURI(target.dataset.sign) + back;
             caretPos = caretPos + decodeURI(target.dataset.sign).length;
@@ -86,7 +98,7 @@ var EmotionPlugin = /** @class */ (function () {
         this.targetInstance.focus();
         this.targetInstance.scrollTop = scrollPos;
     };
-    EmotionPlugin.prototype.loadMenu = function (item) {
+    EmotionPlugin.prototype.loadMenuData = function (item) {
         var _this = this;
         var ulContainer = document.createElement('ul');
         item.forEach(function (mi) {
@@ -131,6 +143,18 @@ var EmotionPlugin = /** @class */ (function () {
                     });
                 });
                 break;
+            case GroupType.User:
+                console.log('user');
+                var addBtn = document.createElement('span');
+                addBtn.innerHTML = ' [增加表情] ';
+                addBtn.id = this.divPrefix + "add";
+                this.stageInstance.appendChild(addBtn);
+                var deleteBtn = document.createElement('span');
+                deleteBtn.innerHTML = ' [删除表情] ';
+                deleteBtn.id = this.divPrefix + "btn";
+                this.stageInstance.appendChild(deleteBtn);
+                this.loadUserDefinedEmotions();
+                break;
             default:
                 console.log('default');
         }
@@ -159,6 +183,16 @@ var EmotionPlugin = /** @class */ (function () {
         else {
             this.stageInstance.style.display = 'block';
         }
+    };
+    EmotionPlugin.prototype.addUserDefinedEmotions = function () {
+        return;
+    };
+    EmotionPlugin.prototype.deleteUserDefinedEmotions = function () {
+        return;
+    };
+    EmotionPlugin.prototype.loadUserDefinedEmotions = function () {
+        utils.readEmotions();
+        return;
     };
     return EmotionPlugin;
 }());

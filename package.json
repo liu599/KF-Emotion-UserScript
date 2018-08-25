@@ -30,5 +30,7 @@
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "good-storage": "^1.0.1"
+  }
 }
