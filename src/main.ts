@@ -154,7 +154,7 @@ const reserveData: Array<Emotion.EmotionMenu> = [
       },
     ],
     groupTitle: '少女歌剧',
-    groupType: Emotion.GroupType.User,
+    groupType: Emotion.GroupType.ImageLink,
   },
   {
     groupEmotions: [
@@ -169,8 +169,8 @@ const reserveData: Array<Emotion.EmotionMenu> = [
         itemDescription: [],
       },
     ],
-    groupTitle: 'BanGDream',
-    groupType: Emotion.GroupType.User,
+    groupTitle: 'バンドリ',
+    groupType: Emotion.GroupType.ImageLink,
   },
   {
     groupEmotions: [],

@@ -203,6 +203,32 @@
         groupTitle: "B站",
         groupType: Emotion.GroupType.ImageLink
     }, {
+        groupEmotions: [ {
+            itemAddress: utils.loadEmotions({
+                startPos: 1,
+                arrLength: 40,
+                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/sticker (",
+                strSuffix: ").png",
+                leadingZero: !1
+            }),
+            itemDescription: []
+        } ],
+        groupTitle: "少女歌剧",
+        groupType: Emotion.GroupType.ImageLink
+    }, {
+        groupEmotions: [ {
+            itemAddress: utils.loadEmotions({
+                startPos: 1,
+                arrLength: 40,
+                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/BGD/sticker (",
+                strSuffix: ").png",
+                leadingZero: !1
+            }),
+            itemDescription: []
+        } ],
+        groupTitle: "バンドリ",
+        groupType: Emotion.GroupType.ImageLink
+    }, {
         groupEmotions: [],
         groupTitle: "自定义",
         groupType: Emotion.GroupType.User
