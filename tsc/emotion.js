@@ -33,6 +33,7 @@ var EmotionPlugin = /** @class */ (function () {
         this.appInstance = document.createElement('div');
         this.Popup = document.createElement('div');
         this.Popup.id = this.divPrefix + "ppp";
+        this.Popup.innerHTML = "<div style=\"display: block; width: 100%; padding: 10px;\"><h3>\u6BCF\u4E2A\u8868\u60C5\u4E00\u884C</h3><textarea id=\"eddie32pqp\" style=\"overflow-x: auto; width: 90%;\" rows=\"12\" ></textarea><button id=\"" + this.divPrefix + "ppp1\">\u786E\u8BA4</button><button id=\"" + this.divPrefix + "ppp2\">\u53D6\u6D88</button>";
         this.appInstance.id = this.divPrefix + "0000";
         this.appInstance.appendChild(this.Popup);
         this.EmotionMenu = data;
@@ -73,7 +74,7 @@ var EmotionPlugin = /** @class */ (function () {
         if (e.target instanceof HTMLSpanElement) {
             console.log('span element');
             if (e.target.id === this.divPrefix + "add") {
-                this.addUserDefinedEmotions();
+                this.addUserDefinedEmotions(e);
             }
             if (e.target.id === this.divPrefix + "delete") {
                 this.deleteUserDefinedEmotions();
@@ -148,11 +149,17 @@ var EmotionPlugin = /** @class */ (function () {
                 var addBtn = document.createElement('span');
                 addBtn.innerHTML = ' [增加表情] ';
                 addBtn.id = this.divPrefix + "add";
+                addBtn.addEventListener('click', function (et) { return _this.toggleInputWindow(et); });
                 this.stageInstance.appendChild(addBtn);
                 var deleteBtn = document.createElement('span');
-                deleteBtn.innerHTML = ' [删除表情] ';
+                deleteBtn.innerHTML = ' [(功能未开发)] ';
                 deleteBtn.id = this.divPrefix + "btn";
                 this.stageInstance.appendChild(deleteBtn);
+                var clearBtn = document.createElement('span');
+                clearBtn.innerHTML = ' [清空表情] ';
+                clearBtn.id = this.divPrefix + "clear";
+                clearBtn.addEventListener('click', this.clearUserDefinedEmotions.bind(this));
+                this.stageInstance.appendChild(clearBtn);
                 this.loadUserDefinedEmotions();
                 break;
             default:
@@ -184,15 +191,65 @@ var EmotionPlugin = /** @class */ (function () {
             this.stageInstance.style.display = 'block';
         }
     };
-    EmotionPlugin.prototype.addUserDefinedEmotions = function () {
+    EmotionPlugin.prototype.toggleInputWindow = function (e) {
+        var _this = this;
+        e.stopPropagation();
+        e.preventDefault();
+        var confirmBtn = document.getElementById(this.divPrefix + "ppp1");
+        var cBclone = confirmBtn.cloneNode(true);
+        cBclone.addEventListener('click', function (e1) { return _this.addUserDefinedEmotions(e1); });
+        confirmBtn.parentNode.replaceChild(cBclone, confirmBtn);
+        var cancelBtn = document.getElementById(this.divPrefix + "ppp2");
+        var cCclone = cancelBtn.cloneNode(true);
+        cCclone.addEventListener('click', function (e2) { return _this.toggleInputWindow(e2); });
+        cancelBtn.parentNode.replaceChild(cCclone, cancelBtn);
+        this.closeWindow();
+    };
+    EmotionPlugin.prototype.closeWindow = function () {
+        var wm = document.getElementById(this.divPrefix + "ppp");
+        console.log(wm.style.display);
+        if (wm.style.display && wm.style.display !== 'none') {
+            wm.style.display = 'none';
+        }
+        else {
+            wm.style.display = 'block';
+            this.loadUserDefinedEmotions();
+        }
+    };
+    EmotionPlugin.prototype.addUserDefinedEmotions = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var tra = document.getElementById(this.divPrefix + "pqp");
+        console.log(tra.value, 'dasfsdd');
+        utils.addEmotions(tra.value.split('\n'));
+        tra.value = '';
+        this.closeWindow();
         return;
     };
     EmotionPlugin.prototype.deleteUserDefinedEmotions = function () {
         return;
     };
     EmotionPlugin.prototype.loadUserDefinedEmotions = function () {
-        utils.readEmotions();
-        return;
+        var contents = utils.readEmotions();
+        console.log(contents, 'dafadsf');
+        var outerContainer = document.querySelector("#" + this.divPrefix + "outer");
+        if (outerContainer) {
+            document.querySelector("#" + this.divPrefix + "outer").innerHTML = '';
+        }
+        else {
+            outerContainer = document.createElement('div');
+            outerContainer.id = this.divPrefix + "outer";
+        }
+        contents.forEach(function (elem) {
+            outerContainer.appendChild(elem);
+        });
+        this.stageInstance.appendChild(outerContainer);
+    };
+    EmotionPlugin.prototype.clearUserDefinedEmotions = function () {
+        if (window.confirm('Clear ALL Emotion Caches?')) {
+            window.localStorage.clear();
+            this.loadUserDefinedEmotions();
+        }
     };
     return EmotionPlugin;
 }());

@@ -41,17 +41,31 @@ export function loadEmotions(options: OPT, ...rest: Array<OPT>): Array<string> {
 export function addEmotions(imageUrls: Array<string>) {
   imageUrls.forEach((url, index) => {
     let ts = new Date().getTime();
-    window.localStorage.set(`eddie32_${ts}_${index}`, url);
+    console.log(typeAssert(url));
+    let ind = url.lastIndexOf('.');
+    let ext = url.substr(ind + 1);
+    if (typeAssert(ext)) {
+      window.localStorage.setItem(`eddie32_${ts}_${index}`, url);
+    }
   });
 }
-export function readEmotions(): Array<string> {
-  console.log('12312');
+function typeAssert(ext: string) {
+  return [
+    'png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'].
+  indexOf(ext.toLowerCase()) !== -1;
+}
+export function readEmotions(): Array<HTMLImageElement> {
   console.log(window.localStorage);
-  for ( let i = 0; i < window.localStorage.length; i += 1) {
+  const ret: Array<HTMLImageElement> = [];
+  for (let i = 0; i < window.localStorage.length; i += 1) {
     let key = window.localStorage.key(i);
-    console.log(window.localStorage[key]);
+    let con = <HTMLImageElement> document.createElement('img');
+    con.src = window.localStorage[key];
+    con.dataset.link = '';
+    con.className = 'Ems';
+    ret.push(con);
   }
-  return [];
+  return ret;
 }
 /*function serialize(val: object): string {
   return JSON.stringify(val);

@@ -40,6 +40,7 @@ export class EmotionPlugin {
     this.appInstance = document.createElement('div');
     this.Popup = document.createElement('div');
     this.Popup.id = `${this.divPrefix}ppp`;
+    this.Popup.innerHTML = `<div style="display: block; width: 100%; padding: 10px;"><h3>每个表情一行</h3><textarea id="eddie32pqp" style="overflow-x: auto; width: 90%;" rows="12" ></textarea><button id="${this.divPrefix}ppp1">确认</button><button id="${this.divPrefix}ppp2">取消</button>`;
     this.appInstance.id = `${this.divPrefix}0000`;
     this.appInstance.appendChild(this.Popup);
     this.EmotionMenu = data;
@@ -80,7 +81,7 @@ export class EmotionPlugin {
     if (e.target instanceof HTMLSpanElement) {
       console.log('span element');
       if (e.target.id === `${this.divPrefix}add`) {
-        this.addUserDefinedEmotions();
+        this.addUserDefinedEmotions(e);
       }
       if (e.target.id === `${this.divPrefix}delete`) {
         this.deleteUserDefinedEmotions();
@@ -152,11 +153,17 @@ export class EmotionPlugin {
         const addBtn = document.createElement('span');
         addBtn.innerHTML = ' [增加表情] ';
         addBtn.id = `${this.divPrefix}add`;
+        addBtn.addEventListener('click', (et: Event) => this.toggleInputWindow(et));
         this.stageInstance.appendChild(addBtn);
         const deleteBtn = document.createElement('span');
-        deleteBtn.innerHTML = ' [删除表情] ';
+        deleteBtn.innerHTML = ' [(功能未开发)] ';
         deleteBtn.id = `${this.divPrefix}btn`;
         this.stageInstance.appendChild(deleteBtn);
+        const clearBtn = document.createElement('span');
+        clearBtn.innerHTML = ' [清空表情] ';
+        clearBtn.id = `${this.divPrefix}clear`;
+        clearBtn.addEventListener('click', this.clearUserDefinedEmotions.bind(this));
+        this.stageInstance.appendChild(clearBtn);
         this.loadUserDefinedEmotions();
         break;
       default:
@@ -186,14 +193,61 @@ export class EmotionPlugin {
       this.stageInstance.style.display = 'block';
     }
   }
-  private addUserDefinedEmotions() {
+  private toggleInputWindow(e: Event) {
+    e.stopPropagation();
+    e.preventDefault();
+    let confirmBtn = document.getElementById(`${this.divPrefix}ppp1`);
+    let cBclone = confirmBtn.cloneNode(true);
+    cBclone.addEventListener('click', (e1: Event) => this.addUserDefinedEmotions(e1));
+    confirmBtn.parentNode.replaceChild(cBclone, confirmBtn);
+    let cancelBtn = document.getElementById(`${this.divPrefix}ppp2`);
+    let cCclone = cancelBtn.cloneNode(true);
+    cCclone.addEventListener('click', (e2: Event) => this.toggleInputWindow(e2));
+    cancelBtn.parentNode.replaceChild(cCclone, cancelBtn);
+    this.closeWindow();
+  }
+  private closeWindow() {
+    let wm = document.getElementById(`${this.divPrefix}ppp`);
+    console.log(wm.style.display);
+    if (wm.style.display && wm.style.display !== 'none') {
+      wm.style.display = 'none';
+    } else {
+      wm.style.display = 'block';
+      this.loadUserDefinedEmotions();
+    }
+  }
+  private addUserDefinedEmotions(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+    let tra = <HTMLTextAreaElement> document.getElementById(`${this.divPrefix}pqp`);
+    console.log(tra.value, 'dasfsdd');
+    utils.addEmotions(tra.value.split('\n'));
+    tra.value = '';
+    this.closeWindow();
     return;
   }
   private deleteUserDefinedEmotions() {
     return;
   }
   private loadUserDefinedEmotions() {
-    utils.readEmotions();
-    return;
+    let contents = utils.readEmotions();
+    console.log(contents, 'dafadsf');
+    let outerContainer = document.querySelector(`#${this.divPrefix}outer`);
+    if (outerContainer) {
+      document.querySelector(`#${this.divPrefix}outer`).innerHTML = '';
+    } else {
+      outerContainer = document.createElement('div');
+      outerContainer.id = `${this.divPrefix}outer`;
+    }
+    contents.forEach((elem) => {
+      outerContainer.appendChild(elem);
+    });
+    this.stageInstance.appendChild(outerContainer);
+  }
+  private clearUserDefinedEmotions() {
+    if (window.confirm('Clear ALL Emotion Caches?')) {
+      window.localStorage.clear();
+      this.loadUserDefinedEmotions();
+    }
   }
 }

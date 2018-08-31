@@ -46,32 +46,6 @@ var reserveData = [
         groupEmotions: [
             {
                 itemAddress: utils.loadEmotions({
-                    startPos: 1,
-                    arrLength: 17,
-                    strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/2233 (',
-                    strSuffix: ').gif',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-            {
-                itemAddress: utils.loadEmotions({
-                    startPos: 0,
-                    arrLength: 14,
-                    strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/bilibiliTV (',
-                    strSuffix: ').png',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-        ],
-        groupTitle: 'BILIBILI',
-        groupType: Emotion.GroupType.ImageLink,
-    },
-    {
-        groupEmotions: [
-            {
-                itemAddress: utils.loadEmotions({
                     startPos: 0,
                     arrLength: 20,
                     strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/pcrn/sticker (',
@@ -137,7 +111,33 @@ var reserveData = [
                 itemDescription: [],
             },
         ],
-        groupTitle: 'ACFUN',
+        groupTitle: 'A站',
+        groupType: Emotion.GroupType.ImageLink,
+    },
+    {
+        groupEmotions: [
+            {
+                itemAddress: utils.loadEmotions({
+                    startPos: 1,
+                    arrLength: 17,
+                    strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/2233 (',
+                    strSuffix: ').gif',
+                    leadingZero: false,
+                }),
+                itemDescription: [],
+            },
+            {
+                itemAddress: utils.loadEmotions({
+                    startPos: 0,
+                    arrLength: 14,
+                    strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/bilibiliTV (',
+                    strSuffix: ').png',
+                    leadingZero: false,
+                }),
+                itemDescription: [],
+            },
+        ],
+        groupTitle: 'B站',
         groupType: Emotion.GroupType.ImageLink,
     },
     {
@@ -148,11 +148,11 @@ var reserveData = [
 ];
 var cssStyles = {
     mainView: "#" + uniquePrefix + "0000 {font: 12px/28px \"Hiragino Sans GB\",\"Microsoft YaHei\",\"Arial\",\"sans-serif\"; margin-bottom: 5px; }",
-    stageView: "#" + uniquePrefix + "stage {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:4px;margin-bottom:4px; border:1px solid #ff4351; position:relative; z-index:200; display: none }",
+    stageView: "#" + uniquePrefix + "stage {height: 100px; padding: 3px 3px; overflow-x: auto; margin-top:4px;margin-bottom:4px; border:1px solid #ff4351; position:relative; z-index:200; display: none; } #" + uniquePrefix + "stage span { cursor: pointer }",
     menuView: "#" + uniquePrefix + "menu {display:inline-block;cursor:pointer; text-align:center; padding: 0; font: 12px/30px \"Hiragino Sans GB\",\"Microsoft YaHei\",\"Arial\",\"sans-serif\";background-color: #ff4351;border-color: #ff4351;color: #fff; } #" + uniquePrefix + "menu ul { list-style-type: none; margin: 0; padding: 0; } #" + uniquePrefix + "menu ul li { display: inline-block; text-align: middle } #" + uniquePrefix + "menu ul li a { display: block; color: #f2f2f2; min-width: 55px; } #" + uniquePrefix + "menu ul li a:hover, #" + uniquePrefix + "menu ul li a.active {background-color: #ff7680;border-color: #ff7680; color: #f2f2f2;}",
     txtBtn: "a.txtBtnEmotion { display: inline-block; text-decoration: none; cursor: pointer; padding: 0 8px; font: 12px/24px 'Hiragino Sans GB','Microsoft YaHei','Arial','sans-serif';} a.txtBtnEmotion:hover { background: #ff7680; color: #fff; }",
     imageLink: ".Ems { cursor: pointer; width: 50px; height: 50px; display: inline-block; z-index: 400;  }",
-    popUp: "#" + uniquePrefix + "ppp {position: fixed; bottom: 50px; right: 50px; z-index: 999;}",
+    popUp: "#" + uniquePrefix + "ppp {position: fixed; bottom: 10px; right: 10px; z-index: 999; width: 400px; display: block; height: 300px; background: #f3f3f3; border: 1px solid #000; display: none}",
 };
 var app = new Emotion.EmotionPlugin(uniquePrefix, reserveData, cssStyles, targetTextarea);
 targetTextarea.parentNode.insertBefore(app.appInstance, targetTextarea);

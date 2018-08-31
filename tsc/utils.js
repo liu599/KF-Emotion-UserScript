@@ -43,18 +43,33 @@ exports.loadEmotions = loadEmotions;
 function addEmotions(imageUrls) {
     imageUrls.forEach(function (url, index) {
         var ts = new Date().getTime();
-        window.localStorage.set("eddie32_" + ts + "_" + index, url);
+        console.log(typeAssert(url));
+        var ind = url.lastIndexOf('.');
+        var ext = url.substr(ind + 1);
+        if (typeAssert(ext)) {
+            window.localStorage.setItem("eddie32_" + ts + "_" + index, url);
+        }
     });
 }
 exports.addEmotions = addEmotions;
+function typeAssert(ext) {
+    return [
+        'png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'
+    ].
+        indexOf(ext.toLowerCase()) !== -1;
+}
 function readEmotions() {
-    console.log('12312');
     console.log(window.localStorage);
+    var ret = [];
     for (var i = 0; i < window.localStorage.length; i += 1) {
         var key = window.localStorage.key(i);
-        console.log(window.localStorage[key]);
+        var con = document.createElement('img');
+        con.src = window.localStorage[key];
+        con.dataset.link = '';
+        con.className = 'Ems';
+        ret.push(con);
     }
-    return [];
+    return ret;
 }
 exports.readEmotions = readEmotions;
 /*function serialize(val: object): string {
