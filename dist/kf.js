@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     5.1.0
+// @version     5.1.1
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        http://wx1.sinaimg.cn/small/62800f43ly8fttwqsdhc2j20e80e8t9b.jpg
@@ -91,11 +91,14 @@
             var ts = new Date().getTime(), ind = url.lastIndexOf(".");
             typeAssert(url.substr(ind + 1)) && window.localStorage.setItem("eddie32_" + ts + "_" + index, url);
         });
-    }, exports.readEmotions = function() {
+    }, exports.readEmotions = function(prefix) {
         for (var ret = [], i = 0; i < window.localStorage.length; i += 1) {
-            var key = window.localStorage.key(i), con = document.createElement("img");
-            con.src = window.localStorage[key], con.dataset.link = "", con.className = "Ems", 
-            ret.push(con);
+            var key = window.localStorage.key(i);
+            if (key.includes(prefix)) {
+                var con = document.createElement("img");
+                con.src = window.localStorage[key], con.dataset.link = "", con.className = "Ems", 
+                ret.push(con);
+            }
         }
         return ret;
     };
@@ -353,13 +356,19 @@
             var tra = document.getElementById(this.divPrefix + "pqp");
             utils.addEmotions(tra.value.split("\n")), tra.value = "", this.closeWindow();
         }, EmotionPlugin.prototype.deleteUserDefinedEmotions = function() {}, EmotionPlugin.prototype.loadUserDefinedEmotions = function() {
-            var contents = utils.readEmotions(), outerContainer = document.querySelector("#" + this.divPrefix + "outer");
+            var contents = utils.readEmotions("" + this.divPrefix), outerContainer = document.querySelector("#" + this.divPrefix + "outer");
             outerContainer ? document.querySelector("#" + this.divPrefix + "outer").innerHTML = "" : (outerContainer = document.createElement("div")).id = this.divPrefix + "outer", 
             contents.forEach(function(elem) {
                 outerContainer.appendChild(elem);
             }), this.stageInstance.appendChild(outerContainer);
         }, EmotionPlugin.prototype.clearUserDefinedEmotions = function() {
-            window.confirm("Clear ALL Emotion Caches?") && (window.localStorage.clear(), this.loadUserDefinedEmotions());
+            if (window.confirm("Clear ALL Emotion Caches?")) {
+                for (var i = 0; i < window.localStorage.length; i += 1) {
+                    var key = window.localStorage.key(i);
+                    key.includes("" + this.divPrefix) && window.localStorage.removeItem(key);
+                }
+                this.loadUserDefinedEmotions();
+            }
         }, EmotionPlugin;
     }();
     exports.EmotionPlugin = EmotionPlugin;

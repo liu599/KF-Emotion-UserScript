@@ -58,16 +58,18 @@ function typeAssert(ext) {
     ].
         indexOf(ext.toLowerCase()) !== -1;
 }
-function readEmotions() {
+function readEmotions(prefix) {
     console.log(window.localStorage);
     var ret = [];
     for (var i = 0; i < window.localStorage.length; i += 1) {
         var key = window.localStorage.key(i);
-        var con = document.createElement('img');
-        con.src = window.localStorage[key];
-        con.dataset.link = '';
-        con.className = 'Ems';
-        ret.push(con);
+        if (key.includes(prefix)) {
+            var con = document.createElement('img');
+            con.src = window.localStorage[key];
+            con.dataset.link = '';
+            con.className = 'Ems';
+            ret.push(con);
+        }
     }
     return ret;
 }

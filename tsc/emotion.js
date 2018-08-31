@@ -230,8 +230,7 @@ var EmotionPlugin = /** @class */ (function () {
         return;
     };
     EmotionPlugin.prototype.loadUserDefinedEmotions = function () {
-        var contents = utils.readEmotions();
-        console.log(contents, 'dafadsf');
+        var contents = utils.readEmotions("" + this.divPrefix);
         var outerContainer = document.querySelector("#" + this.divPrefix + "outer");
         if (outerContainer) {
             document.querySelector("#" + this.divPrefix + "outer").innerHTML = '';
@@ -247,7 +246,12 @@ var EmotionPlugin = /** @class */ (function () {
     };
     EmotionPlugin.prototype.clearUserDefinedEmotions = function () {
         if (window.confirm('Clear ALL Emotion Caches?')) {
-            window.localStorage.clear();
+            for (var i = 0; i < window.localStorage.length; i += 1) {
+                var key = window.localStorage.key(i);
+                if (key.includes("" + this.divPrefix)) {
+                    window.localStorage.removeItem(key);
+                }
+            }
             this.loadUserDefinedEmotions();
         }
     };

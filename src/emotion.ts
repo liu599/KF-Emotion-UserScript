@@ -230,8 +230,7 @@ export class EmotionPlugin {
     return;
   }
   private loadUserDefinedEmotions() {
-    let contents = utils.readEmotions();
-    console.log(contents, 'dafadsf');
+    let contents = utils.readEmotions(`${this.divPrefix}`);
     let outerContainer = document.querySelector(`#${this.divPrefix}outer`);
     if (outerContainer) {
       document.querySelector(`#${this.divPrefix}outer`).innerHTML = '';
@@ -246,7 +245,12 @@ export class EmotionPlugin {
   }
   private clearUserDefinedEmotions() {
     if (window.confirm('Clear ALL Emotion Caches?')) {
-      window.localStorage.clear();
+      for (let i = 0; i < window.localStorage.length; i += 1) {
+        let key = window.localStorage.key(i);
+        if (key.includes(`${this.divPrefix}`)) {
+          window.localStorage.removeItem(key);
+        }
+      }
       this.loadUserDefinedEmotions();
     }
   }

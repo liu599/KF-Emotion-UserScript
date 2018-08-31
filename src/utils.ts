@@ -54,16 +54,18 @@ function typeAssert(ext: string) {
     'png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'].
   indexOf(ext.toLowerCase()) !== -1;
 }
-export function readEmotions(): Array<HTMLImageElement> {
+export function readEmotions(prefix: string): Array<HTMLImageElement> {
   console.log(window.localStorage);
   const ret: Array<HTMLImageElement> = [];
   for (let i = 0; i < window.localStorage.length; i += 1) {
     let key = window.localStorage.key(i);
-    let con = <HTMLImageElement> document.createElement('img');
-    con.src = window.localStorage[key];
-    con.dataset.link = '';
-    con.className = 'Ems';
-    ret.push(con);
+    if (key.includes(prefix)) {
+      let con = <HTMLImageElement> document.createElement('img');
+      con.src = window.localStorage[key];
+      con.dataset.link = '';
+      con.className = 'Ems';
+      ret.push(con);
+    }
   }
   return ret;
 }
