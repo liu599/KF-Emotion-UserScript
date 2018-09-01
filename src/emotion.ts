@@ -40,7 +40,7 @@ export class EmotionPlugin {
     this.appInstance = document.createElement('div');
     this.Popup = document.createElement('div');
     this.Popup.id = `${this.divPrefix}ppp`;
-    this.Popup.innerHTML = `<div style="display: block; width: 100%; padding: 10px;"><h3>每个表情一行</h3><textarea id="eddie32pqp" style="overflow-x: auto; width: 90%;" rows="12" ></textarea><button id="${this.divPrefix}ppp1">确认</button><button id="${this.divPrefix}ppp2">取消</button>`;
+    this.Popup.innerHTML = `<div style="display: block; width: 100%; padding: 10px;"><h3>每个表情一行</h3><textarea id="eddie32pqp" style="overflow-x: auto; width: 90%;"></textarea><div><button id="${this.divPrefix}ppp1">确认</button><button id="${this.divPrefix}ppp2">取消</button></div>`;
     this.appInstance.id = `${this.divPrefix}0000`;
     this.appInstance.appendChild(this.Popup);
     this.EmotionMenu = data;

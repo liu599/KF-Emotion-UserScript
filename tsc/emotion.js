@@ -33,7 +33,7 @@ var EmotionPlugin = /** @class */ (function () {
         this.appInstance = document.createElement('div');
         this.Popup = document.createElement('div');
         this.Popup.id = this.divPrefix + "ppp";
-        this.Popup.innerHTML = "<div style=\"display: block; width: 100%; padding: 10px;\"><h3>\u6BCF\u4E2A\u8868\u60C5\u4E00\u884C</h3><textarea id=\"eddie32pqp\" style=\"overflow-x: auto; width: 90%;\" rows=\"12\" ></textarea><button id=\"" + this.divPrefix + "ppp1\">\u786E\u8BA4</button><button id=\"" + this.divPrefix + "ppp2\">\u53D6\u6D88</button>";
+        this.Popup.innerHTML = "<div style=\"display: block; width: 100%; padding: 10px;\"><h3>\u6BCF\u4E2A\u8868\u60C5\u4E00\u884C</h3><textarea id=\"eddie32pqp\" style=\"overflow-x: auto; width: 90%;\"></textarea><div><button id=\"" + this.divPrefix + "ppp1\">\u786E\u8BA4</button><button id=\"" + this.divPrefix + "ppp2\">\u53D6\u6D88</button></div>";
         this.appInstance.id = this.divPrefix + "0000";
         this.appInstance.appendChild(this.Popup);
         this.EmotionMenu = data;
