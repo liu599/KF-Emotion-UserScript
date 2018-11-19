@@ -121,27 +121,9 @@
     }, {
         groupEmotions: [ {
             itemAddress: utils.loadEmotions({
-                startPos: 0,
-                arrLength: 20,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/pcrn/sticker (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        }, {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 21,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds2/akari",
-                strSuffix: ".gif",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        }, {
-            itemAddress: utils.loadEmotions({
                 startPos: 2,
-                arrLength: 64,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds4/0xx",
+                arrLength: 53,
+                strPrefix: "http://nekohand.moe/spsmile/01Sora/0xx",
                 strSuffix: ".png",
                 leadingZero: !1
             }),
@@ -149,10 +131,10 @@
         }, {
             itemAddress: utils.loadEmotions({
                 startPos: 1,
-                arrLength: 41,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/lovelive/Lovelive2nd",
+                arrLength: 47,
+                strPrefix: "http://nekohand.moe/spsmile/03Sora/RlN8rQO_",
                 strSuffix: ".png",
-                leadingZero: !1
+                leadingZero: !0
             }),
             itemDescription: []
         } ],
@@ -162,71 +144,23 @@
         groupEmotions: [ {
             itemAddress: utils.loadEmotions({
                 startPos: 1,
-                arrLength: 51,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds6/",
-                strSuffix: ".png",
+                arrLength: 31,
+                strPrefix: "http://nekohand.moe/spsmile/07/pg2 (",
+                strSuffix: ").png",
                 leadingZero: !1
             }),
             itemDescription: []
         }, {
             itemAddress: utils.loadEmotions({
                 startPos: 1,
-                arrLength: 40,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds5/",
-                strSuffix: ".gif",
-                leadingZero: !0
-            }),
-            itemDescription: []
-        } ],
-        groupTitle: "A站",
-        groupType: Emotion.GroupType.ImageLink
-    }, {
-        groupEmotions: [ {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 17,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds/2233 (",
+                arrLength: 80,
+                strPrefix: "http://nekohand.moe/spsmile/07/pg2 (",
                 strSuffix: ").gif",
                 leadingZero: !1
             }),
             itemDescription: []
-        }, {
-            itemAddress: utils.loadEmotions({
-                startPos: 0,
-                arrLength: 14,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/xds/bilibiliTV (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
         } ],
-        groupTitle: "B站",
-        groupType: Emotion.GroupType.ImageLink
-    }, {
-        groupEmotions: [ {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 40,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/sticker (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        } ],
-        groupTitle: "少女歌剧",
-        groupType: Emotion.GroupType.ImageLink
-    }, {
-        groupEmotions: [ {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 40,
-                strPrefix: "http://o6smnd6uw.bkt.clouddn.com/BGD/sticker (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        } ],
-        groupTitle: "バンドリ",
+        groupTitle: "其他",
         groupType: Emotion.GroupType.ImageLink
     }, {
         groupEmotions: [],
