@@ -48,7 +48,7 @@ const reserveData: Array<Emotion.EmotionMenu> = [
         itemAddress: utils.loadEmotions({
           startPos: 2,
           arrLength: 53,
-          strPrefix: 'http://nekohand.moe/spsmile/01Sora/0xx',
+          strPrefix: 'https://nekohand.moe/spsmile/01Sora/0xx',
           strSuffix: '.png',
           leadingZero: false,
         }),
@@ -68,7 +68,7 @@ const reserveData: Array<Emotion.EmotionMenu> = [
         itemAddress: utils.loadEmotions({
           startPos: 1,
           arrLength: 47,
-          strPrefix: 'http://nekohand.moe/spsmile/03Sora/RlN8rQO_',
+          strPrefix: 'https://nekohand.moe/spsmile/03Sora/RlN8rQO_',
           strSuffix: '.png',
           leadingZero: true,
         }),
@@ -94,7 +94,7 @@ const reserveData: Array<Emotion.EmotionMenu> = [
         itemAddress: utils.loadEmotions({
           startPos: 1,
           arrLength: 31,
-          strPrefix: 'http://nekohand.moe/spsmile/07/pg2 (',
+          strPrefix: 'https://nekohand.moe/spsmile/07/pg2 (',
           strSuffix: ').png',
           leadingZero: false,
         }),
@@ -104,7 +104,7 @@ const reserveData: Array<Emotion.EmotionMenu> = [
         itemAddress: utils.loadEmotions({
           startPos: 1,
           arrLength: 80,
-          strPrefix: 'http://nekohand.moe/spsmile/07/pg2 (',
+          strPrefix: 'https://nekohand.moe/spsmile/07/pg2 (',
           strSuffix: ').gif',
           leadingZero: false,
         }),
@@ -140,38 +140,38 @@ const reserveData: Array<Emotion.EmotionMenu> = [
   //   groupTitle: 'B站',
   //   groupType: Emotion.GroupType.ImageLink,
   // },
-  // {
-  //   groupEmotions: [
-  //     {
-  //       itemAddress: utils.loadEmotions({
-  //         startPos: 1,
-  //         arrLength: 40,
-  //         strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/sticker (',
-  //         strSuffix: ').png',
-  //         leadingZero: false,
-  //       }),
-  //       itemDescription: [],
-  //     },
-  //   ],
-  //   groupTitle: '少女歌剧',
-  //   groupType: Emotion.GroupType.ImageLink,
-  // },
-  // {
-  //   groupEmotions: [
-  //     {
-  //       itemAddress: utils.loadEmotions({
-  //         startPos: 1,
-  //         arrLength: 40,
-  //         strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/BGD/sticker (',
-  //         strSuffix: ').png',
-  //         leadingZero: false,
-  //       }),
-  //       itemDescription: [],
-  //     },
-  //   ],
-  //   groupTitle: 'バンドリ',
-  //   groupType: Emotion.GroupType.ImageLink,
-  // },
+  {
+    groupEmotions: [
+      {
+        itemAddress: utils.loadEmotions({
+          startPos: 1,
+          arrLength: 40,
+          strPrefix: 'https://nekohand.moe/spsmile/ShojoKageki/sticker (',
+          strSuffix: ').png',
+          leadingZero: false,
+        }),
+        itemDescription: [],
+      },
+    ],
+    groupTitle: '少女歌剧',
+    groupType: Emotion.GroupType.ImageLink,
+  },
+  {
+    groupEmotions: [
+      {
+        itemAddress: utils.loadEmotions({
+          startPos: 1,
+          arrLength: 40,
+          strPrefix: 'https://nekohand.moe/spsmile/BanGDream/sticker (',
+          strSuffix: ').png',
+          leadingZero: false,
+        }),
+        itemDescription: [],
+      },
+    ],
+    groupTitle: 'バンドリ',
+    groupType: Emotion.GroupType.ImageLink,
+  },
   {
     groupEmotions: [],
     groupTitle: '自定义',

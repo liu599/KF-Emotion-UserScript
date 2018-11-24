@@ -123,7 +123,7 @@
             itemAddress: utils.loadEmotions({
                 startPos: 2,
                 arrLength: 53,
-                strPrefix: "http://nekohand.moe/spsmile/01Sora/0xx",
+                strPrefix: "https://nekohand.moe/spsmile/01Sora/0xx",
                 strSuffix: ".png",
                 leadingZero: !1
             }),
@@ -132,7 +132,7 @@
             itemAddress: utils.loadEmotions({
                 startPos: 1,
                 arrLength: 47,
-                strPrefix: "http://nekohand.moe/spsmile/03Sora/RlN8rQO_",
+                strPrefix: "https://nekohand.moe/spsmile/03Sora/RlN8rQO_",
                 strSuffix: ".png",
                 leadingZero: !0
             }),
@@ -145,7 +145,7 @@
             itemAddress: utils.loadEmotions({
                 startPos: 1,
                 arrLength: 31,
-                strPrefix: "http://nekohand.moe/spsmile/07/pg2 (",
+                strPrefix: "https://nekohand.moe/spsmile/07/pg2 (",
                 strSuffix: ").png",
                 leadingZero: !1
             }),
@@ -154,13 +154,39 @@
             itemAddress: utils.loadEmotions({
                 startPos: 1,
                 arrLength: 80,
-                strPrefix: "http://nekohand.moe/spsmile/07/pg2 (",
+                strPrefix: "https://nekohand.moe/spsmile/07/pg2 (",
                 strSuffix: ").gif",
                 leadingZero: !1
             }),
             itemDescription: []
         } ],
         groupTitle: "其他",
+        groupType: Emotion.GroupType.ImageLink
+    }, {
+        groupEmotions: [ {
+            itemAddress: utils.loadEmotions({
+                startPos: 1,
+                arrLength: 40,
+                strPrefix: "https://nekohand.moe/spsmile/ShojoKageki/sticker (",
+                strSuffix: ").png",
+                leadingZero: !1
+            }),
+            itemDescription: []
+        } ],
+        groupTitle: "少女歌剧",
+        groupType: Emotion.GroupType.ImageLink
+    }, {
+        groupEmotions: [ {
+            itemAddress: utils.loadEmotions({
+                startPos: 1,
+                arrLength: 40,
+                strPrefix: "https://nekohand.moe/spsmile/BanGDream/sticker (",
+                strSuffix: ").png",
+                leadingZero: !1
+            }),
+            itemDescription: []
+        } ],
+        groupTitle: "バンドリ",
         groupType: Emotion.GroupType.ImageLink
     }, {
         groupEmotions: [],
