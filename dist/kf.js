@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name       绯月表情增强插件
 // @namespace   https://greasyfork.org/users/5415
-// @version     5.1.6
+// @version     5.1.7
 // @author      eddie32
 // @description KF论坛专用的回复表情, 插图扩展插件, 在发帖时快速输入自定义表情和论坛BBCODE
 // @icon        http://wx1.sinaimg.cn/small/62800f43ly8fttwqsdhc2j20e80e8t9b.jpg
 // @homepage    https://github.com/liu599/KF-Emotion-UserScript
 // @include     https://*miaola.info/*
-// @include     https://*ikfol.com/*
 // @include     https://*2dkf.com/*
 // @include     https://*9moe.com/*
 // @include     https://*kfgal.com/*
@@ -140,20 +139,11 @@
     }, {
         groupEmotions: [ {
             itemAddress: utils.loadEmotions({
-                startPos: 2,
-                arrLength: 53,
-                strPrefix: "https://nekohand.moe/spsmile/01Sora/0xx",
-                strSuffix: ".png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        }, {
-            itemAddress: utils.loadEmotions({
                 startPos: 1,
                 arrLength: 47,
-                strPrefix: "https://nekohand.moe/spsmile/03Sora/RlN8rQO_",
-                strSuffix: ".png",
-                leadingZero: !0
+                strPrefix: "https://ecs32.top/emotions/selected/1-20190811/sticker (",
+                strSuffix: ").png",
+                leadingZero: !1
             }),
             itemDescription: []
         } ],
@@ -163,49 +153,14 @@
         groupEmotions: [ {
             itemAddress: utils.loadEmotions({
                 startPos: 1,
-                arrLength: 31,
-                strPrefix: "https://nekohand.moe/spsmile/07/pg2 (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        }, {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 80,
-                strPrefix: "https://nekohand.moe/spsmile/07/pg2 (",
-                strSuffix: ").gif",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        } ],
-        groupTitle: "其他",
-        groupType: Emotion.GroupType.ImageLink
-    }, {
-        groupEmotions: [ {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 40,
-                strPrefix: "https://nekohand.moe/spsmile/ShojoKageki/sticker (",
+                arrLength: 82,
+                strPrefix: "https://ecs32.top/emotions/selected/2-20190811/sticker (",
                 strSuffix: ").png",
                 leadingZero: !1
             }),
             itemDescription: []
         } ],
-        groupTitle: "少女歌剧",
-        groupType: Emotion.GroupType.ImageLink
-    }, {
-        groupEmotions: [ {
-            itemAddress: utils.loadEmotions({
-                startPos: 1,
-                arrLength: 40,
-                strPrefix: "https://nekohand.moe/spsmile/BanGDream/sticker (",
-                strSuffix: ").png",
-                leadingZero: !1
-            }),
-            itemDescription: []
-        } ],
-        groupTitle: "バンドリ",
+        groupTitle: "伪中国语",
         groupType: Emotion.GroupType.ImageLink
     }, {
         groupEmotions: [],

@@ -46,31 +46,11 @@ var reserveData = [
         groupEmotions: [
             {
                 itemAddress: utils.loadEmotions({
-                    startPos: 2,
-                    arrLength: 53,
-                    strPrefix: 'https://nekohand.moe/spsmile/01Sora/0xx',
-                    strSuffix: '.png',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-            // {
-            //   itemAddress: utils.loadEmotions({
-            //     startPos: 1,
-            //     arrLength: 21,
-            //     strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds2/akari',
-            //     strSuffix: '.gif',
-            //     leadingZero: false,
-            //   }),
-            //   itemDescription: [],
-            // },
-            {
-                itemAddress: utils.loadEmotions({
                     startPos: 1,
                     arrLength: 47,
-                    strPrefix: 'https://nekohand.moe/spsmile/03Sora/RlN8rQO_',
-                    strSuffix: '.png',
-                    leadingZero: true,
+                    strPrefix: 'https://ecs32.top/emotions/selected/1-20190811/sticker (',
+                    strSuffix: ').png',
+                    leadingZero: false,
                 }),
                 itemDescription: [],
             },
@@ -83,83 +63,15 @@ var reserveData = [
             {
                 itemAddress: utils.loadEmotions({
                     startPos: 1,
-                    arrLength: 31,
-                    strPrefix: 'https://nekohand.moe/spsmile/07/pg2 (',
-                    strSuffix: ').png',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-            {
-                itemAddress: utils.loadEmotions({
-                    startPos: 1,
-                    arrLength: 80,
-                    strPrefix: 'https://nekohand.moe/spsmile/07/pg2 (',
-                    strSuffix: ').gif',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-        ],
-        groupTitle: '其他',
-        groupType: Emotion.GroupType.ImageLink,
-    },
-    // {
-    //   groupEmotions: [
-    //     {
-    //       itemAddress: utils.loadEmotions({
-    //         startPos: 1,
-    //         arrLength: 17,
-    //         strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/2233 (',
-    //         strSuffix: ').gif',
-    //         leadingZero: false,
-    //       }),
-    //       itemDescription: [],
-    //     },
-    //     {
-    //       itemAddress: utils.loadEmotions({
-    //         startPos: 0,
-    //         arrLength: 14,
-    //         strPrefix: 'http://o6smnd6uw.bkt.clouddn.com/xds/bilibiliTV (',
-    //         strSuffix: ').png',
-    //         leadingZero: false,
-    //       }),
-    //       itemDescription: [],
-    //     },
-    //   ],
-    //   groupTitle: 'B站',
-    //   groupType: Emotion.GroupType.ImageLink,
-    // },
-    {
-        groupEmotions: [
-            {
-                itemAddress: utils.loadEmotions({
-                    startPos: 1,
-                    arrLength: 40,
-                    strPrefix: 'https://nekohand.moe/spsmile/ShojoKageki/sticker (',
+                    arrLength: 82,
+                    strPrefix: 'https://ecs32.top/emotions/selected/2-20190811/sticker (',
                     strSuffix: ').png',
                     leadingZero: false,
                 }),
                 itemDescription: [],
             },
         ],
-        groupTitle: '少女歌剧',
-        groupType: Emotion.GroupType.ImageLink,
-    },
-    {
-        groupEmotions: [
-            {
-                itemAddress: utils.loadEmotions({
-                    startPos: 1,
-                    arrLength: 40,
-                    strPrefix: 'https://nekohand.moe/spsmile/BanGDream/sticker (',
-                    strSuffix: ').png',
-                    leadingZero: false,
-                }),
-                itemDescription: [],
-            },
-        ],
-        groupTitle: 'バンドリ',
+        groupTitle: '伪中国语',
         groupType: Emotion.GroupType.ImageLink,
     },
     {
