@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.readEmotions = exports.addEmotions = exports.loadEmotions = exports.join = void 0;
 function join(obj) {
     var output = '';
     Object.keys(obj).forEach(function (keyname) {
