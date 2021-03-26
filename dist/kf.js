@@ -124,7 +124,7 @@ for (let i = 0; i < x.length; i++) {
             itemAddress: app.loadEmotions({
                 startPos: 1,
                 arrLength: 49,
-                strPrefix: (void 0 !== window.imgpath ? window.imgpath : "") + kfImgPath,
+                strPrefix: (void 0 !== window.imgpath ? window.imgpath : "") + FixImgPath,
                 strSuffix: ".gif",
                 leadingZero: !0
             }),
