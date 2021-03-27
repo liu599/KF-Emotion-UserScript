@@ -12,11 +12,23 @@
 // @include     https://*9moe.com/*
 // @include     https://*kfgal.com/*
 // @include     https://*kforz.com/*
+// @include     https://*kfmax.com/*
 // @copyright   2014-2021, eddie32
 // @grant       none
 // @license     MIT
 // @run-at      document-end
 // ==/UserScript==
+// 网站是否为KfMobile,修复喵拉手机版kf自带表情显示
+const isKfMobile = typeof Info !== 'undefined' && typeof Info.imgPath !== 'undefined';
+let FixImgPath="/post/smile/em/em"
+if (isKfMobile) FixImgPath = "/"+Info.imgPath+"/post/smile/em/em";
+// 表情贴纸旧域名替换为新域名
+let x = document.getElementsByTagName("img");
+for (let i = 0; i < x.length; i++) {
+    x[i].src=x[i].src.replace(/mistake.tech\/emote/g, "sticker.inari.site");
+    //实验性功能，此储存桶地址的表情贴纸很可能和修复后的表情贴纸并不能一一对应。
+    x[i].src=x[i].src.replace(/http:\/\/o6smnd6uw.bkt.clouddn.com\/xds3\/akari/g, "https://sticker.inari.site/akarin/akarin");
+}
 
 !function(modules) {
     var installedModules = {};
@@ -112,7 +124,7 @@
             itemAddress: app.loadEmotions({
                 startPos: 1,
                 arrLength: 49,
-                strPrefix: (void 0 !== window.imgpath ? window.imgpath : "") + "/post/smile/em/em",
+                strPrefix: (void 0 !== window.imgpath ? window.imgpath : "") + FixImgPath,
                 strSuffix: ".gif",
                 leadingZero: !0
             }),
