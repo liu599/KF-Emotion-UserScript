@@ -12,7 +12,9 @@
 // @include     https://*9moe.com/*
 // @include     https://*kfgal.com/*
 // @include     https://*kforz.com/*
-// @copyright   2014-2021, eddie32
+// @match      *://*/*
+// @include    *
+// @copyright   2014-2023, eddie32
 // @grant       none
 // @license     MIT
 // @run-at      document-end
